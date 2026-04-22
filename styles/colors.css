@@ -1,0 +1,26 @@
+:root {
+	--primary-text: #030c01;
+	--primary-bg: #ffffff;
+	--footer-bg: #eeee60;
+
+	/* Mobile menu */
+	--mobile-menu-bg: #ffffff;
+
+	/* Button (Primary) */
+	--button-gradient-start: #e8e81c;
+	--button-gradient-end: #42ed13;
+	--button-clicked-bg: #4e544d;
+	--button-clicked-text: #ffffff;
+
+	/* Slider arrows */
+	--slider-arrow-bg: #ffffff;
+	--slider-arrow-hover-bg: #d9fbcf;
+	--slider-arrow-active-bg: #7af259;
+
+	/* Hero fallback */
+	--hero-fallback-bg: #d9d9d9;
+
+	/* Borders */
+	--border-color: #030c01;
+	--border-color-subtle: #030c0126;
+}
