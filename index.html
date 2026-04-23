@@ -5,6 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Flora — Flower Shop</title>
 
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+		<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+		<link rel="manifest" href="./site.webmanifest" />
+
 		<!-- Normalize CSS -->
 		<link
 			rel="stylesheet"
@@ -37,8 +44,8 @@
 		<link rel="stylesheet" href="./styles/styles.css" />
 	</head>
 	<body>
-		<!-- Navbar -->
-		<header class="header">
+		<!-- #region HEADER -->
+		<header class="header" popover="manual" id="site-header">
 			<div class="container header-container">
 				<div class="header-content">
 					<a class="header-logo-link" href="./index.html" aria-label="Flora — home">
@@ -72,24 +79,26 @@
 				<button
 					class="menu-button"
 					type="button"
-					aria-expanded="false"
-					aria-controls="mobile-menu"
 					aria-label="Toggle mobile menu"
+					aria-expanded="false"
 					data-menu-button
 				>
-					<svg class="menu-icon" aria-hidden="true">
-						<use href="./icons/sprite.svg#icon-menu" class="menu-icon__burger"></use>
-						<use href="./icons/sprite.svg#icon-close" class="menu-icon__close"></use>
+					<svg class="menu-icon menu-icon--open" aria-hidden="true">
+						<use href="./icons/sprite.svg#icon-menu"></use>
+					</svg>
+					<svg class="menu-icon menu-icon--close" aria-hidden="true">
+						<use href="./icons/sprite.svg#icon-close"></use>
 					</svg>
 				</button>
 			</div>
 		</header>
+		<!-- #endregion HEADER -->
 
 		<main>
-			<!-- Hero Section -->
+			<!-- #region HERO -->
 			<section class="hero" id="hero">
-				<div class="container hero-container">
-					<div class="hero-content" data-aos="fade-right" data-aos-delay="150">
+				<div class="container hero-bg">
+					<div class="hero-content" data-aos="fade-up" data-aos-delay="200">
 						<h1 class="hero-title">Brighten Your Day with Our Stunning Bouquets</h1>
 						<div class="hero-body">
 							<p class="section-text">
@@ -101,8 +110,9 @@
 					</div>
 				</div>
 			</section>
+			<!-- #endregion HERO -->
 
-			<!-- About Section -->
+			<!-- #region ABOUT -->
 			<section class="about" id="about">
 				<div class="container about-container">
 					<div class="about-content" data-aos="fade-right">
@@ -120,40 +130,37 @@
 					</div>
 
 					<picture data-aos="fade-left">
-						<source
-							srcset="./images/about-flora@1x.webp 1x, ./images/about-flora@2x.webp 2x"
-							type="image/webp"
-						/>
+						<source media="(min-width: 1440px)" srcset="./images/avif/pc/about-florist_@1x.avif 1x, ./images/avif/pc/about-florist_@2x.avif 2x, ./images/avif/pc/about-florist_@3x.avif 3x" type="image/avif" />
+						<source media="(min-width: 768px)" srcset="./images/avif/tab/about-florist_@1x.avif 1x, ./images/avif/tab/about-florist_@2x.avif 2x, ./images/avif/tab/about-florist_@3x.avif 3x" type="image/avif" />
+						<source srcset="./images/avif/mob/about-florist_@1x.avif 1x, ./images/avif/mob/about-florist_@2x.avif 2x, ./images/avif/mob/about-florist_@3x.avif 3x" type="image/avif" />
 						<img
 							class="about-image"
-							src="./images/about-flora@1x.jpg"
-							srcset="./images/about-flora@2x.jpg 2x"
+							src="./images/fallback/about-florist.jpg"
 							alt="Female florist arranging flowers in a shop"
 						/>
 					</picture>
 				</div>
 			</section>
+			<!-- #endregion ABOUT -->
 
-			<!-- Top-Selling Bouquets -->
-			<section class="bestsellers" id="bestsellers" data-aos="fade-up-right">
+			<!-- #region BESTSELLERS -->
+			<section class="bestsellers" id="bestsellers">
 				<div class="container bestsellers-container">
-					<div class="bestsellers-title-row">
+					<div class="bestsellers-title-row" data-aos="fade-up">
 						<h2 class="section-title">Top-Selling Bouquets</h2>
 					</div>
 
 					<div class="bestsellers-body">
 						<ul class="bestsellers-list">
-							<li class="bestsellers-item">
+							<li class="bestsellers-item" data-aos="fade-up" data-aos-delay="0">
 								<article class="product-card">
 									<picture>
-										<source
-											srcset="./images/bestseller-spring-elegance@1x.webp 1x, ./images/bestseller-spring-elegance@2x.webp 2x"
-											type="image/webp"
-										/>
+										<source media="(min-width: 1440px)" srcset="./images/avif/pc/spring-elegance_@1x.avif 1x, ./images/avif/pc/spring-elegance_@2x.avif 2x, ./images/avif/pc/spring-elegance_@3x.avif 3x" type="image/avif" />
+										<source media="(min-width: 768px)" srcset="./images/avif/tab/spring-elegance_@1x.avif 1x, ./images/avif/tab/spring-elegance_@2x.avif 2x, ./images/avif/tab/spring-elegance_@3x.avif 3x" type="image/avif" />
+										<source srcset="./images/avif/mob/spring-elegance_@1x.avif 1x, ./images/avif/mob/spring-elegance_@2x.avif 2x, ./images/avif/mob/spring-elegance_@3x.avif 3x" type="image/avif" />
 										<img
 											class="bestsellers-card-image"
-											src="./images/bestseller-spring-elegance@1x.jpg"
-											srcset="./images/bestseller-spring-elegance@2x.jpg 2x"
+											src="./images/fallback/spring-elegance.jpg"
 											alt="Spring Elegance bouquet — a woman holding a beautiful spring flower bouquet"
 										/>
 									</picture>
@@ -169,17 +176,14 @@
 								</article>
 							</li>
 
-							<li class="bestsellers-item">
+							<li class="bestsellers-item" data-aos="fade-up" data-aos-delay="150">
 								<article class="product-card">
 									<picture>
-										<source
-											srcset="./images/bestseller-berry-chic@1x.webp 1x, ./images/bestseller-berry-chic@2x.webp 2x"
-											type="image/webp"
-										/>
+										<source media="(min-width: 1440px)" srcset="./images/avif/pc/berry-chic_@1x.avif 1x, ./images/avif/pc/berry-chic_@2x.avif 2x, ./images/avif/pc/berry-chic_@3x.avif 3x" type="image/avif" />
+										<source srcset="./images/avif/tab/berry-chic_@1x.avif 1x, ./images/avif/tab/berry-chic_@2x.avif 2x, ./images/avif/tab/berry-chic_@3x.avif 3x" type="image/avif" />
 										<img
 											class="bestsellers-card-image"
-											src="./images/bestseller-berry-chic@1x.jpg"
-											srcset="./images/bestseller-berry-chic@2x.jpg 2x"
+											src="./images/fallback/berry-chic.jpg"
 											alt="Berry Chic bouquet — bridal arrangement with roses and berries"
 										/>
 									</picture>
@@ -195,17 +199,13 @@
 								</article>
 							</li>
 
-							<li class="bestsellers-item">
+							<li class="bestsellers-item" data-aos="fade-up" data-aos-delay="300">
 								<article class="product-card">
 									<picture>
-										<source
-											srcset="./images/bestseller-lavender-dream@1x.webp 1x, ./images/bestseller-lavender-dream@2x.webp 2x"
-											type="image/webp"
-										/>
+										<source srcset="./images/avif/pc/lavender-dream_@1x.avif 1x, ./images/avif/pc/lavender-dream_@2x.avif 2x, ./images/avif/pc/lavender-dream_@3x.avif 3x" type="image/avif" />
 										<img
 											class="bestsellers-card-image"
-											src="./images/bestseller-lavender-dream@1x.jpg"
-											srcset="./images/bestseller-lavender-dream@2x.jpg 2x"
+											src="./images/fallback/lavender-dream.jpg"
 											alt="Lavender Dream bouquet — mixed flowers on a wooden table"
 										/>
 									</picture>
@@ -248,27 +248,26 @@
 					</div>
 				</div>
 			</section>
+			<!-- #endregion BESTSELLERS -->
 
-			<!-- Bouquets Grid -->
-			<section class="bouquets" id="bouquets" data-aos="zoom-in">
+			<!-- #region BOUQUETS -->
+			<section class="bouquets" id="bouquets">
 				<div class="container bouquets-container">
-					<div class="bouquets-title">
+					<div class="bouquets-title" data-aos="fade-up">
 						<h2 class="section-title">Bouquets</h2>
 						<p class="section-text">Explore our stunning selection of fresh flower bouquets.</p>
 					</div>
 
 					<ul class="bouquets-list">
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="0">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-peach-meadow@1x.webp 1x, ./images/bouquet-peach-meadow@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/peach-meadow_@1x.avif 1x, ./images/avif/pc/peach-meadow_@2x.avif 2x, ./images/avif/pc/peach-meadow_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/peach-meadow_@1x.avif 1x, ./images/avif/tab/peach-meadow_@2x.avif 2x, ./images/avif/tab/peach-meadow_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/peach-meadow_@1x.avif 1x, ./images/avif/mob/peach-meadow_@2x.avif 2x, ./images/avif/mob/peach-meadow_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-peach-meadow@1x.jpg"
-										srcset="./images/bouquet-peach-meadow@2x.jpg 2x"
+										src="./images/fallback/peach-meadow.jpg"
 										alt="Peach Meadow — soft arrangement of peach and blush roses in a straw basket"
 									/>
 								</picture>
@@ -284,17 +283,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="100">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-blush-romance@1x.webp 1x, ./images/bouquet-blush-romance@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/blush-romance_@1x.avif 1x, ./images/avif/pc/blush-romance_@2x.avif 2x, ./images/avif/pc/blush-romance_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/blush-romance_@1x.avif 1x, ./images/avif/tab/blush-romance_@2x.avif 2x, ./images/avif/tab/blush-romance_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/blush-romance_@1x.avif 1x, ./images/avif/mob/blush-romance_@2x.avif 2x, ./images/avif/mob/blush-romance_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-blush-romance@1x.jpg"
-										srcset="./images/bouquet-blush-romance@2x.jpg 2x"
+										src="./images/fallback/blush-romance.jpg"
 										alt="Blush Romance — deep pink and ivory roses with silver eucalyptus"
 									/>
 								</picture>
@@ -310,17 +307,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="200">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-pastel-garden@1x.webp 1x, ./images/bouquet-pastel-garden@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/pastel-garden_@1x.avif 1x, ./images/avif/pc/pastel-garden_@2x.avif 2x, ./images/avif/pc/pastel-garden_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/pastel-garden_@1x.avif 1x, ./images/avif/tab/pastel-garden_@2x.avif 2x, ./images/avif/tab/pastel-garden_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/pastel-garden_@1x.avif 1x, ./images/avif/mob/pastel-garden_@2x.avif 2x, ./images/avif/mob/pastel-garden_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-pastel-garden@1x.jpg"
-										srcset="./images/bouquet-pastel-garden@2x.jpg 2x"
+										src="./images/fallback/pastel-garden.jpg"
 										alt="Pastel Garden — pastel-toned spray roses and greenery in a woven basket"
 									/>
 								</picture>
@@ -336,17 +331,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="300">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-tulip-charm@1x.webp 1x, ./images/bouquet-tulip-charm@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/tulip-charm_@1x.avif 1x, ./images/avif/pc/tulip-charm_@2x.avif 2x, ./images/avif/pc/tulip-charm_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/tulip-charm_@1x.avif 1x, ./images/avif/tab/tulip-charm_@2x.avif 2x, ./images/avif/tab/tulip-charm_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/tulip-charm_@1x.avif 1x, ./images/avif/mob/tulip-charm_@2x.avif 2x, ./images/avif/mob/tulip-charm_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-tulip-charm@1x.jpg"
-										srcset="./images/bouquet-tulip-charm@2x.jpg 2x"
+										src="./images/fallback/tulip-charm.jpg"
 										alt="Tulip Charm — bright tulips and roses in a lavender box"
 									/>
 								</picture>
@@ -362,17 +355,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="0">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-berry-bloom@1x.webp 1x, ./images/bouquet-berry-bloom@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/berry-bloom_@1x.avif 1x, ./images/avif/pc/berry-bloom_@2x.avif 2x, ./images/avif/pc/berry-bloom_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/berry-bloom_@1x.avif 1x, ./images/avif/tab/berry-bloom_@2x.avif 2x, ./images/avif/tab/berry-bloom_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/berry-bloom_@1x.avif 1x, ./images/avif/mob/berry-bloom_@2x.avif 2x, ./images/avif/mob/berry-bloom_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-berry-bloom@1x.jpg"
-										srcset="./images/bouquet-berry-bloom@2x.jpg 2x"
+										src="./images/fallback/berry-bloom.jpg"
 										alt="Berry Bloom — rich pink, purple, and cream blooms with textured greens"
 									/>
 								</picture>
@@ -388,17 +379,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="100">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-sweet-whisper@1x.webp 1x, ./images/bouquet-sweet-whisper@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/sweet-whisper_@1x.avif 1x, ./images/avif/pc/sweet-whisper_@2x.avif 2x, ./images/avif/pc/sweet-whisper_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/sweet-whisper_@1x.avif 1x, ./images/avif/tab/sweet-whisper_@2x.avif 2x, ./images/avif/tab/sweet-whisper_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/sweet-whisper_@1x.avif 1x, ./images/avif/mob/sweet-whisper_@2x.avif 2x, ./images/avif/mob/sweet-whisper_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-sweet-whisper@1x.jpg"
-										srcset="./images/bouquet-sweet-whisper@2x.jpg 2x"
+										src="./images/fallback/sweet-whisper.jpg"
 										alt="Sweet Whisper — spring bouquet with peonies, roses and lilac accents"
 									/>
 								</picture>
@@ -414,17 +403,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="200">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-field-joy@1x.webp 1x, ./images/bouquet-field-joy@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/field-joy_@1x.avif 1x, ./images/avif/pc/field-joy_@2x.avif 2x, ./images/avif/pc/field-joy_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/field-joy_@1x.avif 1x, ./images/avif/tab/field-joy_@2x.avif 2x, ./images/avif/tab/field-joy_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/field-joy_@1x.avif 1x, ./images/avif/mob/field-joy_@2x.avif 2x, ./images/avif/mob/field-joy_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-field-joy@1x.jpg"
-										srcset="./images/bouquet-field-joy@2x.jpg 2x"
+										src="./images/fallback/field-joy.jpg"
 										alt="Field Joy — rustic bouquet of sunflowers, lisianthus and daisies"
 									/>
 								</picture>
@@ -440,17 +427,15 @@
 							</article>
 						</li>
 
-						<li class="bouquets-item">
+						<li class="bouquets-item" data-aos="fade-up" data-aos-delay="300">
 							<article class="product-card">
 								<picture>
-									<source
-										srcset="./images/bouquet-soft-bloom@1x.webp 1x, ./images/bouquet-soft-bloom@2x.webp 2x"
-										type="image/webp"
-									/>
+									<source media="(min-width: 1440px)" srcset="./images/avif/pc/soft-bloom_@1x.avif 1x, ./images/avif/pc/soft-bloom_@2x.avif 2x, ./images/avif/pc/soft-bloom_@3x.avif 3x" type="image/avif" />
+									<source media="(min-width: 768px)" srcset="./images/avif/tab/soft-bloom_@1x.avif 1x, ./images/avif/tab/soft-bloom_@2x.avif 2x, ./images/avif/tab/soft-bloom_@3x.avif 3x" type="image/avif" />
+									<source srcset="./images/avif/mob/soft-bloom_@1x.avif 1x, ./images/avif/mob/soft-bloom_@2x.avif 2x, ./images/avif/mob/soft-bloom_@3x.avif 3x" type="image/avif" />
 									<img
 										class="bouquets-card-image"
-										src="./images/bouquet-soft-bloom@1x.jpg"
-										srcset="./images/bouquet-soft-bloom@2x.jpg 2x"
+										src="./images/fallback/soft-bloom.jpg"
 										alt="Soft Bloom — pink carnations and roses wrapped in satin paper"
 									/>
 								</picture>
@@ -470,28 +455,29 @@
 
 				<button class="primary-button bouquets-button" type="button">Show More</button>
 			</section>
+			<!-- #endregion BOUQUETS -->
 
-			<!-- Testimonials -->
+			<!-- #region FEEDBACK -->
 			<section class="feedback" id="feedback" data-aos="fade-up">
 				<div class="container feedback-container">
 					<h2 class="section-title feedback-title">What our clients says</h2>
 
 					<ul class="feedback-list">
-						<li class="feedback-item">
+						<li class="feedback-item" data-aos="fade-up" data-aos-delay="0">
 							<blockquote class="feedback-quote">
 								<p>&ldquo;Flora made my anniversary unforgettable with their beautiful arrangement!&rdquo;</p>
 							</blockquote>
 							<p class="feedback-author">Emma T.</p>
 						</li>
 
-						<li class="feedback-item">
+						<li class="feedback-item" data-aos="fade-up" data-aos-delay="150">
 							<blockquote class="feedback-quote">
 								<p>Absolutely stunning bouquet! It looked even better than the photo and arrived right on time.</p>
 							</blockquote>
 							<p class="feedback-author">Daniel R.</p>
 						</li>
 
-						<li class="feedback-item">
+						<li class="feedback-item" data-aos="fade-up" data-aos-delay="300">
 							<blockquote class="feedback-quote">
 								<p>The service was exceptional, and the flowers were fresh!</p>
 							</blockquote>
@@ -513,8 +499,9 @@
 					</div>
 				</div>
 			</section>
+			<!-- #endregion FEEDBACK -->
 
-			<!-- Contacts -->
+			<!-- #region CONTACTS -->
 			<section class="contacts" id="contacts" data-aos="fade-up">
 				<div class="container contacts-container">
 					<div class="contacts-header">
@@ -567,24 +554,102 @@
 					</div>
 
 					<picture>
-						<source
-							srcset="./images/contacts-florist@1x.webp 1x, ./images/contacts-florist@2x.webp 2x"
-							type="image/webp"
-						/>
+						<source media="(min-width: 1440px)" srcset="./images/avif/pc/contact-florist_@1x.avif 1x, ./images/avif/pc/contact-florist_@2x.avif 2x, ./images/avif/pc/contact-florist_@3x.avif 3x" type="image/avif" />
+						<source media="(min-width: 768px)" srcset="./images/avif/tab/contact-florist_@1x.avif 1x, ./images/avif/tab/contact-florist_@2x.avif 2x, ./images/avif/tab/contact-florist_@3x.avif 3x" type="image/avif" />
+						<source srcset="./images/avif/mob/contact-florist_@1x.avif 1x, ./images/avif/mob/contact-florist_@2x.avif 2x, ./images/avif/mob/contact-florist_@3x.avif 3x" type="image/avif" />
 						<img
 							class="contacts-image"
-							src="./images/contacts-florist@1x.jpg"
-							srcset="./images/contacts-florist@2x.jpg 2x"
+							src="./images/fallback/contact-florist.jpg"
 							alt="Florist holding beautiful flowers in a flower shop"
 						/>
 					</picture>
 				</div>
 			</section>
+			<!-- #endregion CONTACTS -->
 		</main>
 
-		<!-- footer — буде додано окремо -->
+		<!-- #region FOOTER -->
+		<footer class="footer">
+			<div class="container footer-container">
+				<div class="footer-content">
+					<a class="footer-logo-link" href="./index.html" aria-label="Flora — home">
+						<svg class="footer-logo">
+							<use href="./icons/sprite.svg#icon-logo"></use>
+						</svg>
+					</a>
 
-		<!-- Mobile menu -->
+					<nav class="footer-nav">
+						<ul class="footer-nav-list">
+							<li>
+								<a class="footer-nav-link general-link" href="#about">About Us</a>
+							</li>
+							<li>
+								<a class="footer-nav-link general-link" href="#bestsellers">Bestsellers</a>
+							</li>
+							<li>
+								<a class="footer-nav-link general-link" href="#bouquets">Bouquets</a>
+							</li>
+							<li>
+								<a class="footer-nav-link general-link" href="#feedback">Feedback</a>
+							</li>
+							<li>
+								<a class="footer-nav-link general-link" href="#contacts">Contacts</a>
+							</li>
+						</ul>
+					</nav>
+
+					<ul class="footer-social">
+						<li class="footer-social-item">
+							<a
+								class="footer-social-link"
+								href="https://facebook.com"
+								target="_blank"
+								rel="noopener"
+								aria-label="Facebook"
+							>
+								<svg class="footer-social-icon">
+									<use href="./icons/sprite.svg#icon-facebook"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="footer-social-item">
+							<a
+								class="footer-social-link"
+								href="https://instagram.com"
+								target="_blank"
+								rel="noopener"
+								aria-label="Instagram"
+							>
+								<svg class="footer-social-icon">
+									<use href="./icons/sprite.svg#icon-instagram"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="footer-social-item">
+							<a
+								class="footer-social-link"
+								href="https://x.com"
+								target="_blank"
+								rel="noopener"
+								aria-label="X (Twitter)"
+							>
+								<svg class="footer-social-icon">
+									<use href="./icons/sprite.svg#icon-twitter"></use>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="footer-credits">
+					<hr class="footer-divider" />
+					<p class="footer-copyright">&copy; 2025 Flora. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+		<!-- #endregion FOOTER -->
+
+		<!-- #region MOBILE MENU -->
 		<dialog class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation menu">
 			<nav class="menu-navigation">
 				<ul class="menu-navigation-list">
@@ -607,8 +672,11 @@
 			</nav>
 			<a class="primary-button menu-action-button" href="#bouquets">Explore Bouquets</a>
 		</dialog>
+		<!-- #endregion MOBILE MENU -->
 
-		<!-- AOS init -->
+		<!-- #region SCRIPTS -->
+		<!-- type="module" → автоматично defer + дозволяє import/export -->
+		<script src="./js/main.js" type="module"></script>
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
 			AOS.init({
@@ -618,5 +686,6 @@
 				offset: 100,
 			});
 		</script>
+		<!-- #endregion SCRIPTS -->
 	</body>
 </html>

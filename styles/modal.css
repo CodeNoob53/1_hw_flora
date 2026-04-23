@@ -1,0 +1,163 @@
+/* ===================== MODAL BASE ===================== */
+
+/* Reset dialog defaults */
+dialog {
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: inherit;
+}
+
+/* Shared backdrop */
+dialog::backdrop {
+	background-color: rgba(3, 12, 1, 0.4);
+}
+
+/* Lock scroll when any dialog is open */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
+/* Centered modal position */
+.product-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0;
+	background: var(--primary-bg);
+	border-radius: 16px;
+	max-height: 90dvh;
+	overflow-y: auto;
+}
+
+/* Entrance animation */
+@starting-style {
+	.product-modal[open] {
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.97);
+	}
+}
+
+.product-modal[open] {
+	opacity: 1;
+	transform: translate(-50%, -50%) scale(1);
+	transition:
+		opacity 220ms ease-out,
+		transform 220ms ease-out,
+		display 220ms ease-out allow-discrete;
+}
+
+/* ===================== MODAL CLOSE BUTTON ===================== */
+
+.modal-close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	color: var(--primary-text);
+	border-radius: 50%;
+	transition: background-color 200ms ease;
+}
+
+.modal-close:hover {
+	background-color: var(--border-color-subtle);
+}
+
+.modal-close svg {
+	display: block;
+	width: 24px;
+	height: 24px;
+}
+
+/* ===================== PRODUCT MODAL ===================== */
+
+.product-modal[open] {
+	display: flex;
+	flex-direction: column;
+	width: calc(100vw - 32px);
+	max-width: 480px;
+	padding: 48px 20px 32px;
+	gap: 16px;
+}
+
+.product-modal-image {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.product-modal-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.product-modal-title {
+	font-family: "Hanuman", serif;
+	font-weight: 700;
+	font-size: var(--font-heading);
+	line-height: 1.2;
+	color: var(--primary-text);
+	margin: 0;
+}
+
+.product-modal-price {
+	font-weight: 700;
+	font-size: var(--font-price);
+	color: var(--primary-text);
+}
+
+.product-modal-description {
+	font-size: var(--font-regular);
+	line-height: 1.6;
+	color: var(--primary-text);
+	margin: 0;
+}
+
+.product-modal-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 8px;
+}
+
+/* ===================== TABLET ===================== */
+
+@media screen and (min-width: 768px) {
+	.product-modal[open] {
+		max-width: 640px;
+		flex-direction: row;
+		align-items: flex-start;
+		padding: 48px 32px 40px;
+		gap: 24px;
+	}
+
+	.product-modal-image {
+		width: 260px;
+		flex-shrink: 0;
+		aspect-ratio: auto;
+		height: 280px;
+	}
+
+	.product-modal-content {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.product-modal-actions {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+}

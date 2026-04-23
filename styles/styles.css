@@ -1,6 +1,9 @@
 @import "./reset.css";
 @import "./colors.css";
 @import "./fonts.css";
+@import "./modal.css";
+
+/* #region Global */
 
 /* Lock scroll when mobile menu is open */
 html:has(.mobile-menu[open]) {
@@ -22,27 +25,16 @@ body {
 	overflow-x: hidden;
 }
 
-/* Cap everything to 1440 */
-.header,
-.hero,
-.about,
-.bestsellers,
-.bouquets,
-.feedback,
-.contacts {
-	max-width: 1440px;
-	margin: 0 auto;
-}
 
-/* ================================ */
-/* Shared — mobile base             */
-/* ================================ */
+/* #endregion Global */
+
+/* #region Shared — mobile base */
 
 .container {
-	max-width: 335px;
+	width: 100%;
+	max-width: 375px;
 	padding: 0 20px;
 	margin: 0 auto;
-	width: 100%;
 }
 
 .section-title {
@@ -119,17 +111,18 @@ body {
 	pointer-events: none;
 }
 
-/* ================================ */
-/* Header (mobile base)             */
-/* ================================ */
+/* #endregion Shared — mobile base */
+
+/* #region Header */
 
 .header {
 	height: 72px;
-	padding: 0 13px;
+
 	display: flex;
 	align-items: center;
 	background-color: var(--primary-bg);
-	position: relative;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	top: 0;
 	z-index: 20;
 }
 
@@ -138,10 +131,7 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
-	width: 349px;
-	max-width: 349px;
 	height: 48px;
-	padding: 0;
 }
 
 .header-content {
@@ -163,14 +153,15 @@ body {
 	transform-origin: top center;
 }
 
-.header-logo-link:hover {
-	animation: swing 1s both;
+.header-logo-link:hover .header-logo {
+	transform: scale(1.06);
 }
 
 .header-logo {
 	width: 84px;
 	height: 36px;
-	animation: fadeInDown 1s ease-out both;
+	animation: fadeIn 0.8s ease-out both;
+	transition: transform 350ms ease;
 }
 
 .header-nav-list {
@@ -210,27 +201,21 @@ body {
 	display: block;
 }
 
-.menu-icon__close {
-	opacity: 0;
-	transition: opacity 250ms ease-in-out;
+.menu-icon--close {
+	display: none;
 }
 
-.menu-icon__burger {
-	opacity: 1;
-	transition: opacity 250ms ease-in-out;
+.header:has(~ .mobile-menu[open]) .menu-icon--open {
+	display: none;
 }
 
-.menu-button.is-open .menu-icon__close {
-	opacity: 1;
+.header:has(~ .mobile-menu[open]) .menu-icon--close {
+	display: block;
 }
 
-.menu-button.is-open .menu-icon__burger {
-	opacity: 0;
-}
+/* #endregion Header */
 
-/* ================================ */
-/* Mobile menu (dialog, mobile)     */
-/* ================================ */
+/* #region Mobile menu */
 
 .mobile-menu {
 	display: flex;
@@ -251,27 +236,69 @@ body {
 	background-color: var(--mobile-menu-bg);
 	border: none;
 	gap: 24px;
-	transform: translateX(100%);
-	transition: transform 250ms ease-in-out, display 250ms ease-in-out allow-discrete;
+	transform: translateY(-100%);
+	transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), display 300ms ease allow-discrete;
 }
 
 .mobile-menu[open] {
-	transform: translateX(0);
+	transform: translateY(0);
 }
 
-.mobile-menu::backdrop {
-	display: none;
+
+/* Хедер в top layer через Popover API — скидаємо UA-стилі popover */
+.header[popover] {
+	inset: unset;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: auto;
+	width: 100%;
+	margin: 0;
+	border: none;
+	overflow: visible;
+}
+
+.menu-close-button {
+	position: absolute;
+	top: 12px;
+	right: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.menu-close-icon {
+	width: 24px;
+	height: 24px;
+	fill: var(--primary-text);
+}
+
+/* Тимчасовий CSS-хрестик поки немає SVG спрайту */
+.menu-close-button:not(:has(use[href])) {
+	font-size: 24px;
+	line-height: 1;
+	color: var(--primary-text);
+}
+
+.menu-close-button:not(:has(use[href]))::before {
+	content: "✕";
 }
 
 @starting-style {
 	.mobile-menu[open] {
-		transform: translateX(100%);
+		transform: translateY(-100%);
 	}
 }
 
 .menu-navigation {
-	width: 335px;
-	max-width: 335px;
+	width: 100%;
+	max-width: 100%;
 	margin-bottom: 0;
 }
 
@@ -291,37 +318,70 @@ body {
 	color: var(--primary-text);
 }
 
+.menu-navigation-list li {
+	opacity: 0;
+	transform: translateY(-16px);
+	transition:
+		opacity 280ms ease,
+		transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mobile-menu[open] .menu-navigation-list li {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.mobile-menu[open] .menu-navigation-list li:nth-child(1) { transition-delay: 80ms; }
+.mobile-menu[open] .menu-navigation-list li:nth-child(2) { transition-delay: 130ms; }
+.mobile-menu[open] .menu-navigation-list li:nth-child(3) { transition-delay: 180ms; }
+.mobile-menu[open] .menu-navigation-list li:nth-child(4) { transition-delay: 230ms; }
+.mobile-menu[open] .menu-navigation-list li:nth-child(5) { transition-delay: 280ms; }
+
 .menu-action-button {
-	width: 335px;
-	max-width: 335px;
+	opacity: 0;
+	transform: translateY(-16px);
+	transition:
+		opacity 280ms ease,
+		transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mobile-menu[open] .menu-action-button {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 330ms;
+}
+
+.menu-action-button {
+	width: 100%;
+	max-width: 100%;
 	margin: 0;
 	padding: 8px 20px;
 }
 
-/* ================================ */
-/* Hero (mobile base)               */
-/* ================================ */
+/* #endregion Mobile menu */
+
+/* #region Hero */
 
 .hero {
 	width: 100%;
 	height: 510px;
-	background-color: var(--hero-fallback-bg);
-	background-image: url("../images/hero-bg.jpg");
-	background-repeat: no-repeat;
-	background-position: 53% 50%;
-	background-size: cover;
 	display: flex;
 	align-items: center;
 	position: relative;
 	overflow: hidden;
 }
 
-.hero-container {
-	width: 334px;
-	max-width: 334px;
-	height: 434px;
-	padding: 0;
+.hero-bg {
 	position: relative;
+	background-image: image-set(
+		url("../images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
+		url("../images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
+		url("../images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
+		url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+	);
+	background-color: var(--hero-fallback-bg);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .hero-content {
@@ -359,16 +419,16 @@ body {
 	align-self: stretch;
 	padding: 10px 24px;
 	height: 44px;
-	width: 334px;
+	width: 100%;
 	max-width: 100%;
 }
 
-/* ================================ */
-/* About (mobile base)              */
-/* ================================ */
+/* #endregion Hero */
+
+/* #region About */
 
 .about {
-	padding: 64px 20px;
+	padding: 64px 0;
 	background-color: var(--primary-bg);
 }
 
@@ -377,7 +437,6 @@ body {
 	flex-direction: column;
 	align-items: stretch;
 	gap: 24px;
-	padding: 0;
 }
 
 .about-content {
@@ -409,21 +468,27 @@ body {
 }
 
 .about-image {
-	width: 335px;
+	width: 100%;
 	height: 428px;
 	border-radius: 16px;
 	flex-shrink: 0;
 	object-fit: cover;
 }
 
-/* ================================ */
-/* Product cards (shared)           */
-/* ================================ */
+/* #endregion About */
+
+/* #region Product cards */
 
 .product-card {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+}
+
+.product-card picture {
+	border-radius: 16px;
+	overflow: hidden;
+	display: block;
 }
 
 .product-card-content {
@@ -455,12 +520,12 @@ body {
 	line-height: 150%;
 }
 
-/* ================================ */
-/* Bestsellers (mobile base)        */
-/* ================================ */
+/* #endregion Product cards */
+
+/* #region Bestsellers */
 
 .bestsellers {
-	padding: 64px 20px;
+	padding: 64px 0;
 	background-color: var(--primary-bg);
 }
 
@@ -468,7 +533,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 32px;
-	padding: 0;
 }
 
 .bestsellers-title-row {
@@ -504,10 +568,15 @@ body {
 }
 
 .bestsellers-card-image {
-	width: 335px;
+	width: 100%;
 	height: 320px;
 	border-radius: 16px;
 	object-fit: cover;
+	transition: transform 450ms ease;
+}
+
+.bestsellers-item:hover .bestsellers-card-image {
+	transform: scale(1.04);
 }
 
 .bestsellers-controls {
@@ -541,9 +610,9 @@ body {
 	gap: 16px;
 }
 
-/* ================================ */
-/* Slider nav buttons (shared)      */
-/* ================================ */
+/* #endregion Bestsellers */
+
+/* #region Slider nav buttons */
 
 .slider-nav-button {
 	display: inline-flex;
@@ -589,12 +658,12 @@ body {
 	pointer-events: none;
 }
 
-/* ================================ */
-/* Bouquets (mobile base)           */
-/* ================================ */
+/* #endregion Slider nav buttons */
+
+/* #region Bouquets */
 
 .bouquets {
-	padding: 64px 20px;
+	padding: 64px 0;
 	background-color: var(--primary-bg);
 	display: flex;
 	flex-direction: column;
@@ -605,9 +674,7 @@ body {
 .bouquets-container {
 	display: flex;
 	flex-direction: column;
-	padding: 0;
 	gap: 32px;
-	width: 100%;
 }
 
 .bouquets .section-title {
@@ -662,10 +729,15 @@ body {
 }
 
 .bouquets-card-image {
-	width: 335px;
+	width: 100%;
 	height: 296px;
 	border-radius: 16px;
 	object-fit: cover;
+	transition: transform 450ms ease;
+}
+
+.bouquets-item:hover .bouquets-card-image {
+	transform: scale(1.04);
 }
 
 .bouquets-button {
@@ -676,24 +748,19 @@ body {
 	align-self: center;
 }
 
-/* ================================ */
-/* Feedback (mobile base)           */
-/* ================================ */
+/* #endregion Bouquets */
+
+/* #region Feedback */
 
 .feedback {
 	height: 550px;
-	padding: 0;
+	padding: 64px 0;
 	background-color: var(--primary-bg);
 }
 
 .feedback-container {
 	display: flex;
 	flex-direction: column;
-	width: 335px;
-	max-width: 335px;
-	height: 422px;
-	box-sizing: border-box;
-	padding: 64px 0;
 	gap: 32px;
 	align-items: center;
 }
@@ -746,23 +813,18 @@ body {
 	align-self: flex-end;
 }
 
-/* ================================ */
-/* Contacts (mobile base)           */
-/* ================================ */
+/* #endregion Feedback */
+
+/* #region Contacts */
 
 .contacts {
-	height: 809px;
-	padding: 64px 20px;
+	padding: 64px 0;
 	background-color: var(--primary-bg);
 }
 
 .contacts-container {
 	display: flex;
 	flex-direction: column;
-	width: 335px;
-	max-width: 335px;
-	height: 681px;
-	padding: 0;
 	gap: 32px;
 }
 
@@ -849,28 +911,25 @@ body {
 }
 
 .contacts-image {
-	width: 335px;
+	width: 100%;
 	height: 312px;
 	border-radius: 16px;
 	object-fit: cover;
 }
 
-/* ================================ */
-/* Footer (mobile base)             */
-/* ================================ */
+/* #endregion Contacts */
+
+/* #region Footer */
 
 .footer {
 	height: 691px;
-	padding: 48px 20px;
+	padding: 48px 0;
 	background-color: var(--footer-bg);
 }
 
 .footer-container {
 	display: flex;
 	flex-direction: column;
-	width: 335px;
-	max-width: 335px;
-	height: 595px;
 	gap: 32px;
 	align-items: center;
 }
@@ -890,13 +949,14 @@ body {
 	transform-origin: top center;
 }
 
-.footer-logo-link:hover {
-	animation: swing 1s both;
+.footer-logo-link:hover .footer-logo {
+	transform: scale(1.04);
 }
 
 .footer-logo {
 	width: 294px;
 	height: 126px;
+	transition: transform 350ms ease;
 }
 
 .footer-nav {
@@ -960,9 +1020,11 @@ body {
 	text-align: center;
 }
 
-/* ================================ */
-/* Tablet styles (>= 768px)         */
-/* ================================ */
+
+
+/* #endregion Footer */
+
+/* #region Tablet (>= 768px) */
 @media screen and (min-width: 768px) {
 	/* Font bump */
 	:root {
@@ -976,14 +1038,13 @@ body {
 
 	/* Shared */
 	.container {
-		max-width: 704px;
-		padding: 0 32px;
+		max-width: 768px;
+		padding: 0 20px;
 	}
 
 	/* Header */
 	.header {
 		height: 72px;
-		padding: 0 32px;
 	}
 
 	.header-actions {
@@ -996,10 +1057,7 @@ body {
 	}
 
 	.header-container {
-		width: 704px;
-		max-width: 704px;
 		height: 48px;
-		padding: 0;
 		justify-content: space-between;
 	}
 
@@ -1036,17 +1094,16 @@ body {
 	/* Hero */
 	.hero {
 		min-height: 669px;
-		background-image: url("../images/hero-bg.jpg");
-		background-position: 61% 50%;
 	}
 
-	.hero-container {
-		width: 375px;
-		max-width: 375px;
-		height: 460px;
+	.hero-bg {
 		margin-left: calc((100% - 768px) / 2);
-		margin-right: auto;
-		padding: 48px 0 48px 32px;
+		background-image: image-set(
+			url("../images/avif/tab/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("../images/avif/tab/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("../images/avif/tab/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+		);
 	}
 
 	.hero-content {
@@ -1074,14 +1131,13 @@ body {
 
 	/* About */
 	.about {
-		padding: 64px 32px;
+		padding: 64px 0;
 	}
 
 	.about-container {
 		flex-direction: row;
 		align-items: center;
 		gap: 24px;
-		padding: 0;
 	}
 
 	.about-content {
@@ -1097,11 +1153,10 @@ body {
 
 	/* Bestsellers */
 	.bestsellers {
-		padding: 64px 32px;
+		padding: 64px 0;
 	}
 
 	.bestsellers-container {
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1141,13 +1196,12 @@ body {
 	.bouquets {
 		height: 2092px;
 		box-sizing: border-box;
-		padding: 64px 32px;
+		padding: 64px 0;
 		gap: 40px;
 	}
 
 	.bouquets-container {
 		height: 1880px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1174,14 +1228,10 @@ body {
 	/* Feedback */
 	.feedback {
 		height: 509px;
-		padding: 64px 32px;
+		padding: 64px 0;
 	}
 
 	.feedback-container {
-		width: 704px;
-		max-width: 704px;
-		height: 381px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1211,14 +1261,11 @@ body {
 	/* Contacts */
 	.contacts {
 		height: 715px;
-		padding: 64px 32px;
+		padding: 64px 0;
 	}
 
 	.contacts-container {
-		width: 704px;
-		max-width: 704px;
 		height: 587px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1255,12 +1302,10 @@ body {
 	/* Footer — tablet */
 	.footer {
 		height: 451px;
-		padding: 48px 32px;
+		padding: 48px 0;
 	}
 
 	.footer-container {
-		width: 704px;
-		max-width: 704px;
 		height: 355px;
 		gap: 32px;
 	}
@@ -1292,9 +1337,9 @@ body {
 	}
 }
 
-/* ================================ */
-/* Desktop styles (>= 1440px)       */
-/* ================================ */
+/* #endregion Tablet */
+
+/* #region Desktop (>= 1440px) */
 @media screen and (min-width: 1440px) {
 	/* Font bump */
 	:root {
@@ -1308,15 +1353,16 @@ body {
 
 	/* Shared */
 	.container {
-		width: 1280px;
-		max-width: 1280px;
+		width: 100%;
+		max-width: 1440px;
 		padding: 0 80px;
 	}
 
 	/* Header */
 	.header {
 		height: 72px;
-		padding: 0 80px;
+		position: static;
+		box-shadow: none;
 	}
 
 	.header-container {
@@ -1324,10 +1370,7 @@ body {
 		align-items: center;
 		justify-content: flex-start;
 		gap: 32px;
-		width: 1280px;
-		max-width: 1280px;
 		height: 40px;
-		padding: 0;
 	}
 
 	.header-content {
@@ -1378,18 +1421,19 @@ body {
 	.hero {
 		min-height: 669px;
 		height: 669px;
-		background-image: url("../images/hero-bg.jpg");
-		background-position: center center;
 	}
 
-	.hero-container {
-		max-width: 811px;
-		width: 811px;
-		height: auto;
+	.hero-bg {
 		margin: 0;
 		padding: 80px 64px 80px 80px;
 		display: flex;
 		align-items: flex-start;
+		background-image: image-set(
+			url("../images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("../images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("../images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+		);
 	}
 
 	.hero-content {
@@ -1413,12 +1457,10 @@ body {
 
 	/* About */
 	.about {
-		padding: 92px 80px;
+		padding: 92px 0;
 	}
 
 	.about-container {
-		max-width: 1280px;
-		padding: 0;
 		flex-direction: row;
 		align-items: center;
 		gap: 80px;
@@ -1446,14 +1488,11 @@ body {
 
 	/* Bestsellers */
 	.bestsellers {
-		padding: 92px 80px;
+		padding: 92px 0;
 	}
 
 	.bestsellers-container {
-		width: 1280px;
-		max-width: 1280px;
 		height: 629px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1492,14 +1531,12 @@ body {
 	.bouquets {
 		height: 1337px;
 		box-sizing: border-box;
-		padding: 92px 80px;
+		padding: 92px 0;
 		gap: 40px;
 	}
 
 	.bouquets-container {
-		max-width: 1280px;
 		height: 1069px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1537,14 +1574,11 @@ body {
 	/* Feedback */
 	.feedback {
 		height: 582px;
-		padding: 92px 80px;
+		padding: 92px 0;
 	}
 
 	.feedback-container {
-		width: 1280px;
-		max-width: 1280px;
 		height: 398px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1577,14 +1611,11 @@ body {
 	/* Contacts */
 	.contacts {
 		height: 1090px;
-		padding: 92px 80px;
+		padding: 92px 0;
 	}
 
 	.contacts-container {
-		width: 1280px;
-		max-width: 1280px;
 		height: 906px;
-		padding: 0;
 		gap: 32px;
 	}
 
@@ -1615,22 +1646,18 @@ body {
 	}
 
 	.contacts-image {
-		width: 1280px;
+		width: 100%;
 		height: 720px;
 	}
 
 	/* Footer — desktop: 3-col layout */
 	.footer {
 		height: 419px;
-		padding: 80px;
+		padding: 80px 0;
 	}
 
 	.footer-container {
-		width: 1280px;
-		max-width: 1280px;
 		height: 259px;
-		margin: 0 auto;
-		padding: 0;
 		gap: 80px;
 	}
 
@@ -1684,3 +1711,4 @@ body {
 		gap: 32px;
 	}
 }
+/* #endregion Desktop */
