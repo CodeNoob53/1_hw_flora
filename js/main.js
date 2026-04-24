@@ -6,11 +6,7 @@ import { openModal, closeModal } from './modal.js';
 const menuButton = document.querySelector('[data-menu-button]');
 const mobileMenu = document.querySelector('#mobile-menu');
 const header = document.querySelector('#site-header');
-const menuLinks = mobileMenu?.querySelectorAll(
-	'.menu-navigation-link, .menu-action-button'
-);
 
-// Toggle: відкрити або закрити меню по кліку на бургер-кнопку
 menuButton?.addEventListener('click', () => {
 	if (mobileMenu.open) {
 		mobileMenu.close();
@@ -23,7 +19,6 @@ menuButton?.addEventListener('click', () => {
 	}
 });
 
-// Escape — закрити меню
 document.addEventListener('keydown', e => {
 	if (e.key === 'Escape' && mobileMenu.open) {
 		mobileMenu.close();
@@ -32,13 +27,53 @@ document.addEventListener('keydown', e => {
 	}
 });
 
-// При закритті через .close() з інших місць
 mobileMenu?.addEventListener('close', () => {
 	header.hidePopover();
 	menuButton?.setAttribute('aria-expanded', 'false');
 });
 
-// Закрити при кліку на посилання / CTA кнопку
-menuLinks?.forEach(link =>
-	link.addEventListener('click', () => mobileMenu.close())
-);
+// ===================== PRODUCT MODAL =====================
+
+const productModal = document.getElementById('product-modal');
+const modalImg = document.getElementById('product-modal-img');
+const modalTitle = productModal?.querySelector('.product-modal-title');
+const modalPrice = productModal?.querySelector('.product-modal-price');
+const modalDesc = productModal?.querySelector('.product-modal-description');
+
+// Делегування — один слухач на document замість окремого на кожну картку
+document.addEventListener('click', e => {
+	const card = e.target.closest('.product-card');
+	if (!card) return;
+
+	const img = card.querySelector('img');
+	modalImg.src = img?.src ?? '';
+	modalImg.alt = img?.alt ?? '';
+	modalTitle.textContent = card.querySelector('.product-card-title')?.textContent ?? '';
+	modalPrice.textContent = card.querySelector('.product-card-price')?.textContent ?? '';
+	modalDesc.textContent = card.dataset.description ?? '';
+	productModal.querySelector('.product-modal-qty').value = 1;
+
+	openModal('product-modal');
+});
+
+// ===================== ORDER MODAL =====================
+
+productModal?.querySelector('.product-modal-buy')?.addEventListener('click', () => {
+	closeModal('product-modal');
+	openModal('order-modal');
+});
+
+// ===================== MODAL CLOSE BUTTONS =====================
+
+document.addEventListener('click', e => {
+	const btn = e.target.closest('[data-close-modal]');
+	if (btn) closeModal(btn.dataset.closeModal);
+});
+
+// ===================== MOBILE MENU LINKS =====================
+
+mobileMenu?.addEventListener('click', e => {
+	if (e.target.closest('.menu-navigation-link, .menu-action-button')) {
+		mobileMenu.close();
+	}
+});

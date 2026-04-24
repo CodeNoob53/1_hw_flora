@@ -492,6 +492,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	cursor: pointer;
 }
 
 .product-card picture {
