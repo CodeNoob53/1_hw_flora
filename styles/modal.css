@@ -144,22 +144,24 @@ html:has(dialog[open]) {
 }
 
 .product-modal-qty {
+	-webkit-appearance: auto;
+	-moz-appearance: number-input;
+	appearance: auto;
 	width: 64px;
 	height: 40px;
 	border: 1.5px solid var(--border-color-subtle);
 	border-radius: 12px;
-	padding: 0 12px;
+	padding: 0 4px 0 12px;
 	font-size: var(--font-regular);
 	font-family: inherit;
 	color: var(--primary-text);
 	background: var(--primary-bg);
 	text-align: center;
-	-moz-appearance: textfield;
 }
 
 .product-modal-qty::-webkit-outer-spin-button,
 .product-modal-qty::-webkit-inner-spin-button {
-	-webkit-appearance: none;
+	opacity: 1;
 }
 
 /* ===================== PRODUCT MODAL — price row ===================== */
@@ -179,9 +181,9 @@ html:has(dialog[open]) {
 /* ===================== ORDER MODAL ===================== */
 
 .order-modal {
-	width: calc(100vw - 32px);
+	width: 335px;
 	max-width: 480px;
-	padding: 48px 20px 32px;
+	padding: 56px 20px;
 }
 
 @starting-style {
@@ -207,13 +209,13 @@ html:has(dialog[open]) {
 	font-size: var(--font-heading);
 	line-height: 1.2;
 	text-align: center;
-	margin: 0 0 32px;
+	margin: 0 0 24px;
 }
 
 .order-form {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 24px;
 }
 
 .order-form-field {
@@ -231,8 +233,8 @@ html:has(dialog[open]) {
 .order-form-input,
 .order-form-textarea {
 	width: 100%;
-	padding: 14px 16px;
-	border: 1.5px solid var(--border-color-subtle);
+	padding: 8px 12px;
+	border: 1px solid var(--border-color-input);
 	border-radius: 12px;
 	font-size: var(--font-regular);
 	font-family: inherit;
@@ -245,7 +247,7 @@ html:has(dialog[open]) {
 
 .order-form-input::placeholder,
 .order-form-textarea::placeholder {
-	color: var(--border-color-subtle);
+	color: var(--plaseholder-text-color);
 }
 
 .order-form-input:focus,
@@ -294,8 +296,17 @@ html:has(dialog[open]) {
 	}
 
 	.order-modal {
-		max-width: 640px;
-		padding: 48px 40px 40px;
+		width: 704px;
+		padding: 32px;
+	}
+
+	.order-modal-title {
+		margin: 0 0 48px;
+	}
+
+	.order-form-submit {
+		max-width: 340px;
+		align-self: center;
 	}
 }
 
@@ -326,7 +337,11 @@ html:has(dialog[open]) {
 	}
 
 	.order-modal {
-		max-width: 640px;
-		padding: 48px 40px 40px;
+		max-width: 842px;
+		padding: 64px;
+	}
+
+	.order-form-submit {
+		max-width: 159px;	
 	}
 }

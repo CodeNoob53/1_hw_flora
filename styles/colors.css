@@ -2,6 +2,7 @@
 	--primary-text: #030c01;
 	--primary-bg: #ffffff;
 	--footer-bg: #eeee60;
+	--plaseholder-text-color: #030c0199;
 
 	/* Mobile menu */
 	--mobile-menu-bg: #ffffff;
@@ -23,4 +24,5 @@
 	/* Borders */
 	--border-color: #030c01;
 	--border-color-subtle: #030c0126;
+	--border-color-input: #030c0199;
 }
