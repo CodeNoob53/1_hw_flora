@@ -1101,7 +1101,7 @@
         <svg aria-hidden="true"><use href="./icons/sprite.svg#icon-close"></use></svg>
       </button>
       <div class="product-modal-image">
-        <img id="product-modal-img" src="" alt="" width="295" height="315" />
+        <img id="product-modal-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="295" height="315" />
       </div>
       <div class="product-modal-content">
         <h2 class="product-modal-title" id="product-modal-title"></h2>
@@ -1124,19 +1124,19 @@
       <form class="order-form" id="order-form" novalidate>
         <div class="order-form-field">
           <label class="order-form-label" for="order-name">Name*</label>
-          <input class="order-form-input" id="order-name" type="text" placeholder="Ann" autocomplete="name" required />
+          <input class="order-form-input" id="order-name" name="name" type="text" placeholder="Ann" autocomplete="name" required />
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-phone">Phone*</label>
-          <input class="order-form-input" id="order-phone" type="tel" placeholder="+1 (555) 123-4567" autocomplete="tel" required />
+          <input class="order-form-input" id="order-phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" autocomplete="tel" required />
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-address">Address</label>
-          <input class="order-form-input" id="order-address" type="text" placeholder="456 Floral Ave, Sydney NSW 2000 AU" autocomplete="street-address" />
+          <input class="order-form-input" id="order-address" name="address" type="text" placeholder="456 Floral Ave, Sydney NSW 2000 AU" autocomplete="address-line1" />
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-message">Message</label>
-          <textarea class="order-form-textarea" id="order-message" placeholder="Type your message..." rows="5"></textarea>
+          <textarea class="order-form-textarea" id="order-message" name="message" placeholder="Type your message..." rows="5"></textarea>
         </div>
         <button class="primary-button order-form-submit" type="submit">Go to Checkout</button>
       </form>
