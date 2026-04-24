@@ -1,5 +1,6 @@
 // ===================== IMPORTS =====================
 import { openModal, closeModal } from './modal.js';
+import { products } from './products.js';
 
 // ===================== MOBILE MENU =====================
 
@@ -45,12 +46,14 @@ document.addEventListener('click', e => {
 	const card = e.target.closest('.product-card');
 	if (!card) return;
 
-	const img = card.querySelector('img');
-	modalImg.src = card.dataset.modalSrc ?? img?.src ?? '';
-	modalImg.alt = img?.alt ?? '';
-	modalTitle.textContent = card.querySelector('.product-card-title')?.textContent ?? '';
-	modalPrice.textContent = card.querySelector('.product-card-price')?.textContent ?? '';
-	modalDesc.textContent = card.dataset.description ?? '';
+	const product = products.find(p => p.id === card.dataset.id);
+	if (!product) return;
+
+	modalImg.src = product.image;
+	modalImg.alt = product.alt;
+	modalTitle.textContent = product.title;
+	modalPrice.textContent = product.price;
+	modalDesc.textContent = product.description;
 	productModal.querySelector('.product-modal-qty').value = 1;
 
 	openModal('product-modal');
