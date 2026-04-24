@@ -1453,7 +1453,7 @@ main {
 	}
 
 	.about-image {
-		width: calc(50% - 40px);
+		width: 600px;
 		height: 428px;
 		flex-shrink: 0;
 	}
