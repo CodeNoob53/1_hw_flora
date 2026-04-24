@@ -146,7 +146,6 @@ main {
 
 .header-button {
 	display: none;
-	margin-left: auto;
 }
 
 .header-nav {
@@ -1366,10 +1365,8 @@ main {
 	}
 
 	.header-nav {
-		flex: 0 0 475px;
 		display: flex;
 		align-items: center;
-		justify-content: center;
 		margin-left: 0;
 	}
 
