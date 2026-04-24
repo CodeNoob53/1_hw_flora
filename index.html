@@ -61,6 +61,20 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="./styles/styles.css" />
+
+    <!-- LCP preload — hero background (mobile first, browser picks best) -->
+    <link
+      rel="preload"
+      as="image"
+      href="./images/avif/mob/hero-bg_@1x.avif"
+      imagesrcset="
+        ./images/avif/mob/hero-bg_@1x.avif 1x,
+        ./images/avif/mob/hero-bg_@2x.avif 2x,
+        ./images/avif/mob/hero-bg_@3x.avif 3x
+      "
+      type="image/avif"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <!-- #region HEADER -->
