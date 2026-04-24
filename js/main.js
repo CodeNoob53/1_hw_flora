@@ -46,7 +46,7 @@ document.addEventListener('click', e => {
 	if (!card) return;
 
 	const img = card.querySelector('img');
-	modalImg.src = img?.src ?? '';
+	modalImg.src = card.dataset.modalSrc ?? img?.src ?? '';
 	modalImg.alt = img?.alt ?? '';
 	modalTitle.textContent = card.querySelector('.product-card-title')?.textContent ?? '';
 	modalPrice.textContent = card.querySelector('.product-card-price')?.textContent ?? '';
