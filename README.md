@@ -37,7 +37,7 @@
 | Розмітка | HTML5 семантичні елементи (`<dialog>`, `<details>`, `<address>`) |
 | Стилі | Vanilla CSS, CSS custom properties, `@starting-style`, `@media` |
 | Скрипти | Vanilla JS ES modules (`import` / `export`) |
-| Шрифти | Google Fonts — Hanuman, Roboto |
+| Шрифти | Локальні woff2 — Hanuman, Roboto (без запитів до Google Fonts) |
 | Нормалізація | modern-normalize 3.x |
 | Анімації | AOS (Animate On Scroll) |
 
@@ -79,6 +79,7 @@ flora/
 | Растрові зображення (поштучно) | [Squoosh](https://squoosh.app/) |
 | Растрові зображення (пакетна обробка) | [ImageMagick](https://imagemagick.org/) |
 | SVG-іконки | [SVG Viewer](https://www.svgviewer.dev/) |
+| Шрифти TTF → WOFF2 | [Transfonter](https://transfonter.org/) |
 
 ## Запуск
 
