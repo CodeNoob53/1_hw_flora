@@ -373,23 +373,24 @@ main {
 .hero {
 	width: 100%;
 	height: 530px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .hero-bg {
 	height: 100%;
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-image: image-set(
 		url("../assets/images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
 		url("../assets/images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
 		url("../assets/images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
-		url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+		url("../assets/images/fallback/hero-bg_mbl.jpg") 1x type("image/jpeg")
 	);
 	background-color: var(--hero-fallback-bg);
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: auto 100%;
+	background-position: center top;
 }
 
 .hero-content {
@@ -1091,10 +1092,12 @@ main {
 	}
 
 	.hero-bg {
+		background-size: max(100%, 1440px) auto;
+		background-position: 66.5% 50%;
 		background-image: image-set(
-			url("../assets/images/avif/tab/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("../assets/images/avif/tab/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("../assets/images/avif/tab/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("../assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("../assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("../assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
 			url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 		);
 	}
@@ -1394,11 +1397,13 @@ main {
 	.hero {
 		min-height: 669px;
 		height: 669px;
-		justify-content: center;
 	}
 
 	.hero-bg {
-		margin: 0;
+		max-width: 1440px;
+		margin: 0 auto;
+		background-size: cover;
+		background-position: center center;
 		background-image: image-set(
 			url("../assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
 			url("../assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
