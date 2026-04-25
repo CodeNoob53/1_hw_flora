@@ -5,9 +5,11 @@ html:has(.mobile-menu[open]) {
 	overflow: hidden;
 }
 
-/* When menu is open, hide the header CTA button and shadow */
-.header:has(~ .mobile-menu[open]) .header-button {
-	display: none;
+/* On mobile, hide the header CTA button when the menu is open (it's duplicated inside the menu) */
+@media screen and (max-width: 767px) {
+	.header:has(~ .mobile-menu[open]) .header-button {
+		display: none;
+	}
 }
 
 .header:has(~ .mobile-menu[open]) {
@@ -121,12 +123,15 @@ main {
 /* #region Header */
 
 .header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
 	height: 72px;
 	display: flex;
 	align-items: center;
 	background-color: var(--primary-bg);
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-	top: 0;
 	z-index: 20;
 }
 
@@ -244,18 +249,6 @@ main {
 }
 
 
-/* Хедер в top layer через Popover API — скидаємо UA-стилі popover */
-.header[popover] {
-	inset: unset;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: auto;
-	width: 100%;
-	margin: 0;
-	border: none;
-	overflow: visible;
-}
 
 .menu-close-button {
 	position: absolute;
@@ -1075,6 +1068,7 @@ main {
 		width: 166px;
 		height: 40px;
 		padding: 0 20px;
+		margin-left: auto;
 	}
 
 	/* Mobile menu (tablet) */
@@ -1390,6 +1384,10 @@ main {
 	.header-logo {
 		width: 84px;
 		height: 36px;
+	}
+
+	.header-button {
+		margin-left: 0;
 	}
 
 	.menu-button {

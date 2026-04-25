@@ -1,16 +1,12 @@
 const menuButton = document.querySelector('[data-menu-button]');
 const mobileMenu = document.querySelector('#mobile-menu');
-const header = document.querySelector('#site-header');
 
 // Toggle menu open/closed and keep aria-expanded in sync.
-// header uses the Popover API as an overlay backdrop.
 menuButton?.addEventListener('click', () => {
 	if (mobileMenu.open) {
 		mobileMenu.close();
-		header.hidePopover();
 		menuButton.setAttribute('aria-expanded', 'false');
 	} else {
-		header.showPopover();
 		mobileMenu.show();
 		menuButton.setAttribute('aria-expanded', 'true');
 	}
@@ -20,7 +16,6 @@ menuButton?.addEventListener('click', () => {
 document.addEventListener('keydown', e => {
 	if (e.key === 'Escape' && mobileMenu.open) {
 		mobileMenu.close();
-		header.hidePopover();
 		menuButton?.setAttribute('aria-expanded', 'false');
 	}
 });
@@ -28,7 +23,6 @@ document.addEventListener('keydown', e => {
 // <details> fires a native 'close' event when collapsed by any means
 // (e.g. another <details> opening) — keep state consistent.
 mobileMenu?.addEventListener('close', () => {
-	header.hidePopover();
 	menuButton?.setAttribute('aria-expanded', 'false');
 });
 
