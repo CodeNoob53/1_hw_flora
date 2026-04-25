@@ -382,10 +382,10 @@ main {
 	height: 100%;
 	width: 100%;
 	background-image: image-set(
-		url("../images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
-		url("../images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
-		url("../images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
-		url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+		url("../assets/images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
+		url("../assets/images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
+		url("../assets/images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
+		url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 	);
 	background-color: var(--hero-fallback-bg);
 	background-repeat: no-repeat;
@@ -1092,10 +1092,10 @@ main {
 
 	.hero-bg {
 		background-image: image-set(
-			url("../images/avif/tab/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("../images/avif/tab/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("../images/avif/tab/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			url("../assets/images/avif/tab/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("../assets/images/avif/tab/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("../assets/images/avif/tab/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 		);
 	}
 
@@ -1400,10 +1400,10 @@ main {
 	.hero-bg {
 		margin: 0;
 		background-image: image-set(
-			url("../images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("../images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("../images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("../images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			url("../assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("../assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("../assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 		);
 	}
 
