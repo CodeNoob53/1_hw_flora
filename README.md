@@ -81,6 +81,7 @@ flora/
 | Растрові зображення (пакетна обробка) | [ImageMagick](https://imagemagick.org/) |
 | SVG-іконки | [SVG Viewer](https://www.svgviewer.dev/) |
 | Шрифти TTF → WOFF2 | [Transfonter](https://transfonter.org/) |
+| Фавіконки | [favicon.io](https://favicon.io/) |
 
 ## Запуск
 
