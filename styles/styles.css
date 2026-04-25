@@ -1001,12 +1001,24 @@ main {
 	display: inline-flex;
 	width: 40px;
 	height: 40px;
+	color: var(--primary-text);
+	transition: opacity 250ms ease-in-out;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+	opacity: 0.6;
+	outline: none;
+}
+
+.footer-social-link:active {
+	opacity: 0.4;
 }
 
 .footer-social-icon {
 	width: 40px;
 	height: 40px;
-	fill: var(--primary-text);
+	fill: currentColor;
 }
 
 .footer-credits {
