@@ -33,10 +33,3 @@ productModal?.querySelector('.product-modal-buy')?.addEventListener('click', () 
 	closeModal('product-modal');
 	openModal('order-modal');
 });
-
-// Delegated close handler — any button with data-close-modal="<id>" anywhere
-// in the document closes the matching dialog without per-button wiring.
-document.addEventListener('click', e => {
-	const btn = e.target.closest('[data-close-modal]');
-	if (btn) closeModal(btn.dataset.closeModal);
-});

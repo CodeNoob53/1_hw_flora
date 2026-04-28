@@ -22,7 +22,9 @@ export const openModal = id => {
 	const modal = document.getElementById(id);
 	if (!modal) return;
 
-	modal.showModal();
+	if (!modal.open) {
+		modal.showModal();
+	}
 
 	if (modal.dataset.backdropListener !== 'true') {
 		attachBackdropClose(modal);
@@ -34,3 +36,10 @@ export const closeModal = id => {
 	const modal = document.getElementById(id);
 	modal?.close();
 };
+
+// Delegated close handler — any button with data-close-modal="<id>" anywhere
+// in the document closes the matching dialog without per-button wiring.
+document.addEventListener('click', e => {
+	const btn = e.target.closest('[data-close-modal]');
+	if (btn) closeModal(btn.dataset.closeModal);
+});
