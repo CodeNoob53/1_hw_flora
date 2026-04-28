@@ -39,8 +39,8 @@
     <link rel="preload" href="./assets/images/avif/mob/hero-bg_@2x.avif" as="image" type="image/avif" fetchpriority="high" media="(max-width: 767px)">
 
     <!-- Fonts (local) -->
-    <link rel="preload" href="./assets/fonts/subset-Hanuman-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="./assets/fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/hanuman.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- AOS — defer (non-critical animation lib) -->
     <link
@@ -75,7 +75,7 @@
           href="./index.html"
           aria-label="Flora — home"
         >
-          <svg class="header-logo">
+          <svg class="header-logo" aria-hidden="true" focusable="false">
             <use href="./assets/icons/sprite.svg#icon-logo"></use>
           </svg>
         </a>
@@ -120,10 +120,10 @@
           aria-controls="mobile-menu"
           data-menu-button
         >
-          <svg class="menu-icon menu-icon--open" aria-hidden="true">
+          <svg class="menu-icon menu-icon--open" aria-hidden="true" focusable="false">
             <use href="./assets/icons/sprite.svg#icon-menu"></use>
           </svg>
-          <svg class="menu-icon menu-icon--close" aria-hidden="true">
+          <svg class="menu-icon menu-icon--close" aria-hidden="true" focusable="false">
             <use href="./assets/icons/sprite.svg#icon-close"></use>
           </svg>
         </button>
@@ -160,7 +160,7 @@
       <section class="about" id="about">
         <div class="container about-container">
           <div class="about-content" data-aos="fade-right">
-            <svg class="about-icon">
+            <svg class="about-icon" aria-hidden="true" focusable="false">
               <use href="./assets/icons/sprite.svg#icon-flower"></use>
             </svg>
             <div class="about-text">
@@ -377,7 +377,7 @@
                   type="button"
                   aria-label="Previous bouquets"
                 >
-                  <svg class="slider-nav-icon">
+                  <svg class="slider-nav-icon" aria-hidden="true" focusable="false">
                     <use href="./assets/icons/sprite.svg#arrow_back"></use>
                   </svg>
                 </button>
@@ -386,7 +386,7 @@
                   type="button"
                   aria-label="Next bouquets"
                 >
-                  <svg class="slider-nav-icon">
+                  <svg class="slider-nav-icon" aria-hidden="true" focusable="false">
                     <use href="./assets/icons/sprite.svg#arrow_forward"></use>
                   </svg>
                 </button>
@@ -865,7 +865,7 @@
               type="button"
               aria-label="Previous testimonials"
             >
-              <svg class="slider-nav-icon">
+              <svg class="slider-nav-icon" aria-hidden="true" focusable="false">
                 <use href="./assets/icons/sprite.svg#arrow_back"></use>
               </svg>
             </button>
@@ -874,7 +874,7 @@
               type="button"
               aria-label="Next testimonials"
             >
-              <svg class="slider-nav-icon">
+              <svg class="slider-nav-icon" aria-hidden="true" focusable="false">
                 <use href="./assets/icons/sprite.svg#arrow_forward"></use>
               </svg>
             </button>
@@ -900,7 +900,7 @@
 
             <div class="contacts-info">
               <div class="contacts-info-item">
-                <svg class="contacts-info-icon">
+                <svg class="contacts-info-icon" aria-hidden="true" focusable="false">
                   <use href="./assets/icons/sprite.svg#call"></use>
                 </svg>
                 <div class="contacts-info-text">
@@ -914,7 +914,7 @@
               </div>
 
               <div class="contacts-info-item">
-                <svg class="contacts-info-icon">
+                <svg class="contacts-info-icon" aria-hidden="true" focusable="false">
                   <use href="./assets/icons/sprite.svg#location_on"></use>
                 </svg>
                 <div class="contacts-info-text">
@@ -983,7 +983,7 @@
             href="./index.html"
             aria-label="Flora — home"
           >
-            <svg class="footer-logo">
+            <svg class="footer-logo" aria-hidden="true" focusable="false">
               <use href="./assets/icons/sprite.svg#icon-logo"></use>
             </svg>
           </a>
@@ -1027,7 +1027,7 @@
                 rel="noopener"
                 aria-label="Facebook"
               >
-                <svg class="footer-social-icon">
+                <svg class="footer-social-icon" aria-hidden="true" focusable="false">
                   <use href="./assets/icons/sprite.svg#icon-facebook"></use>
                 </svg>
               </a>
@@ -1040,7 +1040,7 @@
                 rel="noopener"
                 aria-label="Instagram"
               >
-                <svg class="footer-social-icon">
+                <svg class="footer-social-icon" aria-hidden="true" focusable="false">
                   <use href="./assets/icons/sprite.svg#icon-instagram"></use>
                 </svg>
               </a>
@@ -1053,7 +1053,7 @@
                 rel="noopener"
                 aria-label="X (Twitter)"
               >
-                <svg class="footer-social-icon">
+                <svg class="footer-social-icon" aria-hidden="true" focusable="false">
                   <use href="./assets/icons/sprite.svg#icon-twitter"></use>
                 </svg>
               </a>
@@ -1118,7 +1118,7 @@
     <!-- #region PRODUCT MODAL -->
     <dialog class="product-modal" id="product-modal" aria-modal="true" aria-labelledby="product-modal-title">
       <button class="modal-close" type="button" aria-label="Close" data-close-modal="product-modal">
-        <svg aria-hidden="true"><use href="./assets/icons/sprite.svg#icon-close"></use></svg>
+        <svg aria-hidden="true" focusable="false"><use href="./assets/icons/sprite.svg#icon-close"></use></svg>
       </button>
       <div class="product-modal-image">
         <img id="product-modal-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="295" height="315">
@@ -1138,7 +1138,7 @@
     <!-- #region ORDER MODAL -->
     <dialog class="order-modal" id="order-modal" aria-modal="true" aria-labelledby="order-modal-title">
       <button class="modal-close" type="button" aria-label="Close" data-close-modal="order-modal">
-        <svg aria-hidden="true"><use href="./assets/icons/sprite.svg#icon-close"></use></svg>
+        <svg aria-hidden="true" focusable="false"><use href="./assets/icons/sprite.svg#icon-close"></use></svg>
       </button>
       <h2 class="order-modal-title" id="order-modal-title">Order</h2>
       <form class="order-form" id="order-form" novalidate>

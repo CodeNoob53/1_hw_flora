@@ -760,8 +760,8 @@ main {
 }
 
 .bouquets-button {
-	width: 340px;
-	max-width: none;
+	width: 100%;
+	max-width: 340px;
 	height: 44px;
 	box-sizing: border-box;
 	align-self: center;
@@ -1245,7 +1245,7 @@ main {
 
 	.bouquets-button {
 		width: 340px;
-		max-width: none;
+		max-width: 100%;
 		height: 44px;
 		min-width: 0;
 	}
@@ -1576,7 +1576,7 @@ main {
 
 	.bouquets-button {
 		width: 406px;
-		max-width: none;
+		max-width: 100%;
 		height: 44px;
 		min-width: 0;
 		padding: 0 24px;
