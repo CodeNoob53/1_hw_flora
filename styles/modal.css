@@ -73,6 +73,12 @@ html:has(dialog[open]) {
 	background-color: var(--border-color-subtle);
 }
 
+.modal-close:focus-visible {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 5px var(--focus-ring-offset);
+}
+
 .modal-close svg {
 	display: block;
 	width: 24px;
@@ -240,7 +246,6 @@ html:has(dialog[open]) {
 	font-family: inherit;
 	color: var(--primary-text);
 	background: var(--primary-bg);
-	outline: none;
 	transition: border-color 200ms ease;
 	box-sizing: border-box;
 }
@@ -253,6 +258,14 @@ html:has(dialog[open]) {
 .order-form-input:focus,
 .order-form-textarea:focus {
 	border-color: var(--border-color);
+}
+
+.order-form-input:focus-visible,
+.order-form-textarea:focus-visible,
+.product-modal-qty:focus-visible {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 5px var(--focus-ring-offset);
 }
 
 .order-form-textarea {

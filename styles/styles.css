@@ -79,7 +79,12 @@ main {
 .primary-button:hover,
 .primary-button:focus-visible {
 	opacity: 0.5;
-	outline: none;
+}
+
+.primary-button:focus-visible {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 5px var(--focus-ring-offset);
 }
 
 .primary-button:active {
@@ -105,7 +110,14 @@ main {
 .general-link:hover,
 .general-link:focus-visible {
 	opacity: 0.6;
-	outline: none;
+}
+
+.general-link:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 4px;
+	border-radius: 2px;
 }
 
 .general-link:active {
@@ -640,7 +652,12 @@ main {
 .slider-nav-button:hover,
 .slider-nav-button:focus-visible {
 	background-color: var(--slider-arrow-hover-bg);
-	outline: none;
+}
+
+.slider-nav-button:focus-visible {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 5px var(--focus-ring-offset);
 }
 
 .slider-nav-button:active {
@@ -1001,7 +1018,13 @@ main {
 .footer-social-link:hover,
 .footer-social-link:focus-visible {
 	opacity: 0.6;
-	outline: none;
+}
+
+.footer-social-link:focus-visible {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 4px;
+	border-radius: 4px;
+	box-shadow: 0 0 0 4px var(--focus-ring-offset);
 }
 
 .footer-social-link:active {

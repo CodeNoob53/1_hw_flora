@@ -25,4 +25,6 @@
 	--border-color: #030c01;
 	--border-color-subtle: #030c0126;
 	--border-color-input: #030c0199;
+	--focus-ring: #030c01;
+	--focus-ring-offset: #ffffff;
 }
