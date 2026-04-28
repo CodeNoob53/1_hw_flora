@@ -170,20 +170,6 @@ html:has(dialog[open]) {
 	opacity: 1;
 }
 
-/* ===================== PRODUCT MODAL — price row ===================== */
-
-.product-modal-price-row {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-}
-
-.product-modal-price-divider {
-	width: 1px;
-	height: 20px;
-	background-color: var(--border-color-subtle);
-}
-
 /* ===================== ORDER MODAL ===================== */
 
 .order-modal {

@@ -266,38 +266,6 @@ main {
 
 
 
-.menu-close-button {
-	position: absolute;
-	top: 12px;
-	right: 13px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 48px;
-	height: 48px;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-}
-
-.menu-close-icon {
-	width: 24px;
-	height: 24px;
-	fill: var(--primary-text);
-}
-
-/* Тимчасовий CSS-хрестик поки немає SVG спрайту */
-.menu-close-button:not(:has(use[href])) {
-	font-size: 24px;
-	line-height: 1;
-	color: var(--primary-text);
-}
-
-.menu-close-button:not(:has(use[href]))::before {
-	content: "✕";
-}
-
 @starting-style {
 	.mobile-menu.is-open {
 		transform: translateY(-100%);
