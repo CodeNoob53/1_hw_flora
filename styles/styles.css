@@ -711,7 +711,6 @@ main {
 	flex-direction: column;
 	gap: 8px;
 	max-width: 100%;
-	height: 103px;
 	text-align: center;
 	align-items: center;
 	align-self: center;
@@ -720,10 +719,7 @@ main {
 .bouquets-list {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: repeat(8, 1fr);
-	height: 3583px;
 	gap: 24px;
-	overflow: hidden;
 }
 
 .bouquets-item {
@@ -772,7 +768,6 @@ main {
 /* #region Feedback */
 
 .feedback {
-	height: 550px;
 	padding: 64px 0;
 	background-color: var(--primary-bg);
 }
@@ -943,7 +938,6 @@ main {
 /* #region Footer */
 
 .footer {
-	height: 691px;
 	padding: 48px 0;
 	background-color: var(--footer-bg);
 }
@@ -1219,23 +1213,17 @@ main {
 
 	/* Bouquets */
 	.bouquets {
-		height: 2092px;
-		box-sizing: border-box;
 		padding: 64px 0;
 		gap: 40px;
 	}
 
 	.bouquets-container {
-		height: 1880px;
 		gap: 32px;
 	}
 
 	.bouquets-list {
 		grid-template-columns: repeat(2, 1fr);
-		grid-auto-rows: 425px;
 		gap: 24px;
-		height: 1772px;
-		overflow: hidden;
 	}
 
 	.bouquets-card-image {
@@ -1252,7 +1240,6 @@ main {
 
 	/* Feedback */
 	.feedback {
-		height: 509px;
 		padding: 64px 0;
 	}
 
@@ -1268,7 +1255,7 @@ main {
 	.feedback-item {
 		flex-basis: 340px;
 		width: 340px;
-		height: 228px;
+		min-height: 228px;
 	}
 
 	.feedback-item:nth-child(2) {
@@ -1285,12 +1272,10 @@ main {
 
 	/* Contacts */
 	.contacts {
-		height: 715px;
 		padding: 64px 0;
 	}
 
 	.contacts-container {
-		height: 587px;
 		gap: 32px;
 	}
 
@@ -1326,12 +1311,10 @@ main {
 
 	/* Footer — tablet */
 	.footer {
-		height: 451px;
 		padding: 48px 0;
 	}
 
 	.footer-container {
-		height: 355px;
 		gap: 32px;
 	}
 
@@ -1503,7 +1486,6 @@ main {
 	}
 
 	.bestsellers-container {
-		height: 629px;
 		gap: 32px;
 	}
 
@@ -1540,20 +1522,16 @@ main {
 
 	/* Bouquets */
 	.bouquets {
-		height: 1337px;
-		box-sizing: border-box;
 		padding: 92px 0;
 		gap: 40px;
 	}
 
 	.bouquets-container {
-		height: 1069px;
 		gap: 32px;
 	}
 
 	.bouquets-title {
 		max-width: 768px;
-		height: 93px;
 	}
 
 	.bouquets .section-title {
@@ -1562,11 +1540,8 @@ main {
 
 	.bouquets-list {
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(2, 1fr);
 		column-gap: 32px;
 		row-gap: 64px;
-		height: 944px;
-		overflow: hidden;
 	}
 
 	.bouquets-card-image {
@@ -1584,12 +1559,10 @@ main {
 
 	/* Feedback */
 	.feedback {
-		height: 582px;
 		padding: 92px 0;
 	}
 
 	.feedback-container {
-		height: 398px;
 		gap: 32px;
 	}
 
@@ -1606,7 +1579,7 @@ main {
 	.feedback-item {
 		width: 405px;
 		flex-basis: 405px;
-		height: 228px;
+		min-height: 228px;
 		padding: 32px;
 		gap: 24px;
 	}
@@ -1621,12 +1594,10 @@ main {
 
 	/* Contacts */
 	.contacts {
-		height: 1090px;
 		padding: 92px 0;
 	}
 
 	.contacts-container {
-		height: 906px;
 		gap: 32px;
 	}
 
@@ -1663,12 +1634,10 @@ main {
 
 	/* Footer — desktop: 3-col layout */
 	.footer {
-		height: 419px;
 		padding: 80px 0;
 	}
 
 	.footer-container {
-		height: 259px;
 		gap: 80px;
 	}
 
