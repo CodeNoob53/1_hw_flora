@@ -1,18 +1,18 @@
 /* #region Global */
 
 /* Lock scroll when mobile menu is open */
-html:has(.mobile-menu[open]) {
+html.menu-open {
 	overflow: hidden;
 }
 
 /* On mobile, hide the header CTA button when the menu is open (it's duplicated inside the menu) */
 @media screen and (max-width: 767px) {
-	.header:has(~ .mobile-menu[open]) .header-button {
+	.menu-open .header-button {
 		display: none;
 	}
 }
 
-.header:has(~ .mobile-menu[open]) {
+.menu-open .header {
 	box-shadow: none;
 }
 
@@ -221,11 +221,11 @@ main {
 	display: none;
 }
 
-.header:has(~ .mobile-menu[open]) .menu-icon--open {
+.menu-open .menu-icon--open {
 	display: none;
 }
 
-.header:has(~ .mobile-menu[open]) .menu-icon--close {
+.menu-open .menu-icon--close {
 	display: block;
 }
 
@@ -256,7 +256,11 @@ main {
 	transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), display 300ms ease allow-discrete;
 }
 
-.mobile-menu[open] {
+.mobile-menu[hidden] {
+	display: none;
+}
+
+.mobile-menu.is-open {
 	transform: translateY(0);
 }
 
@@ -295,7 +299,7 @@ main {
 }
 
 @starting-style {
-	.mobile-menu[open] {
+	.mobile-menu.is-open {
 		transform: translateY(-100%);
 	}
 }
@@ -334,16 +338,16 @@ main {
 		transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.mobile-menu[open] .menu-navigation-list li {
+.mobile-menu.is-open .menu-navigation-list li {
 	opacity: 1;
 	transform: translateY(0);
 }
 
-.mobile-menu[open] .menu-navigation-list li:nth-child(1) { transition-delay: 80ms; }
-.mobile-menu[open] .menu-navigation-list li:nth-child(2) { transition-delay: 130ms; }
-.mobile-menu[open] .menu-navigation-list li:nth-child(3) { transition-delay: 180ms; }
-.mobile-menu[open] .menu-navigation-list li:nth-child(4) { transition-delay: 230ms; }
-.mobile-menu[open] .menu-navigation-list li:nth-child(5) { transition-delay: 280ms; }
+.mobile-menu.is-open .menu-navigation-list li:nth-child(1) { transition-delay: 80ms; }
+.mobile-menu.is-open .menu-navigation-list li:nth-child(2) { transition-delay: 130ms; }
+.mobile-menu.is-open .menu-navigation-list li:nth-child(3) { transition-delay: 180ms; }
+.mobile-menu.is-open .menu-navigation-list li:nth-child(4) { transition-delay: 230ms; }
+.mobile-menu.is-open .menu-navigation-list li:nth-child(5) { transition-delay: 280ms; }
 
 .menu-action-button {
 	opacity: 0;
@@ -353,7 +357,7 @@ main {
 		transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.mobile-menu[open] .menu-action-button {
+.mobile-menu.is-open .menu-action-button {
 	opacity: 1;
 	transform: translateY(0);
 	transition-delay: 330ms;
