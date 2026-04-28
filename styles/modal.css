@@ -27,7 +27,7 @@ html:has(dialog[open]) {
 	transform: translate(-50%, -50%);
 	margin: 0;
 	background: var(--primary-bg);
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	max-height: 90dvh;
 	overflow-y: auto;
 }
@@ -99,7 +99,7 @@ html:has(dialog[open]) {
 	width: 295px;
 	height: 315px;
 	flex-shrink: 0;
-	border-radius: 12px;
+	border-radius: var(--radius-md);
 	overflow: hidden;
 
 }
@@ -156,7 +156,7 @@ html:has(dialog[open]) {
 	width: 64px;
 	height: 40px;
 	border: 1.5px solid var(--border-color-subtle);
-	border-radius: 12px;
+	border-radius: var(--radius-md);
 	padding: 0 4px 0 12px;
 	font-size: var(--font-regular);
 	font-family: inherit;
@@ -227,7 +227,7 @@ html:has(dialog[open]) {
 	width: 100%;
 	padding: 8px 12px;
 	border: 1px solid var(--border-color-input);
-	border-radius: 12px;
+	border-radius: var(--radius-md);
 	font-size: var(--font-regular);
 	font-family: inherit;
 	color: var(--primary-text);

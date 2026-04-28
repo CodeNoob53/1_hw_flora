@@ -411,7 +411,7 @@ main {
 
 .about {
 	background-color: var(--primary-bg);
-	padding: 64px 0;
+	padding: var(--section-padding-mobile);
 }
 
 .about-container {
@@ -451,7 +451,7 @@ main {
 .about-image {
 	width: 100%;
 	height: 428px;
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	flex-shrink: 0;
 	object-fit: cover;
 }
@@ -468,7 +468,7 @@ main {
 }
 
 .product-card picture {
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	overflow: hidden;
 	display: block;
 }
@@ -507,7 +507,7 @@ main {
 /* #region Bestsellers */
 
 .bestsellers {
-	padding: 64px 0;
+	padding: var(--section-padding-mobile);
 	background-color: var(--primary-bg);
 }
 
@@ -552,7 +552,7 @@ main {
 .bestsellers-card-image {
 	width: 100%;
 	height: 320px;
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	object-fit: cover;
 	transition: transform 450ms ease;
 }
@@ -650,7 +650,7 @@ main {
 /* #region Bouquets */
 
 .bouquets {
-	padding: 64px 0;
+	padding: var(--section-padding-mobile);
 	background-color: var(--primary-bg);
 	display: flex;
 	flex-direction: column;
@@ -714,7 +714,7 @@ main {
 .bouquets-card-image {
 	width: 100%;
 	height: 296px;
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	object-fit: cover;
 	transition: transform 450ms ease;
 }
@@ -736,7 +736,7 @@ main {
 /* #region Feedback */
 
 .feedback {
-	padding: 64px 0;
+	padding: var(--section-padding-mobile);
 	background-color: var(--primary-bg);
 }
 
@@ -769,7 +769,7 @@ main {
 	box-sizing: border-box;
 	background-color: var(--primary-bg);
 	border: 1px solid var(--border-color-subtle);
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 }
 
 .feedback-item:nth-child(2),
@@ -801,7 +801,7 @@ main {
 /* #region Contacts */
 
 .contacts {
-	padding: 64px 0;
+	padding: var(--section-padding-mobile);
 	background-color: var(--primary-bg);
 }
 
@@ -879,7 +879,6 @@ main {
 	font-weight: 400;
 	font-size: 18px;
 	line-height: 140%;
-	letter-spacing: -0.01em;
 	letter-spacing: 0;
 }
 
@@ -897,7 +896,7 @@ main {
 .contacts-image {
 	width: 100%;
 	height: 312px;
-	border-radius: 16px;
+	border-radius: var(--radius-lg);
 	object-fit: cover;
 }
 
@@ -1116,11 +1115,6 @@ main {
 		width: 215px;
 	}
 
-	/* About */
-	.about {
-		padding: 64px 0;
-	}
-
 	.about-container {
 		flex-direction: row;
 		align-items: center;
@@ -1136,15 +1130,6 @@ main {
 	.about-image {
 		width: 340px;
 		height: 428px;
-	}
-
-	/* Bestsellers */
-	.bestsellers {
-		padding: 64px 0;
-	}
-
-	.bestsellers-container {
-		gap: 32px;
 	}
 
 	.bestsellers-body {
@@ -1180,15 +1165,6 @@ main {
 	}
 
 	/* Bouquets */
-	.bouquets {
-		padding: 64px 0;
-		gap: 40px;
-	}
-
-	.bouquets-container {
-		gap: 32px;
-	}
-
 	.bouquets-list {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 24px;
@@ -1204,15 +1180,6 @@ main {
 		max-width: 100%;
 		height: 44px;
 		min-width: 0;
-	}
-
-	/* Feedback */
-	.feedback {
-		padding: 64px 0;
-	}
-
-	.feedback-container {
-		gap: 32px;
 	}
 
 	.feedback-list {
@@ -1236,11 +1203,6 @@ main {
 
 	.feedback-nav {
 		align-self: flex-end;
-	}
-
-	/* Contacts */
-	.contacts {
-		padding: 64px 0;
 	}
 
 	.contacts-container {
@@ -1419,7 +1381,7 @@ main {
 
 	/* About */
 	.about {
-		padding: 92px 0;
+		padding: var(--section-padding-desktop);
 	}
 
 	.about-container {
@@ -1450,7 +1412,7 @@ main {
 
 	/* Bestsellers */
 	.bestsellers {
-		padding: 92px 0;
+		padding: var(--section-padding-desktop);
 	}
 
 	.bestsellers-container {
@@ -1490,7 +1452,7 @@ main {
 
 	/* Bouquets */
 	.bouquets {
-		padding: 92px 0;
+		padding: var(--section-padding-desktop);
 		gap: 40px;
 	}
 
@@ -1527,7 +1489,7 @@ main {
 
 	/* Feedback */
 	.feedback {
-		padding: 92px 0;
+		padding: var(--section-padding-desktop);
 	}
 
 	.feedback-container {
@@ -1562,7 +1524,7 @@ main {
 
 	/* Contacts */
 	.contacts {
-		padding: 92px 0;
+		padding: var(--section-padding-desktop);
 	}
 
 	.contacts-container {
