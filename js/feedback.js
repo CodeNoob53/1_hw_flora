@@ -6,7 +6,7 @@
 
 import { apiClient } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml } from './utils.js';
+import { extractErrorMessage, escapeHtml, revealCards } from './utils.js';
 import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
 const list = document.getElementById('feedback-list');
@@ -30,12 +30,6 @@ function buildItemMarkup(feedback, position) {
 		</li>`;
 }
 
-function revealCards() {
-	requestAnimationFrame(() => {
-		list.querySelectorAll('.card-reveal').forEach(el => el.classList.add('is-visible'));
-	});
-}
-
 async function init() {
 	if (!list) return;
 	list.setAttribute('aria-busy', 'true');
@@ -51,7 +45,6 @@ async function init() {
 
 		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
 
-		revealCards();
 		const carousel = createCarousel({
 			track: list,
 			prevButton,
@@ -59,6 +52,7 @@ async function init() {
 			getPerView: perViewByBreakpoint,
 		});
 		carousel.update();
+		revealCards(list);
 	} catch (error) {
 		console.error('Failed to load testimonials:', error);
 		showErrorNotification(extractErrorMessage(error));

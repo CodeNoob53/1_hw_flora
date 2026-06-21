@@ -1,12 +1,12 @@
 /**
  * Bestsellers module
- * Loads the Top-Selling bouquets (top 3 by order count) and presents them in a
- * finite carousel. Cards animate in on first render.
+ * Loads the Top-Selling bouquets (top by order count) and presents them in a
+ * finite paged carousel. Cards animate in on first render.
  */
 
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } from './utils.js';
+import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture, revealCards } from './utils.js';
 import { cacheProducts } from './productStore.js';
 import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
@@ -47,13 +47,6 @@ function buildItemMarkup(product, position) {
 		</li>`;
 }
 
-/** Reveal cards on the next frame so the CSS transition runs. */
-function revealCards() {
-	requestAnimationFrame(() => {
-		list.querySelectorAll('.card-reveal').forEach(el => el.classList.add('is-visible'));
-	});
-}
-
 async function init() {
 	if (!list) return;
 	list.setAttribute('aria-busy', 'true');
@@ -77,7 +70,6 @@ async function init() {
 		cacheProducts(items);
 		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
 
-		revealCards();
 		const carousel = createCarousel({
 			track: list,
 			prevButton,
@@ -86,6 +78,7 @@ async function init() {
 			getPerView: perViewByBreakpoint,
 		});
 		carousel.update();
+		revealCards(list);
 	} catch (error) {
 		console.error('Failed to load bestsellers:', error);
 		showErrorNotification(extractErrorMessage(error));

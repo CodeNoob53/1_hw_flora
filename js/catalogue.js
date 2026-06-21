@@ -6,7 +6,7 @@
 
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } from './utils.js';
+import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture, revealCards } from './utils.js';
 import { cacheProducts } from './productStore.js';
 import { LIMITS } from './constants.js';
 
@@ -150,15 +150,8 @@ function renderChunk(products, { replace }) {
 	if (fresh.length > 0) {
 		cacheProducts(fresh);
 		list.insertAdjacentHTML('beforeend', fresh.map((p, i) => buildCardMarkup(p, i)).join(''));
-		revealNewCards();
+		revealCards(list);
 	}
-}
-
-/** Reveal freshly inserted cards on the next frame so the CSS transition runs. */
-function revealNewCards() {
-	requestAnimationFrame(() => {
-		list.querySelectorAll('.card-reveal:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
-	});
 }
 
 /**

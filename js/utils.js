@@ -9,6 +9,20 @@ export function extractErrorMessage(
 	return fallbackMessage;
 }
 
+// Trigger the entrance animation on freshly inserted `.card-reveal` elements.
+// Uses a double rAF so the initial opacity:0 state is painted before
+// `.is-visible` is added — otherwise the browser skips the transition.
+export function revealCards(root) {
+	if (!root) return;
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			root.querySelectorAll('.card-reveal:not(.is-visible)').forEach(el => {
+				el.classList.add('is-visible');
+			});
+		});
+	});
+}
+
 // Escape values that go into template strings rendered with insertAdjacentHTML.
 export function escapeHtml(value) {
 	return String(value ?? '')
