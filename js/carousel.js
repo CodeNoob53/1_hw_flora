@@ -1,16 +1,16 @@
 /**
  * Carousel module
- * A finite (non-looping) windowed carousel shared by the Bestsellers and
- * Feedback sections. The layout itself is CSS-driven: the list shows the first
- * 1 / 2 / 3 children (mobile / tablet / desktop) via nth-child rules. This
- * module reorders the DOM so the active window sits at the front, disables the
- * arrows at the start/end, and keeps the dots in sync.
+ * A finite (non-looping) paged carousel shared by the Bestsellers and Feedback
+ * sections. Items are split into pages of `perView` cards (1 / 2 / 3 by
+ * viewport); only the current page is shown, the rest are hidden via JS. Arrows
+ * step one page at a time and disable at the first/last page; dots reflect the
+ * page count.
  */
 
 import { BREAKPOINTS } from './constants.js';
 
 /**
- * Cards visible per view, matching the CSS breakpoints.
+ * Cards visible per page, matching the CSS breakpoints.
  * @returns {number}
  */
 export function perViewByBreakpoint() {
@@ -22,32 +22,32 @@ export function perViewByBreakpoint() {
 
 /**
  * @param {object} config
- * @param {HTMLElement} config.track - The <ul> holding the items.
+ * @param {HTMLElement} config.track - The <ul> holding all the item elements.
  * @param {HTMLElement} [config.prevButton]
  * @param {HTMLElement} [config.nextButton]
  * @param {HTMLElement} [config.dots]
- * @param {() => number} config.getPerView - How many cards are visible now.
+ * @param {() => number} config.getPerView - Cards per page for the current viewport.
  * @returns {{ update: () => void }}
  */
 export function createCarousel({ track, prevButton, nextButton, dots, getPerView }) {
-	// The immutable source order of items (macket order). The DOM is reordered
-	// for display, but navigation logic works against this stable list.
 	const items = [...track.children];
-	let start = 0; // index of the left-most visible card
+	let page = 0; // current page index (0-based)
 
-	const maxStart = () => Math.max(0, items.length - getPerView());
+	const pageCount = () => Math.max(1, Math.ceil(items.length / getPerView()));
 
-	/** Put the items in display order: active window first, rest after. */
-	function applyOrder() {
-		const ordered = [...items.slice(start), ...items.slice(0, start)];
-		// Animating wrappers (.card-reveal) keep their is-visible state; we only
-		// re-append, which moves existing nodes without recreating them.
-		ordered.forEach(node => track.append(node));
+	/** Show only the current page's items; hide the rest. */
+	function applyVisibility() {
+		const perView = getPerView();
+		const startIndex = page * perView;
+		const endIndex = startIndex + perView;
+		items.forEach((item, i) => {
+			item.classList.toggle('carousel-hidden', i < startIndex || i >= endIndex);
+		});
 	}
 
 	function updateArrows() {
-		const atStart = start <= 0;
-		const atEnd = start >= maxStart();
+		const atStart = page <= 0;
+		const atEnd = page >= pageCount() - 1;
 		if (prevButton) {
 			prevButton.disabled = atStart;
 			prevButton.setAttribute('aria-disabled', String(atStart));
@@ -60,13 +60,13 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 
 	function renderDots() {
 		if (!dots) return;
-		const pages = maxStart() + 1;
+		const pages = pageCount();
 		if (pages <= 1) {
 			dots.replaceChildren();
 			return;
 		}
 		const markup = Array.from({ length: pages }, (_, i) => {
-			const active = i === start ? ' is-active' : '';
+			const active = i === page ? ' is-active' : '';
 			return `<li><span class="bestsellers-dot${active}"></span></li>`;
 		}).join('');
 		dots.replaceChildren();
@@ -74,21 +74,21 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 	}
 
 	function update() {
-		start = Math.min(start, maxStart());
-		applyOrder();
+		page = Math.min(page, pageCount() - 1);
+		applyVisibility();
 		updateArrows();
 		renderDots();
 	}
 
-	function goTo(next) {
-		const clamped = Math.max(0, Math.min(next, maxStart()));
-		if (clamped === start) return;
-		start = clamped;
+	function goTo(nextPage) {
+		const clamped = Math.max(0, Math.min(nextPage, pageCount() - 1));
+		if (clamped === page) return;
+		page = clamped;
 		update();
 	}
 
-	prevButton?.addEventListener('click', () => goTo(start - getPerView()));
-	nextButton?.addEventListener('click', () => goTo(start + getPerView()));
+	prevButton?.addEventListener('click', () => goTo(page - 1));
+	nextButton?.addEventListener('click', () => goTo(page + 1));
 
 	dots?.addEventListener('click', event => {
 		const dot = event.target.closest('li');
@@ -97,7 +97,7 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 		if (i >= 0) goTo(i);
 	});
 
-	// Re-evaluate edges/dots on resize (per-view changes between breakpoints).
+	// Re-evaluate pages/edges on resize (per-view changes between breakpoints).
 	let resizeTimer;
 	window.addEventListener('resize', () => {
 		clearTimeout(resizeTimer);

@@ -57,6 +57,12 @@ main {
 	line-height: 150%;
 }
 
+/* The [hidden] attribute must win over the display rule below (e.g. the
+   "Show More" button hides itself on the last page via hidden = true). */
+.primary-button[hidden] {
+	display: none;
+}
+
 .primary-button {
 	display: inline-flex;
 	align-items: center;
@@ -543,10 +549,9 @@ main {
 	min-height: 464px;
 }
 
-/* Mobile carousel: show only first card */
-.bestsellers-item:nth-child(2),
-.bestsellers-item:nth-child(3) {
-	display: none;
+/* Cards outside the current carousel page are hidden by JS. */
+.carousel-hidden {
+	display: none !important;
 }
 
 .bestsellers-card-image {
@@ -777,10 +782,6 @@ main {
 	border-radius: var(--radius-lg);
 }
 
-.feedback-item:nth-child(2),
-.feedback-item:nth-child(3) {
-	display: none;
-}
 
 .feedback-quote {
 	font-size: var(--font-subtitle);
@@ -1221,14 +1222,6 @@ main {
 		min-height: 464px;
 	}
 
-	.bestsellers-item:nth-child(2) {
-		display: flex;
-	}
-
-	.bestsellers-item:nth-child(3) {
-		display: none;
-	}
-
 	.bestsellers-card-image {
 		width: 340px;
 		height: 320px;
@@ -1261,14 +1254,6 @@ main {
 		flex-basis: 340px;
 		width: 340px;
 		min-height: 228px;
-	}
-
-	.feedback-item:nth-child(2) {
-		display: flex;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: none;
 	}
 
 	.feedback-nav {
@@ -1507,10 +1492,6 @@ main {
 		flex-basis: calc((100% - 32px * 2) / 3);
 	}
 
-	.bestsellers-item:nth-child(3) {
-		display: flex;
-	}
-
 	.bestsellers-card-image {
 		width: 405px;
 		height: 320px;
@@ -1582,10 +1563,6 @@ main {
 		min-height: 228px;
 		padding: 32px;
 		gap: 24px;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: flex;
 	}
 
 	.feedback-nav {

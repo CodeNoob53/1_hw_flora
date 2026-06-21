@@ -10,7 +10,7 @@ import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } fro
 import { cacheProducts } from './productStore.js';
 import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
-const TOP_COUNT = 3;
+const TOP_COUNT = 15;
 
 const list = document.getElementById('bestsellers-list');
 const dots = document.getElementById('bestsellers-dots');
