@@ -6,49 +6,30 @@
 
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture, revealCards } from './utils.js';
+import { extractErrorMessage, normalizeApiResponse, setStatusMessage, buildProductCard } from './utils.js';
 import { cacheProducts } from './productStore.js';
 import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
-const TOP_COUNT = 15;
+const TOP_COUNT = 18;
 
+const viewport = document.getElementById('bestsellers-viewport');
 const list = document.getElementById('bestsellers-list');
 const dots = document.getElementById('bestsellers-dots');
 const status = document.getElementById('bestsellers-status');
 const prevButton = document.getElementById('bestsellers-prev');
 const nextButton = document.getElementById('bestsellers-next');
 
-function setStatus(message) {
-	if (!status) return;
-	status.textContent = message ?? '';
-	status.hidden = !message;
-}
-
-function buildItemMarkup(product, position) {
-	const picture = buildProductPicture(product, {
+function buildItemMarkup(product) {
+	return buildProductCard(product, {
+		containerClass: 'bestsellers-item',
 		imageClass: 'bestsellers-card-image',
-		width: 335,
-		height: 320,
+		imageWidth: 335,
+		imageHeight: 320,
 	});
-
-	// Stagger the entrance animation by card position.
-	return `
-		<li class="bestsellers-item card-reveal" style="--reveal-delay: ${position * 120}ms">
-			<div class="product-card" data-id="${escapeHtml(product.id)}">
-				${picture}
-				<div class="product-card-content">
-					<div class="product-card-header">
-						<h3 class="product-card-title">${escapeHtml(product.title)}</h3>
-						<p class="product-card-text">${escapeHtml(product.text)}</p>
-					</div>
-					<p class="product-card-price">${escapeHtml(formatPrice(product.price))}</p>
-				</div>
-			</div>
-		</li>`;
 }
 
 async function init() {
-	if (!list) return;
+	if (!list || !viewport) return;
 	list.setAttribute('aria-busy', 'true');
 
 	try {
@@ -56,14 +37,12 @@ async function init() {
 		// to sort/limit; in static mode we sort the full array client-side.
 		const params = isStaticApiMode ? {} : { _sort: '-orders', _page: 1, _per_page: TOP_COUNT };
 		const response = await apiClient.get('/products', { params });
-		const raw = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
-
-		const items = [...raw]
+		const items = [...normalizeApiResponse(response)]
 			.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0))
 			.slice(0, TOP_COUNT);
 
 		if (items.length === 0) {
-			setStatus('No bestsellers to show right now.');
+			setStatusMessage(status, 'No bestsellers to show right now.');
 			return;
 		}
 
@@ -71,6 +50,7 @@ async function init() {
 		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
 
 		const carousel = createCarousel({
+			viewport,
 			track: list,
 			prevButton,
 			nextButton,
@@ -78,11 +58,10 @@ async function init() {
 			getPerView: perViewByBreakpoint,
 		});
 		carousel.update();
-		revealCards(list);
 	} catch (error) {
 		console.error('Failed to load bestsellers:', error);
 		showErrorNotification(extractErrorMessage(error));
-		setStatus('Could not load bestsellers. Please try again later.');
+		setStatusMessage(status, 'Could not load bestsellers. Please try again later.');
 	} finally {
 		list.setAttribute('aria-busy', 'false');
 	}

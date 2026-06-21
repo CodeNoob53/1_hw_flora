@@ -35,13 +35,6 @@
     <link rel="preload" href="./assets/fonts/hanuman.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="./assets/fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- AOS — defer (non-critical animation lib) -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
-      media="print"
-      onload="this.media = 'all'"
-   >
 
     <!-- Styles — parallel load instead of @import chain -->
     <link rel="stylesheet" href="./styles/reset.css">
@@ -121,7 +114,7 @@
       <section class="hero" id="hero">
         <div class="hero-bg">
           <div class="container">
-            <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+            <div class="hero-content" data-reveal="fade-up" data-reveal-delay="200">
               <h1 class="hero-title">
                 Brighten Your Day with Our Stunning Bouquets
               </h1>
@@ -144,7 +137,7 @@
       <!-- #region ABOUT -->
       <section class="about" id="about">
         <div class="container about-container">
-          <div class="about-content" data-aos="fade-right">
+          <div class="about-content" data-reveal="fade-right">
             <svg class="about-icon" aria-hidden="true" focusable="false">
               <use href="./assets/icons/sprite.svg#icon-flower"></use>
             </svg>
@@ -159,7 +152,7 @@
             </div>
           </div>
 
-          <picture data-aos="fade-left">
+          <picture data-reveal="fade-left">
             <source
               media="(min-width: 1440px)"
               srcset="
@@ -201,12 +194,14 @@
       <!-- #region BESTSELLERS -->
       <section class="bestsellers" id="bestsellers">
         <div class="container bestsellers-container">
-          <div class="bestsellers-title-row" data-aos="fade-up">
+          <div class="bestsellers-title-row" data-reveal="fade-up">
             <h2 class="section-title">Top-Selling Bouquets</h2>
           </div>
 
-          <div class="bestsellers-body">
-            <ul class="bestsellers-list" id="bestsellers-list" aria-busy="false"></ul>
+          <div class="bestsellers-body" data-reveal="fade-up" data-reveal-delay="100">
+            <div class="carousel-viewport" id="bestsellers-viewport">
+              <ul class="bestsellers-list carousel-track" id="bestsellers-list" aria-busy="false"></ul>
+            </div>
             <p class="bestsellers-message" id="bestsellers-status" role="status" hidden></p>
 
             <div class="bestsellers-controls">
@@ -244,7 +239,7 @@
       <!-- #region BOUQUETS -->
       <section class="bouquets" id="bouquets">
         <div class="container bouquets-container">
-          <div class="bouquets-title" data-aos="fade-up">
+          <div class="bouquets-title" data-reveal="fade-up">
             <h2 class="section-title">Bouquets</h2>
             <p class="section-text">
               Explore our stunning selection of fresh flower bouquets.
@@ -268,12 +263,14 @@
       </section>
       <!-- #endregion BOUQUETS -->
       <!-- #region FEEDBACK -->
-      <section class="feedback" id="feedback" data-aos="fade-up">
+      <section class="feedback" id="feedback" data-reveal="fade-up">
         <div class="container feedback-container">
           <h2 class="section-title feedback-title">What our clients says</h2>
 
           <!-- Testimonials are rendered dynamically from the API (js/feedback.js) -->
-          <ul class="feedback-list" id="feedback-list" aria-busy="false"></ul>
+          <div class="carousel-viewport" id="feedback-viewport">
+            <ul class="feedback-list carousel-track" id="feedback-list" aria-busy="false"></ul>
+          </div>
           <p class="feedback-message" id="feedback-status" role="status" hidden></p>
 
           <div class="feedback-nav">
@@ -303,7 +300,7 @@
       <!-- #endregion FEEDBACK -->
 
       <!-- #region CONTACTS -->
-      <section class="contacts" id="contacts" data-aos="fade-up">
+      <section class="contacts" id="contacts" data-reveal="fade-up">
         <div class="container contacts-container">
           <div class="contacts-header">
             <div class="contacts-intro">
@@ -586,15 +583,6 @@
     <!-- #region SCRIPTS -->
     <!-- type="module" → автоматично defer + дозволяє import/export -->
     <script src="./js/main.js" type="module"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        duration: 800,
-        easing: "ease-out",
-        once: true,
-        offset: 100,
-      });
-    </script>
     <!-- #endregion SCRIPTS -->
   </body>
 </html>

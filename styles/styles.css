@@ -542,16 +542,12 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+	--carousel-gap: 24px;
 }
 
 .bestsellers-item {
 	flex-basis: 100%;
 	min-height: 464px;
-}
-
-/* Cards outside the current carousel page are hidden by JS. */
-.carousel-hidden {
-	display: none !important;
 }
 
 .bestsellers-card-image {
@@ -574,21 +570,28 @@ main {
 }
 
 .bestsellers-dots {
+	/* Viewport: shows exactly 6 dots (6×8px dots + 5×8px gaps = 88px).
+	   The inner track slides via translateX to keep the active dot centred. */
+	overflow: hidden;
+	width: 88px;
+	flex-shrink: 0;
+}
+
+.bestsellers-dots-track {
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bestsellers-dot {
 	display: block;
+	flex-shrink: 0;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
 	background-color: var(--primary-text);
 	opacity: 0.2;
-}
-
-.bestsellers-dot {
 	cursor: pointer;
 	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -768,6 +771,7 @@ main {
 	flex-direction: column;
 	gap: 16px;
 	width: 100%;
+	--carousel-gap: 16px;
 }
 
 .feedback-item {
@@ -1150,13 +1154,16 @@ main {
 		gap: 24px;
 	}
 
+	.carousel-track > .bestsellers-item {
+		--per-view: 2;
+	}
+
 	.bestsellers-item {
-		flex-basis: calc((100% - 24px) / 2);
 		min-height: 464px;
 	}
 
 	.bestsellers-card-image {
-		width: 340px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1181,11 +1188,14 @@ main {
 	.feedback-list {
 		flex-direction: row;
 		gap: 24px;
+		--carousel-gap: 24px;
+	}
+
+	.carousel-track > .feedback-item {
+		--per-view: 2;
 	}
 
 	.feedback-item {
-		flex-basis: 340px;
-		width: 340px;
 		min-height: 228px;
 	}
 
@@ -1419,14 +1429,15 @@ main {
 		flex-direction: row;
 		flex-wrap: nowrap;
 		gap: 32px;
+		--carousel-gap: 32px;
 	}
 
-	.bestsellers-item {
-		flex-basis: calc((100% - 32px * 2) / 3);
+	.carousel-track > .bestsellers-item {
+		--per-view: 3;
 	}
 
 	.bestsellers-card-image {
-		width: 405px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1488,11 +1499,14 @@ main {
 	.feedback-list {
 		flex-direction: row;
 		gap: 32px;
+		--carousel-gap: 32px;
+	}
+
+	.carousel-track > .feedback-item {
+		--per-view: 3;
 	}
 
 	.feedback-item {
-		width: 405px;
-		flex-basis: 405px;
 		min-height: 228px;
 		padding: 32px;
 		gap: 24px;
@@ -1603,25 +1617,77 @@ main {
 }
 /* #endregion Desktop */
 
-/* #region Carousel reveal animation (Bestsellers, Feedback, Bouquets) */
+/* #region Carousel slider (Bestsellers + Feedback) */
 
-/* Card entrance animation. */
-.card-reveal {
-	opacity: 0;
-	transform: translateY(24px);
-	transition:
-		opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
-		transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-	transition-delay: var(--reveal-delay, 0ms);
+/* Viewport clips the track; only the current page of cards is visible. */
+.carousel-viewport {
+	overflow: hidden;
+	width: 100%;
 }
 
-.card-reveal.is-visible {
-	opacity: 1;
-	transform: translateY(0);
+/* The track is a single non-wrapping flex row that slides via translate3d.
+   Overrides the list's column/wrap layout used as a no-JS fallback. */
+.carousel-track {
+	flex-direction: row;
+	flex-wrap: nowrap;
+	will-change: transform;
+	transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Each card is a fixed fraction of the viewport so exactly --per-view fit;
+   the rest of the row overflows and is clipped. --per-view defaults to 1 and
+   is raised per breakpoint (see the base list rules + media queries above). */
+.carousel-track > .bestsellers-item,
+.carousel-track > .feedback-item {
+	flex: 0 0 calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
+	max-width: calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.card-reveal {
+	.carousel-track {
+		transition: none;
+	}
+}
+
+/* ─── Scroll-reveal (replaces AOS) ──────────────────────────────────────────
+   Any element with [data-reveal] starts hidden and transitions to its natural
+   position once IntersectionObserver fires .is-visible.
+   Variants: fade-up (default) | fade-down | fade-left | fade-right
+   Stagger: set --reveal-delay inline on each child (catalogue.js does this).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+[data-reveal] {
+	opacity: 0;
+	transition:
+		opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="fade-up"],
+[data-reveal] {
+	transform: translateY(32px);
+}
+
+[data-reveal="fade-down"] {
+	transform: translateY(-32px);
+}
+
+[data-reveal="fade-left"] {
+	transform: translateX(40px);
+}
+
+[data-reveal="fade-right"] {
+	transform: translateX(-40px);
+}
+
+[data-reveal].is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-reveal] {
 		transition: none;
 		opacity: 1;
 		transform: none;
