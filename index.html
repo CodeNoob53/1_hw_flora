@@ -480,6 +480,28 @@
           </ul>
         </div>
 
+        <form class="subscribe-form" id="subscribe-form" novalidate>
+          <div class="subscribe-text">
+            <h3 class="subscribe-title">Stay in bloom</h3>
+            <p class="subscribe-subtitle">
+              Subscribe for seasonal bouquets, offers, and floral inspiration.
+            </p>
+          </div>
+          <div class="subscribe-controls">
+            <label class="visually-hidden" for="subscribe-email">Email address</label>
+            <input
+              class="subscribe-input"
+              id="subscribe-email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+            >
+            <button class="primary-button subscribe-button" type="submit">Subscribe</button>
+          </div>
+        </form>
+
         <div class="footer-credits">
           <hr class="footer-divider">
           <p class="footer-copyright">
@@ -577,6 +599,20 @@
           <label class="order-form-label" for="order-message">Message</label>
           <textarea class="order-form-textarea" id="order-message" name="message" placeholder="Type your message..." rows="5"></textarea>
         </div>
+
+        <label class="order-form-agree">
+          <input class="order-form-agree-input visually-hidden" id="order-agree" name="agreement" type="checkbox" required>
+          <span class="order-form-agree-box" aria-hidden="true">
+            <svg class="order-form-agree-icon" focusable="false">
+              <use href="./assets/icons/sprite.svg#icon-check"></use>
+            </svg>
+          </span>
+          <span class="order-form-agree-text">
+            I agree to the
+            <a class="general-link" href="#" target="_blank" rel="noopener">Terms &amp; Privacy Policy</a>
+          </span>
+        </label>
+
         <button class="primary-button order-form-submit" type="submit">Go to Checkout</button>
       </form>
     </dialog>
