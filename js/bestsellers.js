@@ -12,7 +12,6 @@ import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
 const TOP_COUNT = 3;
 
-const viewport = document.getElementById('bestsellers-viewport');
 const list = document.getElementById('bestsellers-list');
 const dots = document.getElementById('bestsellers-dots');
 const status = document.getElementById('bestsellers-status');
@@ -56,7 +55,7 @@ function revealCards() {
 }
 
 async function init() {
-	if (!list || !viewport) return;
+	if (!list) return;
 	list.setAttribute('aria-busy', 'true');
 
 	try {
@@ -78,8 +77,8 @@ async function init() {
 		cacheProducts(items);
 		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
 
+		revealCards();
 		const carousel = createCarousel({
-			viewport,
 			track: list,
 			prevButton,
 			nextButton,
@@ -87,7 +86,6 @@ async function init() {
 			getPerView: perViewByBreakpoint,
 		});
 		carousel.update();
-		revealCards();
 	} catch (error) {
 		console.error('Failed to load bestsellers:', error);
 		showErrorNotification(extractErrorMessage(error));
