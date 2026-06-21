@@ -7,5 +7,4 @@ export const BREAKPOINTS = {
 // Catalogue items loaded per "Show More" click (8 on every viewport per layout).
 export const LIMITS = {
 	BOUQUETS: 8,
-	DEFAULT: 8,
 };
