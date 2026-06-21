@@ -1712,6 +1712,16 @@ main {
 
 /* #region Async UI: loaders, status, notifications */
 
+/* The [hidden] attribute must win over the display rules below, otherwise the
+   loader/messages stay visible after JS sets hidden = true. */
+.bouquets-loader[hidden],
+.bouquets-message[hidden],
+.bouquets-message--error[hidden],
+.bestsellers-message[hidden],
+.feedback-message[hidden] {
+	display: none;
+}
+
 .bouquets-loader {
 	display: flex;
 	align-items: center;
@@ -1751,6 +1761,23 @@ main {
 	font-size: var(--font-subtitle);
 	color: var(--plaseholder-text-color);
 	padding: 16px 0;
+}
+
+/* Explicit error state with a retry action (e.g. API server offline). */
+.bouquets-message--error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	color: var(--primary-text);
+}
+
+.bouquets-message--error .bouquets-message-text {
+	max-width: 36ch;
+}
+
+.bouquets-retry {
+	max-width: 200px;
 }
 
 .notifications {

@@ -52,13 +52,55 @@ function setShowMoreLoading(isLoading) {
 }
 
 /**
- * Show a status message (empty/end/error) or hide it when message is falsy.
+ * Show a plain status message (empty/end) or hide it when message is falsy.
+ * Clears any error variant.
  * @param {string} [message]
  */
 function setStatusMessage(message) {
 	if (!status) return;
+	status.classList.remove('bouquets-message--error');
 	status.textContent = message ?? '';
 	status.hidden = !message;
+}
+
+/**
+ * True when the failure looks like a lost connection to the API rather than a
+ * server-side error (no HTTP response received, or a network/timeout code).
+ * @param {*} err
+ * @returns {boolean}
+ */
+function isConnectionError(err) {
+	if (err?.response) return false;
+	return (
+		err?.code === 'ERR_NETWORK' ||
+		err?.code === 'ECONNABORTED' ||
+		err?.message === 'Network Error' ||
+		err?.request != null
+	);
+}
+
+/**
+ * Render an explicit error block with a "Try again" button into the status
+ * region. Used when the initial load fails (e.g. the API server is offline).
+ * @param {*} err
+ */
+function renderErrorState(err) {
+	if (!status) return;
+
+	const message = isConnectionError(err)
+		? "Can't reach the server. Please check that the catalogue service is running and try again."
+		: 'Something went wrong while loading bouquets. Please try again.';
+
+	status.hidden = false;
+	status.classList.add('bouquets-message--error');
+	status.innerHTML = `
+		<span class="bouquets-message-text">${escapeHtml(message)}</span>
+		<button class="primary-button bouquets-retry" type="button" id="bouquets-retry">Try again</button>`;
+
+	status.querySelector('#bouquets-retry')?.addEventListener('click', () => {
+		setStatusMessage('');
+		resetAndLoad();
+	});
 }
 
 /**
@@ -194,8 +236,13 @@ async function fetchAndRender(page, { append }) {
 	} catch (err) {
 		console.error('Failed to load bouquets:', err);
 		showErrorNotification(extractErrorMessage(err));
-		if (!append && appState.loadedIds.size === 0) {
-			setStatusMessage('Could not load bouquets. Please try again later.');
+		if (append) {
+			// Keep the already-loaded list; let the user retry via "Show More".
+			setShowMoreLoading(false);
+		} else {
+			// Initial load failed — drop the spinner and show an explicit error.
+			setInitialLoading(false);
+			renderErrorState(err);
 		}
 	} finally {
 		appState.isLoading = false;
