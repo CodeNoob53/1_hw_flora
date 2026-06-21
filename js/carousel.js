@@ -74,18 +74,19 @@ export function createCarousel({ viewport, track, prevButton, nextButton, dots, 
 
 		// Build the inner track on first render (or after a replaceChildren reset).
 		if (!dotsTrack || !dots.contains(dotsTrack)) {
-			dotsTrack = document.createElement('ul');
+			dotsTrack = document.createElement('div');
 			dotsTrack.className = 'bestsellers-dots-track';
-			const markup = Array.from({ length: total }, () =>
-				`<li><span class="bestsellers-dot"></span></li>`
+			const markup = Array.from({ length: total }, (_, i) =>
+				`<button class="bestsellers-dot" type="button" aria-label="Page ${i + 1}"></button>`
 			).join('');
 			dotsTrack.insertAdjacentHTML('beforeend', markup);
 			dots.replaceChildren(dotsTrack);
 		}
 
 		// Update active class without rebuilding the DOM.
-		[...dotsTrack.children].forEach((li, i) => {
-			li.querySelector('.bestsellers-dot').classList.toggle('is-active', i === page);
+		[...dotsTrack.children].forEach((btn, i) => {
+			btn.classList.toggle('is-active', i === page);
+			btn.setAttribute('aria-current', i === page ? 'true' : 'false');
 		});
 
 		// Sliding-window: keep the active dot centred in the visible window.
@@ -116,9 +117,9 @@ export function createCarousel({ viewport, track, prevButton, nextButton, dots, 
 	nextButton?.addEventListener('click', () => goTo(page + 1));
 
 	dots?.addEventListener('click', event => {
-		const li = event.target.closest('li');
-		if (!li || !dotsTrack) return;
-		const i = [...dotsTrack.children].indexOf(li);
+		const btn = event.target.closest('button');
+		if (!btn || !dotsTrack) return;
+		const i = [...dotsTrack.children].indexOf(btn);
 		if (i >= 0) goTo(i);
 	});
 

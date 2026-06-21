@@ -586,6 +586,8 @@ main {
 	flex-shrink: 0;
 	width: 8px;
 	height: 8px;
+	padding: 0;
+	border: none;
 	border-radius: 50%;
 	background-color: var(--primary-text);
 	opacity: 0.2;

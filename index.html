@@ -108,6 +108,16 @@
       <!-- #region HERO -->
       <section class="hero" id="hero">
         <div class="hero-bg">
+          <!-- Hidden img lets the browser discover and prioritise the LCP background image early. -->
+          <img
+            class="visually-hidden"
+            src="./assets/images/avif/mob/hero-bg_@1x.avif"
+            srcset="./assets/images/avif/mob/hero-bg_@1x.avif 1x, ./assets/images/avif/mob/hero-bg_@2x.avif 2x"
+            media="(max-width: 767px)"
+            fetchpriority="high"
+            alt=""
+            aria-hidden="true"
+          >
           <div class="container">
             <div class="hero-content" data-reveal="fade-up" data-reveal-delay="200">
               <h1 class="hero-title">
@@ -201,7 +211,7 @@
 
             <div class="bestsellers-controls">
               <!-- Dots are generated to match the number of bestsellers (js/bestsellers.js) -->
-              <ul class="bestsellers-dots" id="bestsellers-dots"></ul>
+              <div class="bestsellers-dots" id="bestsellers-dots" role="tablist" aria-label="Carousel pages"></div>
 
               <div class="bestsellers-nav">
                 <button
