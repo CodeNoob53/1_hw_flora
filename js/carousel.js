@@ -74,17 +74,18 @@ export function createCarousel({ viewport, track, prevButton, nextButton, dots, 
 
 		// Build the inner track on first render (or after a replaceChildren reset).
 		if (!dotsTrack || !dots.contains(dotsTrack)) {
-			dotsTrack = document.createElement('div');
+			dotsTrack = document.createElement('ul');
 			dotsTrack.className = 'bestsellers-dots-track';
 			const markup = Array.from({ length: total }, (_, i) =>
-				`<button class="bestsellers-dot" type="button" aria-label="Page ${i + 1}"></button>`
+				`<li><button class="bestsellers-dot" type="button" aria-label="Page ${i + 1}"></button></li>`
 			).join('');
 			dotsTrack.insertAdjacentHTML('beforeend', markup);
 			dots.replaceChildren(dotsTrack);
 		}
 
 		// Update active class without rebuilding the DOM.
-		[...dotsTrack.children].forEach((btn, i) => {
+		[...dotsTrack.children].forEach((li, i) => {
+			const btn = li.querySelector('button');
 			btn.classList.toggle('is-active', i === page);
 			btn.setAttribute('aria-current', i === page ? 'true' : 'false');
 		});
@@ -117,9 +118,9 @@ export function createCarousel({ viewport, track, prevButton, nextButton, dots, 
 	nextButton?.addEventListener('click', () => goTo(page + 1));
 
 	dots?.addEventListener('click', event => {
-		const btn = event.target.closest('button');
-		if (!btn || !dotsTrack) return;
-		const i = [...dotsTrack.children].indexOf(btn);
+		const li = event.target.closest('li');
+		if (!li || !dotsTrack) return;
+		const i = [...dotsTrack.children].indexOf(li);
 		if (i >= 0) goTo(i);
 	});
 
