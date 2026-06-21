@@ -1,0 +1,614 @@
+{
+  "products": [
+    {
+      "id": "spring-elegance",
+      "title": "Spring Elegance",
+      "price": 35,
+      "slug": "spring-elegance",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "spring-elegance.jpg",
+      "alt": "Spring Elegance bouquet — a woman holding a beautiful spring flower bouquet",
+      "text": "A delicate blend of peonies, tulips, and roses — perfect for springtime gifting and bright smiles.",
+      "description": "Each stem is carefully selected to create a bouquet that radiates freshness, elegance, and the gentle charm of spring. Whether you're celebrating a birthday, sending love, or simply brightening someone's day, this arrangement is sure to bring warm smiles and lasting impressions.",
+      "orders": 520,
+      "bestseller": true
+    },
+    {
+      "id": "berry-chic",
+      "title": "Berry Chic",
+      "price": 40,
+      "slug": "berry-chic",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "berry-chic.jpg",
+      "alt": "Berry Chic bouquet — bridal arrangement with roses and berries",
+      "text": "A stylish composition of roses, seasonal greenery, and vibrant berries — a bold floral statement.",
+      "description": "A stylish composition of roses, seasonal greenery, and vibrant berries — a bold and elegant floral statement that is perfect for special occasions and thoughtful gifts alike.",
+      "orders": 510,
+      "bestseller": true
+    },
+    {
+      "id": "lavender-dream",
+      "title": "Lavender Dream",
+      "price": 55,
+      "slug": "lavender-dream",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "lavender-dream.jpg",
+      "alt": "Lavender Dream bouquet — mixed flowers on a wooden table",
+      "text": "A rich bouquet with lavender, lisianthus, and roses — ideal for deep hues and gentle fragrance.",
+      "description": "A rich bouquet with lavender, lisianthus, and roses — ideal for those who love deep hues and gentle fragrance. This arrangement evokes a sense of calm elegance and timeless beauty.",
+      "orders": 500,
+      "bestseller": true
+    },
+    {
+      "id": "peach-meadow",
+      "title": "Peach Meadow",
+      "price": 55,
+      "slug": "peach-meadow",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "peach-meadow.jpg",
+      "alt": "Peach Meadow — soft arrangement of peach and blush roses in a straw basket",
+      "text": "A soft and radiant arrangement of peach and blush roses with lush greenery in a straw basket.",
+      "description": "A soft and radiant arrangement of peach and blush roses with lush greenery in a straw basket. Light, natural, and full of warmth — perfect for gifting someone you cherish on any occasion.",
+      "orders": 480,
+      "bestseller": false
+    },
+    {
+      "id": "blush-romance",
+      "title": "Blush Romance",
+      "price": 34,
+      "slug": "blush-romance",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "blush-romance.jpg",
+      "alt": "Blush Romance — deep pink and ivory roses with silver eucalyptus",
+      "text": "A premium bouquet of deep pink and ivory roses, complemented by silver eucalyptus.",
+      "description": "A premium bouquet of deep pink and ivory roses, complemented by silver eucalyptus. Sophisticated and intimate, this arrangement is a timeless expression of love and admiration for any special moment.",
+      "orders": 470,
+      "bestseller": false
+    },
+    {
+      "id": "pastel-garden",
+      "title": "Pastel Garden",
+      "price": 40,
+      "slug": "pastel-garden",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pastel-garden.jpg",
+      "alt": "Pastel Garden — pastel-toned spray roses and greenery in a woven basket",
+      "text": "A pastel-toned mix of spray roses and greenery in a woven basket — gentle, airy, and lovely.",
+      "description": "A pastel-toned mix of spray roses and greenery arranged in a woven basket. Gentle, airy, and perfect for any occasion — this bouquet brings a quiet, effortless joy that lifts the spirit and brightens any room.",
+      "orders": 460,
+      "bestseller": false
+    },
+    {
+      "id": "tulip-charm",
+      "title": "Tulip Charm",
+      "price": 61,
+      "slug": "tulip-charm",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "tulip-charm.jpg",
+      "alt": "Tulip Charm — bright tulips and roses in a lavender box",
+      "text": "A vivid bouquet of bright tulips and roses in a lavender box — cheerful and full of charm.",
+      "description": "A vivid bouquet of bright tulips and roses presented in a lovely lavender box. Cheerful and full of charm, this arrangement is perfect for birthdays, celebrations, or simply making someone's day unforgettable.",
+      "orders": 450,
+      "bestseller": false
+    },
+    {
+      "id": "berry-bloom",
+      "title": "Berry Bloom",
+      "price": 32,
+      "slug": "berry-bloom",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "berry-bloom.jpg",
+      "alt": "Berry Bloom — rich pink, purple, and cream blooms with textured greens",
+      "text": "A lush mix of rich pink, purple, and cream blooms with textured greens — romantic and elegant.",
+      "description": "A lush mix of rich pink, purple, and cream blooms with textured greens. Romantic and elegant, Berry Bloom is the perfect statement bouquet for those who appreciate bold floral compositions and want to make a lasting impression.",
+      "orders": 440,
+      "bestseller": false
+    },
+    {
+      "id": "sweet-whisper",
+      "title": "Sweet Whisper",
+      "price": 40,
+      "slug": "sweet-whisper",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "sweet-whisper.jpg",
+      "alt": "Sweet Whisper — spring bouquet with peonies, roses and lilac accents",
+      "text": "A charming spring bouquet with peonies, roses, and lilac-toned accents — fresh and expressive.",
+      "description": "A charming spring bouquet with peonies, roses, and lilac-toned accents. Fresh, lively, and expressive — Sweet Whisper captures the feeling of a warm spring morning and is perfect for moments that deserve something truly special.",
+      "orders": 430,
+      "bestseller": false
+    },
+    {
+      "id": "field-joy",
+      "title": "Field Joy",
+      "price": 49,
+      "slug": "field-joy",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "field-joy.jpg",
+      "alt": "Field Joy — rustic bouquet of sunflowers, lisianthus and daisies",
+      "text": "A rustic hand-tied bouquet of sunflowers, lisianthus, and daisies — perfect for brightening the day.",
+      "description": "A rustic hand-tied bouquet of sunflowers, lisianthus, and daisies. Perfect for brightening the day, Field Joy brings the carefree spirit of open fields and golden afternoons into any space with its warm, natural energy.",
+      "orders": 420,
+      "bestseller": false
+    },
+    {
+      "id": "soft-bloom",
+      "title": "Soft Bloom",
+      "price": 37,
+      "slug": "soft-bloom",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "soft-bloom.jpg",
+      "alt": "Soft Bloom — pink carnations and roses wrapped in satin paper",
+      "text": "A delicate bouquet of pink carnations and roses wrapped in satin paper — soft, stylish, and versatile.",
+      "description": "A delicate bouquet of pink carnations and roses wrapped in satin paper. Soft, stylish, and versatile — Soft Bloom is a heartfelt gift for any moment, from everyday appreciation to milestone celebrations worth remembering.",
+      "orders": 410,
+      "bestseller": false
+    },
+    {
+      "id": "white-tulip-grace",
+      "title": "White Tulip Grace",
+      "price": 38,
+      "slug": "white-tulip-grace",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "white-tulip-grace.jpg",
+      "alt": "White tulips wrapped in pink paper with a sheer ribbon",
+      "text": "A dozen pure white tulips wrapped in blush paper with a sheer bow — fresh, clean, and timeless.",
+      "description": "A dozen crisp white tulips hand-wrapped in blush paper and finished with a sheer ribbon. Simple, elegant, and endlessly versatile — the perfect way to say congratulations, thank you, or just thinking of you.",
+      "orders": 390,
+      "bestseller": false
+    },
+    {
+      "id": "peach-carnation-charm",
+      "title": "Peach Carnation Charm",
+      "price": 34,
+      "slug": "peach-carnation-charm",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "peach-carnation-charm.jpg",
+      "alt": "Peach carnations and cream roses with eucalyptus in ivory paper",
+      "text": "Peach carnations, cream roses, and silver eucalyptus in soft ivory wrap — gentle and refined.",
+      "description": "A soft pairing of peach carnations, cream garden roses, and silver-dollar eucalyptus, wrapped in ivory paper. Understated and refined, it suits birthdays, hostess gifts, and quiet moments of appreciation.",
+      "orders": 380,
+      "bestseller": false
+    },
+    {
+      "id": "red-rose-box",
+      "title": "Red Rose Box",
+      "price": 75,
+      "slug": "red-rose-box",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "red-rose-box.jpg",
+      "alt": "Round box filled with deep red roses",
+      "text": "A signature round box packed with deep red roses — bold, romantic, and unforgettable.",
+      "description": "Our signature round box arranged with a full dome of deep red roses. A classic declaration of love and passion, ready to make anniversaries, proposals, and Valentine's moments truly unforgettable.",
+      "orders": 370,
+      "bestseller": false
+    },
+    {
+      "id": "pink-garden-romance",
+      "title": "Pink Garden Romance",
+      "price": 46,
+      "slug": "pink-garden-romance",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pink-garden-romance.jpg",
+      "alt": "Pink garden roses with blue cornflowers in a glass vase",
+      "text": "Lush pink garden roses with blue cornflowers and baby's breath — soft, wild, and romantic.",
+      "description": "Lush pink garden roses mingled with blue cornflowers and a haze of baby's breath. Romantic and a little wild, this arrangement brings the charm of an English garden to any windowsill or table.",
+      "orders": 360,
+      "bestseller": false
+    },
+    {
+      "id": "rustic-sunflower",
+      "title": "Rustic Sunflower",
+      "price": 42,
+      "slug": "rustic-sunflower",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "rustic-sunflower.jpg",
+      "alt": "Sunflower and wildflowers in kraft paper wrap",
+      "text": "A cheerful sunflower with wildflowers and olive branches in kraft paper — warm and rustic.",
+      "description": "A single bright sunflower surrounded by white wildflowers, snapdragons, and olive branches, tied in rustic kraft paper. Warm and full of character — the easiest way to brighten anyone's day.",
+      "orders": 350,
+      "bestseller": false
+    },
+    {
+      "id": "coral-meadow",
+      "title": "Coral Meadow",
+      "price": 49,
+      "slug": "coral-meadow",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "coral-meadow.jpg",
+      "alt": "Coral roses, tulips and snapdragons in a glass jar",
+      "text": "Coral roses, orange tulips, and snapdragons with blue thistle in a glass jar — vivid and lively.",
+      "description": "A lively meadow of coral roses, orange tulips, snapdragons, and blue thistle arranged in a simple glass jar. Vivid and textured, it carries the energy of a sun-warmed garden in late spring.",
+      "orders": 340,
+      "bestseller": false
+    },
+    {
+      "id": "cotton-candy-breath",
+      "title": "Cotton Candy Breath",
+      "price": 31,
+      "slug": "cotton-candy-breath",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "cotton-candy-breath.jpg",
+      "alt": "Pink and blue baby's breath in blush paper",
+      "text": "Cloud-like pink and blue baby's breath in blush wrap — playful, airy, and sweet.",
+      "description": "A cloud of pink and blue tinted baby's breath wrapped in blush paper with a flowing ribbon. Light, playful, and sweet — a charming gift for new arrivals, gender reveals, or anyone who loves a soft pastel touch.",
+      "orders": 330,
+      "bestseller": false
+    },
+    {
+      "id": "white-lily-classic",
+      "title": "White Lily Classic",
+      "price": 52,
+      "slug": "white-lily-classic",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "white-lily-classic.jpg",
+      "alt": "White lilies and carnations in a white ceramic vase",
+      "text": "White lilies with magenta and cream carnations in a ceramic vase — graceful and classic.",
+      "description": "Stately white lilies paired with magenta and cream carnations and green accents in a white ceramic vase. A graceful, classic arrangement that brings calm elegance to a living room or entryway.",
+      "orders": 320,
+      "bestseller": false
+    },
+    {
+      "id": "dried-rose-whisper",
+      "title": "Dried Rose Whisper",
+      "price": 44,
+      "slug": "dried-rose-whisper",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "dried-rose-whisper.jpg",
+      "alt": "Dried roses and caspia in ivory paper with a printed ribbon",
+      "text": "Dried mauve roses with frosted caspia in ivory wrap — moody, lasting, and elegant.",
+      "description": "Preserved mauve roses and frosted caspia wrapped in ivory paper with a printed ribbon. A long-lasting, moody arrangement that keeps its quiet beauty for months — no water needed.",
+      "orders": 310,
+      "bestseller": false
+    },
+    {
+      "id": "blush-dried-petite",
+      "title": "Blush Dried Petite",
+      "price": 27,
+      "slug": "blush-dried-petite",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "blush-dried-petite.jpg",
+      "alt": "Petite dried bouquet with a small rose and baby's breath in peach paper",
+      "text": "A petite dried posy with a single rose and baby's breath in peach paper — delicate and lasting.",
+      "description": "A petite dried posy built around a single preserved rose, soft grasses, and baby's breath in peach paper. Delicate and long-lasting, it's a sweet keepsake gift that won't fade with the week.",
+      "orders": 300,
+      "bestseller": false
+    },
+    {
+      "id": "pink-rose-bloom",
+      "title": "Pink Rose Bloom",
+      "price": 47,
+      "slug": "pink-rose-bloom",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pink-rose-bloom.jpg",
+      "alt": "Pink roses with white asters in cream paper, viewed from above",
+      "text": "Bright pink roses with white asters and golden filler in cream wrap — fresh and joyful.",
+      "description": "Bright pink roses surrounded by white asters and golden statice in cream paper. Fresh and joyful, this round, generous bouquet is made for celebrations and heartfelt congratulations.",
+      "orders": 290,
+      "bestseller": false
+    },
+    {
+      "id": "ivory-hydrangea",
+      "title": "Ivory Hydrangea",
+      "price": 54,
+      "slug": "ivory-hydrangea",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "ivory-hydrangea.jpg",
+      "alt": "Cream roses, blue hydrangea and white chrysanthemum in kraft paper",
+      "text": "Cream roses, blue hydrangea, and a white pom chrysanthemum in kraft paper — soft and serene.",
+      "description": "Cream garden roses, a wash of blue hydrangea, and a fluffy white chrysanthemum wrapped in kraft paper. Soft and serene, this arrangement feels like a gentle morning in a coastal garden.",
+      "orders": 280,
+      "bestseller": false
+    },
+    {
+      "id": "sunset-elegance",
+      "title": "Sunset Elegance",
+      "price": 58,
+      "slug": "sunset-elegance",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "sunset-elegance.jpg",
+      "alt": "Tall orange gladioli and roses with eucalyptus in a glass vase",
+      "text": "Tall orange gladioli, roses, and eucalyptus in a glass vase — striking and architectural.",
+      "description": "A tall, architectural arrangement of orange gladioli, roses, and trailing eucalyptus in a clear glass vase. Striking and warm, it makes a confident statement piece for a console or reception desk.",
+      "orders": 270,
+      "bestseller": false
+    },
+    {
+      "id": "berry-dahlia",
+      "title": "Berry Dahlia",
+      "price": 45,
+      "slug": "berry-dahlia",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "berry-dahlia.jpg",
+      "alt": "Burgundy dahlia with lilac lisianthus and carnations in kraft paper",
+      "text": "A bold burgundy dahlia with lilac lisianthus and coral carnations in kraft paper — rich and modern.",
+      "description": "A bold burgundy dahlia anchors lilac lisianthus, coral carnations, and green amaranthus in kraft paper. Rich and modern, this hand-tied bunch is for those who love a little drama in their flowers.",
+      "orders": 260,
+      "bestseller": false
+    },
+    {
+      "id": "pink-carnation-cloud",
+      "title": "Pink Carnation Cloud",
+      "price": 33,
+      "slug": "pink-carnation-cloud",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pink-carnation-cloud.jpg",
+      "alt": "Pink carnations with lavender limonium in pink paper",
+      "text": "Pink carnations with airy lavender limonium in blush paper — soft, ruffled, and sweet.",
+      "description": "Ruffled pink carnations nestled in a cloud of lavender limonium, wrapped in blush paper with a satin ribbon. Soft and sweet, it's an affordable everyday bouquet that still feels special.",
+      "orders": 250,
+      "bestseller": false
+    },
+    {
+      "id": "pastel-lace-bouquet",
+      "title": "Pastel Lace Bouquet",
+      "price": 56,
+      "slug": "pastel-lace-bouquet",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pastel-lace-bouquet.jpg",
+      "alt": "Pastel roses, carnations and lisianthus resting on lace",
+      "text": "A pastel medley of roses, carnations, and lisianthus on lace — vintage and dreamy.",
+      "description": "A dreamy pastel medley of roses, carnations, lisianthus, and snapdragons resting on soft lace. Vintage and romantic, this gentle composition is a favourite for showers and tender celebrations.",
+      "orders": 240,
+      "bestseller": false
+    },
+    {
+      "id": "pink-garden-roses",
+      "title": "Pink Garden Roses",
+      "price": 50,
+      "slug": "pink-garden-roses",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "pink-garden-roses.jpg",
+      "alt": "Close-up of full pink garden roses with greenery",
+      "text": "Full, ruffled pink garden roses with fresh greenery — lush and luxuriously simple.",
+      "description": "A close, generous gathering of full pink garden roses with fresh green leaves. Lush yet luxuriously simple, these layered blooms speak for themselves — perfect for someone who loves classic pink roses.",
+      "orders": 230,
+      "bestseller": false
+    },
+    {
+      "id": "red-tulip-kraft",
+      "title": "Red Tulip Kraft",
+      "price": 36,
+      "slug": "red-tulip-kraft",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "red-tulip-kraft.jpg",
+      "alt": "Red tulips wrapped in kraft paper with a red ribbon",
+      "text": "A bunch of red tulips in kraft paper with a red ribbon — simple, striking, and heartfelt.",
+      "description": "A generous bunch of red tulips wrapped in natural kraft paper and tied with a red ribbon. Simple yet striking, red tulips carry a message of perfect love — a heartfelt classic for any season.",
+      "orders": 220,
+      "bestseller": false
+    },
+    {
+      "id": "burgundy-bridal",
+      "title": "Burgundy Bridal",
+      "price": 82,
+      "slug": "burgundy-bridal",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "burgundy-bridal.jpg",
+      "alt": "Burgundy and blush bridal bouquet with dahlias and roses",
+      "text": "A bridal bouquet of burgundy dahlias, blush roses, and berries — opulent and wedding-ready.",
+      "description": "An opulent bridal bouquet of burgundy dahlias, blush spray roses, astilbe, and privet berries. Hand-tied for the aisle, it brings deep romance and rich texture to the most important day.",
+      "orders": 210,
+      "bestseller": false
+    },
+    {
+      "id": "spring-poppy-mix",
+      "title": "Spring Poppy Mix",
+      "price": 39,
+      "slug": "spring-poppy-mix",
+      "breakpoints": [
+        "mob",
+        "tab",
+        "pc"
+      ],
+      "category": "bouquet",
+      "fallback": "spring-poppy-mix.jpg",
+      "alt": "Hand-held spring bunch with poppies, tulips and ranunculus",
+      "text": "A loose spring bunch of poppies, tulips, and ranunculus — fresh-picked and effortless.",
+      "description": "A loose, just-picked spring bunch of Icelandic poppies, tulips, and ranunculus in soft coral and cream. Effortless and fresh, it captures the easy joy of the first warm days of the year.",
+      "orders": 200,
+      "bestseller": false
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": 1,
+      "author": "Emma T.",
+      "text": "Flora made my anniversary unforgettable with their beautiful arrangement!"
+    },
+    {
+      "id": 2,
+      "author": "Daniel R.",
+      "text": "Absolutely stunning bouquet! It looked even better than the photo and arrived right on time."
+    },
+    {
+      "id": 3,
+      "author": "Olivia M.",
+      "text": "The service was exceptional, and the flowers were fresh!"
+    },
+    {
+      "id": 4,
+      "author": "Sophia L.",
+      "text": "I ordered a last-minute birthday bouquet and it still arrived early. The colors were gorgeous."
+    },
+    {
+      "id": 5,
+      "author": "James K.",
+      "text": "My wife was thrilled. The peonies stayed fresh for almost two weeks — incredible quality."
+    },
+    {
+      "id": 6,
+      "author": "Mia C.",
+      "text": "Beautiful packaging and a handwritten note. You can tell they really care about every order."
+    },
+    {
+      "id": 7,
+      "author": "Noah P.",
+      "text": "Easy to order, fair prices, and the arrangement looked exactly like the picture. Highly recommend."
+    },
+    {
+      "id": 8,
+      "author": "Ava R.",
+      "text": "The Pastel Garden bouquet was even softer and dreamier in person. Will definitely order again."
+    },
+    {
+      "id": 9,
+      "author": "Liam W.",
+      "text": "Sent flowers to my mom across the country and she loved them. Smooth experience from start to finish."
+    },
+    {
+      "id": 10,
+      "author": "Isabella F.",
+      "text": "Fresh, fragrant, and beautifully arranged. Flora is now my go-to for every occasion."
+    }
+  ]
+}

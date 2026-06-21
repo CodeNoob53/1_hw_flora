@@ -57,6 +57,12 @@ main {
 	line-height: 150%;
 }
 
+/* The [hidden] attribute must win over the display rule below (e.g. the
+   "Show More" button hides itself on the last page via hidden = true). */
+.primary-button[hidden] {
+	display: none;
+}
+
 .primary-button {
 	display: inline-flex;
 	align-items: center;
@@ -70,10 +76,7 @@ main {
 	border-radius: 100px;
 	padding: 8px 20px;
 	cursor: pointer;
-	transition:
-		opacity 250ms ease-in-out,
-		background 250ms ease-in-out,
-		color 250ms ease-in-out;
+	transition: opacity 250ms ease-in-out;
 }
 
 .primary-button:hover,
@@ -354,10 +357,10 @@ main {
 	justify-content: center;
 	align-items: center;
 	background-image: image-set(
-		url("../assets/images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
-		url("../assets/images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
-		url("../assets/images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
-		url("../assets/images/fallback/hero-bg_mbl.jpg") 1x type("image/jpeg")
+		url("/assets/images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
+		url("/assets/images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
+		url("/assets/images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
+		url("/assets/images/fallback/hero-bg_mbl.jpg") 1x type("image/jpeg")
 	);
 	background-color: var(--hero-fallback-bg);
 	background-repeat: no-repeat;
@@ -536,17 +539,12 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+	--carousel-gap: 24px;
 }
 
 .bestsellers-item {
 	flex-basis: 100%;
 	min-height: 464px;
-}
-
-/* Mobile carousel: show only first card */
-.bestsellers-item:nth-child(2),
-.bestsellers-item:nth-child(3) {
-	display: none;
 }
 
 .bestsellers-card-image {
@@ -569,21 +567,33 @@ main {
 }
 
 .bestsellers-dots {
+	/* Viewport: shows exactly 6 dots (6×8px dots + 5×8px gaps = 88px).
+	   The inner track slides via translateX to keep the active dot centred. */
+	overflow: hidden;
+	width: 88px;
+	flex-shrink: 0;
+}
+
+.bestsellers-dots-track {
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bestsellers-dot {
 	display: block;
+	flex-shrink: 0;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
 	background-color: var(--primary-text);
 	opacity: 0.2;
+	cursor: pointer;
+	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bestsellers-dots li:first-child .bestsellers-dot {
+.bestsellers-dot.is-active {
 	opacity: 1;
 }
 
@@ -690,6 +700,7 @@ main {
 	gap: 24px;
 }
 
+
 .bouquets-item {
 	width: 100%;
 }
@@ -758,6 +769,7 @@ main {
 	flex-direction: column;
 	gap: 16px;
 	width: 100%;
+	--carousel-gap: 16px;
 }
 
 .feedback-item {
@@ -772,10 +784,6 @@ main {
 	border-radius: var(--radius-lg);
 }
 
-.feedback-item:nth-child(2),
-.feedback-item:nth-child(3) {
-	display: none;
-}
 
 .feedback-quote {
 	font-size: var(--font-subtitle);
@@ -1024,8 +1032,6 @@ main {
 	text-align: center;
 }
 
-
-
 /* #endregion Footer */
 
 /* #region Tablet (>= 768px) */
@@ -1084,10 +1090,10 @@ main {
 		background-size: max(100%, 1440px) auto;
 		background-position: 66.5% 50%;
 		background-image: image-set(
-			url("../assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("../assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("../assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			url("/assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("/assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("/assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("/assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 		);
 	}
 
@@ -1146,21 +1152,16 @@ main {
 		gap: 24px;
 	}
 
+	.carousel-track > .bestsellers-item {
+		--per-view: 2;
+	}
+
 	.bestsellers-item {
-		flex-basis: calc((100% - 24px) / 2);
 		min-height: 464px;
 	}
 
-	.bestsellers-item:nth-child(2) {
-		display: flex;
-	}
-
-	.bestsellers-item:nth-child(3) {
-		display: none;
-	}
-
 	.bestsellers-card-image {
-		width: 340px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1185,20 +1186,15 @@ main {
 	.feedback-list {
 		flex-direction: row;
 		gap: 24px;
+		--carousel-gap: 24px;
+	}
+
+	.carousel-track > .feedback-item {
+		--per-view: 2;
 	}
 
 	.feedback-item {
-		flex-basis: 340px;
-		width: 340px;
 		min-height: 228px;
-	}
-
-	.feedback-item:nth-child(2) {
-		display: flex;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: none;
 	}
 
 	.feedback-nav {
@@ -1350,10 +1346,10 @@ main {
 		background-size: cover;
 		background-position: center center;
 		background-image: image-set(
-			url("../assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("../assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("../assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("../assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			url("/assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
+			url("/assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
+			url("/assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
+			url("/assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
 		);
 	}
 
@@ -1431,18 +1427,15 @@ main {
 		flex-direction: row;
 		flex-wrap: nowrap;
 		gap: 32px;
+		--carousel-gap: 32px;
 	}
 
-	.bestsellers-item {
-		flex-basis: calc((100% - 32px * 2) / 3);
-	}
-
-	.bestsellers-item:nth-child(3) {
-		display: flex;
+	.carousel-track > .bestsellers-item {
+		--per-view: 3;
 	}
 
 	.bestsellers-card-image {
-		width: 405px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1467,6 +1460,8 @@ main {
 	.bouquets .section-title {
 		font-size: var(--font-heading);
 	}
+
+
 
 	.bouquets-list {
 		grid-template-columns: repeat(4, 1fr);
@@ -1504,18 +1499,17 @@ main {
 	.feedback-list {
 		flex-direction: row;
 		gap: 32px;
+		--carousel-gap: 32px;
+	}
+
+	.carousel-track > .feedback-item {
+		--per-view: 3;
 	}
 
 	.feedback-item {
-		width: 405px;
-		flex-basis: 405px;
 		min-height: 228px;
 		padding: 32px;
 		gap: 24px;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: flex;
 	}
 
 	.feedback-nav {
@@ -1622,3 +1616,198 @@ main {
 	}
 }
 /* #endregion Desktop */
+
+/* #region Carousel slider (Bestsellers + Feedback) */
+
+/* Viewport clips the track; only the current page of cards is visible. */
+.carousel-viewport {
+	overflow: hidden;
+	width: 100%;
+}
+
+/* The track is a single non-wrapping flex row that slides via translate3d.
+   Overrides the list's column/wrap layout used as a no-JS fallback. */
+.carousel-track {
+	flex-direction: row;
+	flex-wrap: nowrap;
+	will-change: transform;
+	transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Each card is a fixed fraction of the viewport so exactly --per-view fit;
+   the rest of the row overflows and is clipped. --per-view defaults to 1 and
+   is raised per breakpoint (see the base list rules + media queries above). */
+.carousel-track > .bestsellers-item,
+.carousel-track > .feedback-item {
+	flex: 0 0 calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
+	max-width: calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.carousel-track {
+		transition: none;
+	}
+}
+
+/* ─── Scroll-reveal (replaces AOS) ──────────────────────────────────────────
+   Any element with [data-reveal] starts hidden and transitions to its natural
+   position once IntersectionObserver fires .is-visible.
+   Variants: fade-up (default) | fade-down | fade-left | fade-right
+   Stagger: set --reveal-delay inline on each child (catalogue.js does this).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+[data-reveal] {
+	opacity: 0;
+	transition:
+		opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="fade-up"],
+[data-reveal] {
+	transform: translateY(32px);
+}
+
+[data-reveal="fade-down"] {
+	transform: translateY(-32px);
+}
+
+[data-reveal="fade-left"] {
+	transform: translateX(40px);
+}
+
+[data-reveal="fade-right"] {
+	transform: translateX(-40px);
+}
+
+[data-reveal].is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-reveal] {
+		transition: none;
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* #endregion Carousel */
+
+/* #region Async UI: loaders, status, notifications */
+
+/* The [hidden] attribute must win over the display rules below, otherwise the
+   loader/messages stay visible after JS sets hidden = true. */
+.bouquets-loader[hidden],
+.bouquets-message[hidden],
+.bouquets-message--error[hidden],
+.bestsellers-message[hidden],
+.feedback-message[hidden] {
+	display: none;
+}
+
+.bouquets-loader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 24px 0;
+	font-size: var(--font-subtitle);
+	color: var(--plaseholder-text-color);
+}
+
+.bouquets-spinner {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	border: 3px solid var(--border-color-subtle);
+	border-top-color: var(--button-gradient-end);
+	border-radius: 50%;
+	animation: flora-spin 0.8s linear infinite;
+}
+
+@keyframes flora-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bouquets-spinner {
+		animation-duration: 2s;
+	}
+}
+
+.bouquets-message,
+.bestsellers-message,
+.feedback-message {
+	text-align: center;
+	font-size: var(--font-subtitle);
+	color: var(--plaseholder-text-color);
+	padding: 16px 0;
+}
+
+/* Explicit error state with a retry action (e.g. API server offline). */
+.bouquets-message--error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	color: var(--primary-text);
+}
+
+.bouquets-message--error .bouquets-message-text {
+	max-width: 36ch;
+}
+
+.bouquets-retry {
+	max-width: 200px;
+}
+
+.notifications {
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	max-width: min(360px, calc(100vw - 32px));
+	pointer-events: none;
+}
+
+.notification {
+	padding: 14px 18px;
+	border-radius: var(--radius-md);
+	color: var(--button-clicked-text);
+	font-size: var(--font-small-tablet);
+	line-height: 1.4;
+	box-shadow: 0 8px 24px rgba(3, 12, 1, 0.18);
+	opacity: 1;
+	transform: translateY(0);
+	transition:
+		opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification.is-leaving {
+	opacity: 0;
+	transform: translateY(8px);
+}
+
+.notification--error {
+	background-color: #b3261e;
+}
+
+.notification--success {
+	background-color: #2e7d32;
+}
+
+/* #endregion Async UI */
