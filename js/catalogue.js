@@ -1,9 +1,14 @@
+/**
+ * Catalogue module
+ * Loads the Bouquets catalogue from the API and handles "Show More" pagination.
+ * Items are appended (load-more), not replaced.
+ */
+
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
 import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } from './utils.js';
 import { cacheProducts } from './productStore.js';
-
-const PER_PAGE = 8;
+import { LIMITS } from './constants.js';
 
 const list = document.getElementById('bouquets-list');
 const loader = document.getElementById('bouquets-loader');
@@ -11,7 +16,7 @@ const status = document.getElementById('bouquets-status');
 const showMoreButton = document.getElementById('bouquets-show-more');
 
 // Single source of truth for the catalogue UI.
-const state = {
+const appState = {
 	page: 0,
 	totalPages: 1,
 	total: 0,
@@ -19,23 +24,48 @@ const state = {
 	isLoading: false,
 };
 
+/**
+ * Items loaded per request. The layout shows 8 bouquets per "page" on every
+ * viewport, so the limit is constant — kept as a function to mirror the
+ * viewport-aware pattern used across the codebase.
+ * @returns {number}
+ */
+const getLimit = () => LIMITS.BOUQUETS;
+
+/**
+ * Toggle the initial-load spinner and busy state on the list.
+ * @param {boolean} isLoading
+ */
 function setInitialLoading(isLoading) {
 	if (loader) loader.hidden = !isLoading;
 	if (list) list.setAttribute('aria-busy', isLoading ? 'true' : 'false');
 }
 
+/**
+ * Toggle the "Show More" button loading/disabled state.
+ * @param {boolean} isLoading
+ */
 function setShowMoreLoading(isLoading) {
 	if (!showMoreButton) return;
 	showMoreButton.disabled = isLoading;
 	showMoreButton.textContent = isLoading ? 'Loading…' : 'Show More';
 }
 
+/**
+ * Show a status message (empty/end/error) or hide it when message is falsy.
+ * @param {string} [message]
+ */
 function setStatusMessage(message) {
 	if (!status) return;
 	status.textContent = message ?? '';
 	status.hidden = !message;
 }
 
+/**
+ * Build the markup for a single bouquet card.
+ * @param {object} product
+ * @returns {string}
+ */
 function buildCardMarkup(product) {
 	const picture = buildProductPicture(product, {
 		imageClass: 'bouquets-card-image',
@@ -58,16 +88,21 @@ function buildCardMarkup(product) {
 		</li>`;
 }
 
-// One insertAdjacentHTML call for the whole chunk — no per-item appendChild.
+/**
+ * Render a chunk of products. One insertAdjacentHTML call for the whole chunk —
+ * no per-item appendChild. Skips products already on screen to avoid duplicates.
+ * @param {object[]} products
+ * @param {{ replace: boolean }} options
+ */
 function renderChunk(products, { replace }) {
 	if (!list) return;
 	if (replace) {
 		list.replaceChildren();
-		state.loadedIds.clear();
+		appState.loadedIds.clear();
 	}
 
-	const fresh = products.filter(product => !state.loadedIds.has(product.id));
-	fresh.forEach(product => state.loadedIds.add(product.id));
+	const fresh = products.filter(product => !appState.loadedIds.has(product.id));
+	fresh.forEach(product => appState.loadedIds.add(product.id));
 
 	if (fresh.length > 0) {
 		cacheProducts(fresh);
@@ -75,15 +110,22 @@ function renderChunk(products, { replace }) {
 	}
 }
 
-// json-server v1 returns { data, pages, items, ... }; static mode returns a plain array.
+/**
+ * Normalize the API payload. json-server v1 returns { data, pages, items };
+ * static mode returns a plain array sliced client-side.
+ * @param {object|object[]} body
+ * @param {number} requestedPage
+ * @returns {{ products: object[], totalPages: number, total: number }}
+ */
 function normalizeResponse(body, requestedPage) {
+	const limit = getLimit();
+
 	if (Array.isArray(body)) {
-		// Static mode: full collection in one file — slice client-side.
-		const start = (requestedPage - 1) * PER_PAGE;
-		const slice = body.slice(start, start + PER_PAGE);
+		const start = (requestedPage - 1) * limit;
+		const slice = body.slice(start, start + limit);
 		return {
 			products: slice,
-			totalPages: Math.max(1, Math.ceil(body.length / PER_PAGE)),
+			totalPages: Math.max(1, Math.ceil(body.length / limit)),
 			total: body.length,
 		};
 	}
@@ -98,15 +140,23 @@ function normalizeResponse(body, requestedPage) {
 	};
 }
 
+/**
+ * Hide the "Show More" button once the last page has been loaded.
+ */
 function updateShowMoreVisibility() {
 	if (!showMoreButton) return;
-	const reachedLastPage = state.page >= state.totalPages;
-	showMoreButton.hidden = reachedLastPage;
+	showMoreButton.hidden = appState.page >= appState.totalPages;
 }
 
-async function loadPage(page, { append }) {
-	if (state.isLoading) return;
-	state.isLoading = true;
+/**
+ * Fetch one page and render it. Appends when `append` is true, otherwise
+ * replaces the list (initial load / reset).
+ * @param {number} page
+ * @param {{ append: boolean }} options
+ */
+async function fetchAndRender(page, { append }) {
+	if (appState.isLoading) return;
+	appState.isLoading = true;
 
 	if (append) {
 		setShowMoreLoading(true);
@@ -119,35 +169,36 @@ async function loadPage(page, { append }) {
 	try {
 		const params = isStaticApiMode
 			? {}
-			: { _page: page, _per_page: PER_PAGE, category: 'bouquet' };
+			: { _page: page, _per_page: getLimit(), category: 'bouquet' };
 
 		const response = await apiClient.get('/products', { params });
 		const { products, totalPages, total } = normalizeResponse(response.data, page);
 
-		// In static mode we already filter to bouquets client-side here.
+		// Static mode returns the full collection; keep only bouquets.
 		const bouquets = products.filter(p => !p.category || p.category === 'bouquet');
 
 		renderChunk(bouquets, { replace: !append });
-		state.page = page;
-		state.totalPages = totalPages;
-		state.total = total;
+		appState.page = page;
+		appState.totalPages = totalPages;
+		appState.total = total;
 
-		if (state.loadedIds.size === 0) {
+		if (appState.loadedIds.size === 0) {
 			setStatusMessage('No bouquets available right now. Please check back soon.');
-		} else if (state.page >= state.totalPages) {
+		} else if (appState.page >= appState.totalPages) {
 			setStatusMessage("You've reached the end — that's all our bouquets for now.");
 		} else {
 			setStatusMessage('');
 		}
 
 		updateShowMoreVisibility();
-	} catch (error) {
-		showErrorNotification(extractErrorMessage(error));
-		if (!append && state.loadedIds.size === 0) {
+	} catch (err) {
+		console.error('Failed to load bouquets:', err);
+		showErrorNotification(extractErrorMessage(err));
+		if (!append && appState.loadedIds.size === 0) {
 			setStatusMessage('Could not load bouquets. Please try again later.');
 		}
 	} finally {
-		state.isLoading = false;
+		appState.isLoading = false;
 		if (append) {
 			setShowMoreLoading(false);
 		} else {
@@ -156,20 +207,37 @@ async function loadPage(page, { append }) {
 	}
 }
 
+/**
+ * Reset state and load the first page (used on init; would also be called by a
+ * filter/search change to reset pagination to page 1).
+ */
 function resetAndLoad() {
-	state.page = 0;
-	state.totalPages = 1;
-	state.total = 0;
-	state.loadedIds.clear();
-	loadPage(1, { append: false });
+	appState.page = 0;
+	appState.totalPages = 1;
+	appState.total = 0;
+	appState.loadedIds.clear();
+	fetchAndRender(1, { append: false });
 }
 
-function init() {
+/**
+ * Handle a "Show More" click — load and append the next page.
+ */
+function handleShowMore() {
+	fetchAndRender(appState.page + 1, { append: true });
+}
+
+/**
+ * Wire up the catalogue. Guards against duplicate listeners.
+ */
+function initCatalogue() {
 	if (!list) return;
-	showMoreButton?.addEventListener('click', () => {
-		loadPage(state.page + 1, { append: true });
-	});
+
+	if (showMoreButton && showMoreButton.dataset.listenerAttached !== 'true') {
+		showMoreButton.dataset.listenerAttached = 'true';
+		showMoreButton.addEventListener('click', handleShowMore);
+	}
+
 	resetAndLoad();
 }
 
-init();
+initCatalogue();
