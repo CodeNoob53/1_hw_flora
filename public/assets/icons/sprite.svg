@@ -84,9 +84,4 @@
     <path d="M11.42 21.814a1 1 0 0 0 1.16 0C12.884 21.599 20.03 16.44 20 10c0-4.411-3.589-8-8-8S4 5.589 4 9.995c-.029 6.445 7.116 11.604 7.42 11.819M12 4c3.31 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.61-1.308-6.02-5.294-6-9.735 0-3.309 2.691-6 6-6" fill="#030c01"/>
   </symbol>
 
-  <!-- icon-check (custom checkbox tick) -->
-  <symbol id="icon-check" viewBox="0 0 24 24" fill="none">
-    <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-
 </svg>

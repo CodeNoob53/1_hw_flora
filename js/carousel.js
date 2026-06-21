@@ -8,6 +8,7 @@
  */
 
 import { BREAKPOINTS } from './constants.js';
+import { revealCards } from './utils.js';
 
 /**
  * Cards visible per page, matching the CSS breakpoints.
@@ -35,14 +36,27 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 
 	const pageCount = () => Math.max(1, Math.ceil(items.length / getPerView()));
 
-	/** Show only the current page's items; hide the rest. */
-	function applyVisibility() {
+	/**
+	 * Show only the current page's items; hide the rest. When `animate` is true
+	 * (page navigation), replay the entrance animation on the cards that just
+	 * became visible.
+	 * @param {boolean} [animate]
+	 */
+	function applyVisibility(animate = false) {
 		const perView = getPerView();
 		const startIndex = page * perView;
 		const endIndex = startIndex + perView;
 		items.forEach((item, i) => {
-			item.classList.toggle('carousel-hidden', i < startIndex || i >= endIndex);
+			const visible = i >= startIndex && i < endIndex;
+			item.classList.toggle('carousel-hidden', !visible);
+			if (animate && visible && item.classList.contains('card-reveal')) {
+				// Reset so the reveal transition runs again for this page.
+				item.classList.remove('is-visible');
+			}
 		});
+		if (animate) {
+			revealCards(track);
+		}
 	}
 
 	function updateArrows() {
@@ -73,9 +87,9 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 		dots.insertAdjacentHTML('beforeend', markup);
 	}
 
-	function update() {
+	function update({ animate = false } = {}) {
 		page = Math.min(page, pageCount() - 1);
-		applyVisibility();
+		applyVisibility(animate);
 		updateArrows();
 		renderDots();
 	}
@@ -84,7 +98,7 @@ export function createCarousel({ track, prevButton, nextButton, dots, getPerView
 		const clamped = Math.max(0, Math.min(nextPage, pageCount() - 1));
 		if (clamped === page) return;
 		page = clamped;
-		update();
+		update({ animate: true });
 	}
 
 	prevButton?.addEventListener('click', () => goTo(page - 1));
