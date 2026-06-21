@@ -81,8 +81,8 @@ html:has(dialog[open]) {
 
 .modal-close svg {
 	display: block;
-	width: 14px;
-	height: 14px;
+	width: 32px;
+	height: 32px;
 }
 
 /* ===================== PRODUCT MODAL ===================== */
