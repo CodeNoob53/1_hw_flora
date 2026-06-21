@@ -1,4 +1,5 @@
 import { apiClient } from './apiClient.js';
+import { normalizeApiResponse } from './utils.js';
 
 // Shared product cache so the modal can resolve a product by id regardless of
 // which list (catalogue or bestsellers) the user clicked, without re-fetching.
@@ -20,7 +21,7 @@ export async function getAllProducts() {
 		allProductsPromise = apiClient
 			.get('/products')
 			.then(response => {
-				const data = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
+				const data = normalizeApiResponse(response);
 				cacheProducts(data);
 				return data;
 			})
