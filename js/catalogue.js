@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Catalogue module
  * Loads the Bouquets catalogue from the API and handles "Show More" pagination.
  * Items are appended (load-more), not replaced.
@@ -6,7 +6,8 @@
 
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture, revealCards } from './utils.js';
+import { extractErrorMessage, escapeHtml, normalizeApiResponse, buildProductCard } from './utils.js';
+import { observeReveal } from './reveal.js';
 import { cacheProducts } from './productStore.js';
 import { LIMITS } from './constants.js';
 
@@ -103,32 +104,14 @@ function renderErrorState(err) {
 	});
 }
 
-/**
- * Build the markup for a single bouquet card.
- * @param {object} product
- * @returns {string}
- */
 function buildCardMarkup(product, position) {
-	const picture = buildProductPicture(product, {
+	return buildProductCard(product, {
+		containerClass: 'bouquets-item',
 		imageClass: 'bouquets-card-image',
-		width: 335,
-		height: 296,
+		imageWidth: 335,
+		imageHeight: 296,
+		revealDelay: (position % getLimit()) * 80,
 	});
-
-	// Stagger the entrance within a freshly appended chunk.
-	return `
-		<li class="bouquets-item card-reveal" style="--reveal-delay: ${(position % getLimit()) * 80}ms">
-			<div class="product-card" data-id="${escapeHtml(product.id)}">
-				${picture}
-				<div class="product-card-content">
-					<div class="product-card-header">
-						<h3 class="product-card-title">${escapeHtml(product.title)}</h3>
-						<p class="product-card-text">${escapeHtml(product.text)}</p>
-					</div>
-					<p class="product-card-price">${escapeHtml(formatPrice(product.price))}</p>
-				</div>
-			</div>
-		</li>`;
 }
 
 /**
@@ -150,7 +133,7 @@ function renderChunk(products, { replace }) {
 	if (fresh.length > 0) {
 		cacheProducts(fresh);
 		list.insertAdjacentHTML('beforeend', fresh.map((p, i) => buildCardMarkup(p, i)).join(''));
-		revealCards(list);
+		observeReveal(list);
 	}
 }
 

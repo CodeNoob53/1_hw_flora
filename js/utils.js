@@ -1,3 +1,48 @@
+// Normalise the two shapes json-server returns (array in static mode,
+// { data, pages, items } in dev mode) into a plain array.
+export function normalizeApiResponse(response) {
+	return Array.isArray(response.data) ? response.data : response.data?.data ?? [];
+}
+
+// Show/hide a status <p> element. Passing null/undefined clears and hides it.
+export function setStatusMessage(el, message) {
+	if (!el) return;
+	el.textContent = message ?? '';
+	el.hidden = !message;
+}
+
+// Build the shared product-card <li> markup used by both the bestsellers
+// carousel and the bouquets catalogue grid.
+export function buildProductCard(product, {
+	containerClass,
+	imageClass,
+	imageWidth,
+	imageHeight,
+	revealDelay,
+}) {
+	const picture = buildProductPicture(product, {
+		imageClass,
+		width: imageWidth,
+		height: imageHeight,
+	});
+	const delayStyle = revealDelay != null ? ` style="--reveal-delay: ${revealDelay}ms"` : '';
+	const revealAttr = revealDelay != null ? ' data-reveal="fade-up"' : '';
+
+	return `
+		<li class="${containerClass}"${revealAttr}${delayStyle}>
+			<div class="product-card" data-id="${escapeHtml(product.id)}">
+				${picture}
+				<div class="product-card-content">
+					<div class="product-card-header">
+						<h3 class="product-card-title">${escapeHtml(product.title)}</h3>
+						<p class="product-card-text">${escapeHtml(product.text)}</p>
+					</div>
+					<p class="product-card-price">${escapeHtml(formatPrice(product.price))}</p>
+				</div>
+			</div>
+		</li>`;
+}
+
 // Resolve a human-readable message from an axios error.
 export function extractErrorMessage(
 	error,
@@ -7,20 +52,6 @@ export function extractErrorMessage(
 	if (typeof serverMessage === 'string') return serverMessage;
 	if (error?.message) return error.message;
 	return fallbackMessage;
-}
-
-// Trigger the entrance animation on freshly inserted `.card-reveal` elements.
-// Uses a double rAF so the initial opacity:0 state is painted before
-// `.is-visible` is added — otherwise the browser skips the transition.
-export function revealCards(root) {
-	if (!root) return;
-	requestAnimationFrame(() => {
-		requestAnimationFrame(() => {
-			root.querySelectorAll('.card-reveal:not(.is-visible)').forEach(el => {
-				el.classList.add('is-visible');
-			});
-		});
-	});
 }
 
 // Escape values that go into template strings rendered with insertAdjacentHTML.
