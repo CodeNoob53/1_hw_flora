@@ -35,7 +35,7 @@ async function init() {
 	try {
 		// Sort by orders desc and take the top N. In dev we can ask json-server
 		// to sort/limit; in static mode we sort the full array client-side.
-		const params = isStaticApiMode ? {} : { _sort: '-orders', _page: 1, _per_page: TOP_COUNT };
+		const params = isStaticApiMode ? {} : { _page: 1, _per_page: TOP_COUNT };
 		const response = await apiClient.get('/products', { params });
 		const items = [...normalizeApiResponse(response)]
 			.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0))

@@ -76,10 +76,7 @@ main {
 	border-radius: 100px;
 	padding: 8px 20px;
 	cursor: pointer;
-	transition:
-		opacity 250ms ease-in-out,
-		background 250ms ease-in-out,
-		color 250ms ease-in-out;
+	transition: opacity 250ms ease-in-out;
 }
 
 .primary-button:hover,
@@ -702,6 +699,7 @@ main {
 	grid-template-columns: 1fr;
 	gap: 24px;
 }
+
 
 .bouquets-item {
 	width: 100%;
@@ -1463,6 +1461,8 @@ main {
 		font-size: var(--font-heading);
 	}
 
+
+
 	.bouquets-list {
 		grid-template-columns: repeat(4, 1fr);
 		column-gap: 32px;
@@ -1732,6 +1732,11 @@ main {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to   { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

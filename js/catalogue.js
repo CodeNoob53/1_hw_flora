@@ -198,7 +198,7 @@ async function fetchAndRender(page, { append }) {
 		// and is ordered by popularity (orders desc), matching the layout order.
 		const params = isStaticApiMode
 			? {}
-			: { _page: page, _per_page: getLimit(), category: 'bouquet', bestseller: false, _sort: '-orders' };
+			: { _page: page, _per_page: getLimit(), category: 'bouquet', bestseller: false };
 
 		const response = await apiClient.get('/products', { params });
 
