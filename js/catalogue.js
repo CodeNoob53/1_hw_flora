@@ -108,15 +108,16 @@ function renderErrorState(err) {
  * @param {object} product
  * @returns {string}
  */
-function buildCardMarkup(product) {
+function buildCardMarkup(product, position) {
 	const picture = buildProductPicture(product, {
 		imageClass: 'bouquets-card-image',
 		width: 335,
 		height: 296,
 	});
 
+	// Stagger the entrance within a freshly appended chunk.
 	return `
-		<li class="bouquets-item">
+		<li class="bouquets-item card-reveal" style="--reveal-delay: ${(position % getLimit()) * 80}ms">
 			<div class="product-card" data-id="${escapeHtml(product.id)}">
 				${picture}
 				<div class="product-card-content">
@@ -148,8 +149,16 @@ function renderChunk(products, { replace }) {
 
 	if (fresh.length > 0) {
 		cacheProducts(fresh);
-		list.insertAdjacentHTML('beforeend', fresh.map(buildCardMarkup).join(''));
+		list.insertAdjacentHTML('beforeend', fresh.map((p, i) => buildCardMarkup(p, i)).join(''));
+		revealNewCards();
 	}
+}
+
+/** Reveal freshly inserted cards on the next frame so the CSS transition runs. */
+function revealNewCards() {
+	requestAnimationFrame(() => {
+		list.querySelectorAll('.card-reveal:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+	});
 }
 
 /**
@@ -209,15 +218,25 @@ async function fetchAndRender(page, { append }) {
 	}
 
 	try {
+		// Catalogue excludes the top-selling bouquets (shown in their own carousel)
+		// and is ordered by popularity (orders desc), matching the layout order.
 		const params = isStaticApiMode
 			? {}
-			: { _page: page, _per_page: getLimit(), category: 'bouquet' };
+			: { _page: page, _per_page: getLimit(), category: 'bouquet', bestseller: false, _sort: '-orders' };
 
 		const response = await apiClient.get('/products', { params });
-		const { products, totalPages, total } = normalizeResponse(response.data, page);
 
-		// Static mode returns the full collection; keep only bouquets.
-		const bouquets = products.filter(p => !p.category || p.category === 'bouquet');
+		let payload = response.data;
+		if (isStaticApiMode && Array.isArray(payload)) {
+			payload = payload
+				.filter(p => (!p.category || p.category === 'bouquet') && p.bestseller !== true)
+				.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0));
+		}
+
+		const { products, totalPages, total } = normalizeResponse(payload, page);
+
+		// Keep only catalogue bouquets (dev mode already filtered server-side).
+		const bouquets = products.filter(p => (!p.category || p.category === 'bouquet') && p.bestseller !== true);
 
 		renderChunk(bouquets, { replace: !append });
 		appState.page = page;

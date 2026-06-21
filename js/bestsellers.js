@@ -1,16 +1,23 @@
+/**
+ * Bestsellers module
+ * Loads the Top-Selling bouquets (top 3 by order count) and presents them in a
+ * finite carousel. Cards animate in on first render.
+ */
+
 import { apiClient, isStaticApiMode } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
 import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } from './utils.js';
 import { cacheProducts } from './productStore.js';
+import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
+const TOP_COUNT = 3;
+
+const viewport = document.getElementById('bestsellers-viewport');
 const list = document.getElementById('bestsellers-list');
 const dots = document.getElementById('bestsellers-dots');
 const status = document.getElementById('bestsellers-status');
 const prevButton = document.getElementById('bestsellers-prev');
 const nextButton = document.getElementById('bestsellers-next');
-
-let items = [];
-let activeIndex = 0;
 
 function setStatus(message) {
 	if (!status) return;
@@ -18,15 +25,16 @@ function setStatus(message) {
 	status.hidden = !message;
 }
 
-function buildItemMarkup(product) {
+function buildItemMarkup(product, position) {
 	const picture = buildProductPicture(product, {
 		imageClass: 'bestsellers-card-image',
 		width: 335,
 		height: 320,
 	});
 
+	// Stagger the entrance animation by card position.
 	return `
-		<li class="bestsellers-item">
+		<li class="bestsellers-item card-reveal" style="--reveal-delay: ${position * 120}ms">
 			<div class="product-card" data-id="${escapeHtml(product.id)}">
 				${picture}
 				<div class="product-card-content">
@@ -40,41 +48,27 @@ function buildItemMarkup(product) {
 		</li>`;
 }
 
-// Rotate the array so `activeIndex` sits first; the responsive nth-child CSS
-// then renders the visible window (1 card on mobile, 2 on tablet, 3 on desktop).
-function render() {
-	if (!list || items.length === 0) return;
-
-	const ordered = [...items.slice(activeIndex), ...items.slice(0, activeIndex)];
-	list.replaceChildren();
-	list.insertAdjacentHTML('beforeend', ordered.map(buildItemMarkup).join(''));
-
-	if (dots) {
-		dots.replaceChildren();
-		const dotsMarkup = items
-			.map((_, index) => {
-				const activeClass = index === activeIndex ? ' is-active' : '';
-				return `<li><span class="bestsellers-dot${activeClass}"></span></li>`;
-			})
-			.join('');
-		dots.insertAdjacentHTML('beforeend', dotsMarkup);
-	}
-}
-
-function goTo(index) {
-	if (items.length === 0) return;
-	activeIndex = (index + items.length) % items.length;
-	render();
+/** Reveal cards on the next frame so the CSS transition runs. */
+function revealCards() {
+	requestAnimationFrame(() => {
+		list.querySelectorAll('.card-reveal').forEach(el => el.classList.add('is-visible'));
+	});
 }
 
 async function init() {
-	if (!list) return;
+	if (!list || !viewport) return;
+	list.setAttribute('aria-busy', 'true');
 
 	try {
-		const params = isStaticApiMode ? {} : { bestseller: true };
+		// Sort by orders desc and take the top N. In dev we can ask json-server
+		// to sort/limit; in static mode we sort the full array client-side.
+		const params = isStaticApiMode ? {} : { _sort: '-orders', _page: 1, _per_page: TOP_COUNT };
 		const response = await apiClient.get('/products', { params });
-		const data = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
-		items = data.filter(product => product.bestseller === true);
+		const raw = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
+
+		const items = [...raw]
+			.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0))
+			.slice(0, TOP_COUNT);
 
 		if (items.length === 0) {
 			setStatus('No bestsellers to show right now.');
@@ -82,19 +76,24 @@ async function init() {
 		}
 
 		cacheProducts(items);
-		render();
+		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
 
-		prevButton?.addEventListener('click', () => goTo(activeIndex - 1));
-		nextButton?.addEventListener('click', () => goTo(activeIndex + 1));
-		dots?.addEventListener('click', event => {
-			const dot = event.target.closest('li');
-			if (!dot) return;
-			const index = [...dots.children].indexOf(dot);
-			if (index >= 0) goTo(index);
+		const carousel = createCarousel({
+			viewport,
+			track: list,
+			prevButton,
+			nextButton,
+			dots,
+			getPerView: perViewByBreakpoint,
 		});
+		carousel.update();
+		revealCards();
 	} catch (error) {
+		console.error('Failed to load bestsellers:', error);
 		showErrorNotification(extractErrorMessage(error));
 		setStatus('Could not load bestsellers. Please try again later.');
+	} finally {
+		list.setAttribute('aria-busy', 'false');
 	}
 }
 

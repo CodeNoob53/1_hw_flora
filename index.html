@@ -206,7 +206,9 @@
           </div>
 
           <div class="bestsellers-body">
-            <ul class="bestsellers-list" id="bestsellers-list" aria-busy="false"></ul>
+            <div class="carousel-viewport" id="bestsellers-viewport">
+              <ul class="bestsellers-list carousel-track" id="bestsellers-list" aria-busy="false"></ul>
+            </div>
             <p class="bestsellers-message" id="bestsellers-status" role="status" hidden></p>
 
             <div class="bestsellers-controls">
@@ -273,7 +275,9 @@
           <h2 class="section-title feedback-title">What our clients says</h2>
 
           <!-- Testimonials are rendered dynamically from the API (js/feedback.js) -->
-          <ul class="feedback-list" id="feedback-list" aria-busy="false"></ul>
+          <div class="carousel-viewport" id="feedback-viewport">
+            <ul class="feedback-list carousel-track" id="feedback-list" aria-busy="false"></ul>
+          </div>
           <p class="feedback-message" id="feedback-status" role="status" hidden></p>
 
           <div class="feedback-nav">

@@ -533,20 +533,12 @@ main {
 }
 
 .bestsellers-list {
-	display: flex;
-	flex-direction: column;
 	gap: 24px;
+	--carousel-gap: 24px;
 }
 
 .bestsellers-item {
-	flex-basis: 100%;
 	min-height: 464px;
-}
-
-/* Mobile carousel: show only first card */
-.bestsellers-item:nth-child(2),
-.bestsellers-item:nth-child(3) {
-	display: none;
 }
 
 .bestsellers-card-image {
@@ -759,14 +751,12 @@ main {
 }
 
 .feedback-list {
-	display: flex;
-	flex-direction: column;
 	gap: 16px;
 	width: 100%;
+	--carousel-gap: 16px;
 }
 
 .feedback-item {
-	flex-basis: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 59px;
@@ -775,11 +765,6 @@ main {
 	background-color: var(--primary-bg);
 	border: 1px solid var(--border-color-subtle);
 	border-radius: var(--radius-lg);
-}
-
-.feedback-item:nth-child(2),
-.feedback-item:nth-child(3) {
-	display: none;
 }
 
 .feedback-quote {
@@ -1211,26 +1196,20 @@ main {
 	}
 
 	.bestsellers-list {
-		flex-direction: row;
-		flex-wrap: wrap;
 		gap: 24px;
 	}
 
+	/* Tablet shows 2 cards per view. */
+	.carousel-track > .bestsellers-item {
+		--per-view: 2;
+	}
+
 	.bestsellers-item {
-		flex-basis: calc((100% - 24px) / 2);
 		min-height: 464px;
 	}
 
-	.bestsellers-item:nth-child(2) {
-		display: flex;
-	}
-
-	.bestsellers-item:nth-child(3) {
-		display: none;
-	}
-
 	.bestsellers-card-image {
-		width: 340px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1253,22 +1232,17 @@ main {
 	}
 
 	.feedback-list {
-		flex-direction: row;
 		gap: 24px;
+		--carousel-gap: 24px;
+	}
+
+	/* Tablet shows 2 cards per view. */
+	.carousel-track > .feedback-item {
+		--per-view: 2;
 	}
 
 	.feedback-item {
-		flex-basis: 340px;
-		width: 340px;
 		min-height: 228px;
-	}
-
-	.feedback-item:nth-child(2) {
-		display: flex;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: none;
 	}
 
 	.feedback-nav {
@@ -1498,21 +1472,17 @@ main {
 	}
 
 	.bestsellers-list {
-		flex-direction: row;
-		flex-wrap: nowrap;
 		gap: 32px;
+		--carousel-gap: 32px;
 	}
 
-	.bestsellers-item {
-		flex-basis: calc((100% - 32px * 2) / 3);
-	}
-
-	.bestsellers-item:nth-child(3) {
-		display: flex;
+	/* Desktop shows 3 cards per view. */
+	.carousel-track > .bestsellers-item {
+		--per-view: 3;
 	}
 
 	.bestsellers-card-image {
-		width: 405px;
+		width: 100%;
 		height: 320px;
 	}
 
@@ -1572,20 +1542,19 @@ main {
 	}
 
 	.feedback-list {
-		flex-direction: row;
 		gap: 32px;
+		--carousel-gap: 32px;
+	}
+
+	/* Desktop shows 3 cards per view. */
+	.carousel-track > .feedback-item {
+		--per-view: 3;
 	}
 
 	.feedback-item {
-		width: 405px;
-		flex-basis: 405px;
 		min-height: 228px;
 		padding: 32px;
 		gap: 24px;
-	}
-
-	.feedback-item:nth-child(3) {
-		display: flex;
 	}
 
 	.feedback-nav {
@@ -1709,6 +1678,63 @@ main {
 	}
 }
 /* #endregion Subscribe form responsive */
+
+/* #region Carousel (shared by Bestsellers + Feedback) */
+
+/* Clip the sliding track; one "page" of cards is visible at a time. */
+.carousel-viewport {
+	overflow: hidden;
+	width: 100%;
+}
+
+/* The track is a non-wrapping flex row that slides via translateX. */
+.carousel-track {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	will-change: transform;
+	transition: transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Each card takes a fixed share of the viewport so exactly --per-view fit.
+   --per-view is overridden per breakpoint below. */
+.carousel-track > .bestsellers-item,
+.carousel-track > .feedback-item {
+	--per-view: 1;
+	flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--carousel-gap, 24px)) / var(--per-view));
+	max-width: calc((100% - (var(--per-view) - 1) * var(--carousel-gap, 24px)) / var(--per-view));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.carousel-track {
+		transition: none;
+	}
+}
+
+/* Card entrance animation (Bestsellers, Feedback, Bouquets). */
+.card-reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+		transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.card-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.card-reveal {
+		transition: none;
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* #endregion Carousel */
 
 /* #region Async UI: loaders, status, notifications */
 

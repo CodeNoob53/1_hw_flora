@@ -1,14 +1,19 @@
+/**
+ * Feedback module
+ * Loads testimonials and presents them in the same finite carousel as the
+ * bestsellers (1 / 2 / 3 cards per view). Cards animate in on first render.
+ */
+
 import { apiClient } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
 import { extractErrorMessage, escapeHtml } from './utils.js';
+import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
+const viewport = document.getElementById('feedback-viewport');
 const list = document.getElementById('feedback-list');
 const status = document.getElementById('feedback-status');
 const prevButton = document.getElementById('feedback-prev');
 const nextButton = document.getElementById('feedback-next');
-
-let items = [];
-let activeIndex = 0;
 
 function setStatus(message) {
 	if (!status) return;
@@ -16,9 +21,9 @@ function setStatus(message) {
 	status.hidden = !message;
 }
 
-function buildItemMarkup(feedback) {
+function buildItemMarkup(feedback, position) {
 	return `
-		<li class="feedback-item">
+		<li class="feedback-item card-reveal" style="--reveal-delay: ${position * 120}ms">
 			<blockquote class="feedback-quote">
 				<p>${escapeHtml(feedback.text)}</p>
 			</blockquote>
@@ -26,39 +31,38 @@ function buildItemMarkup(feedback) {
 		</li>`;
 }
 
-// Rotate so the active testimonial sits first; the responsive nth-child CSS
-// shows 1 card on mobile and up to 3 on desktop.
-function render() {
-	if (!list || items.length === 0) return;
-	const ordered = [...items.slice(activeIndex), ...items.slice(0, activeIndex)];
-	list.replaceChildren();
-	list.insertAdjacentHTML('beforeend', ordered.map(buildItemMarkup).join(''));
-}
-
-function goTo(index) {
-	if (items.length === 0) return;
-	activeIndex = (index + items.length) % items.length;
-	render();
+function revealCards() {
+	requestAnimationFrame(() => {
+		list.querySelectorAll('.card-reveal').forEach(el => el.classList.add('is-visible'));
+	});
 }
 
 async function init() {
-	if (!list) return;
+	if (!list || !viewport) return;
 	list.setAttribute('aria-busy', 'true');
 
 	try {
 		const response = await apiClient.get('/feedbacks');
-		const data = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
-		items = data;
+		const items = Array.isArray(response.data) ? response.data : response.data?.data ?? [];
 
 		if (items.length === 0) {
 			setStatus('No testimonials yet — be the first to share your experience.');
 			return;
 		}
 
-		render();
-		prevButton?.addEventListener('click', () => goTo(activeIndex - 1));
-		nextButton?.addEventListener('click', () => goTo(activeIndex + 1));
+		list.insertAdjacentHTML('beforeend', items.map(buildItemMarkup).join(''));
+
+		const carousel = createCarousel({
+			viewport,
+			track: list,
+			prevButton,
+			nextButton,
+			getPerView: perViewByBreakpoint,
+		});
+		carousel.update();
+		revealCards();
 	} catch (error) {
+		console.error('Failed to load testimonials:', error);
 		showErrorNotification(extractErrorMessage(error));
 		setStatus('Could not load testimonials. Please try again later.');
 	} finally {
