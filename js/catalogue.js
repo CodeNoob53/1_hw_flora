@@ -3,7 +3,7 @@ import { showErrorNotification } from './notifications.js';
 import { extractErrorMessage, escapeHtml, formatPrice, buildProductPicture } from './utils.js';
 import { cacheProducts } from './productStore.js';
 
-const PER_PAGE = 6;
+const PER_PAGE = 8;
 
 const list = document.getElementById('bouquets-list');
 const loader = document.getElementById('bouquets-loader');
