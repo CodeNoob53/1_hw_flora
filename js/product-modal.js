@@ -8,13 +8,27 @@ const assetBase = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const productModal = document.getElementById('product-modal');
 const modalImg = document.getElementById('product-modal-img');
+const modalImgContainer = productModal?.querySelector('.product-modal-image');
 const modalTitle = productModal?.querySelector('.product-modal-title');
 const modalPrice = productModal?.querySelector('.product-modal-price');
 const modalDesc = productModal?.querySelector('.product-modal-description');
 
 function fillModal(product) {
-	const original = `${assetBase}/assets/images/original/${product.slug}.jpg`;
-	modalImg.src = original;
+	const src = product.photoURL
+		? product.photoURL
+		: `${assetBase}/assets/images/original/${product.slug}.jpg`;
+
+	modalImgContainer.classList.add('is-loading');
+
+	const done = () => modalImgContainer.classList.remove('is-loading');
+
+	// Assign handlers before src so a cached image (sync load) doesn't miss them.
+	modalImg.onload = done;
+	modalImg.onerror = done;
+	modalImg.src = src;
+
+	// If the browser served from cache, complete is already true — fire immediately.
+	if (modalImg.complete) done();
 	modalImg.alt = product.alt ?? product.title ?? '';
 	modalTitle.textContent = product.title ?? '';
 	modalPrice.textContent = formatPrice(product.price);
