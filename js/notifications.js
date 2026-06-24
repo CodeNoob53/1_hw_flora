@@ -19,6 +19,11 @@ function ensureNotificationRoot() {
 
 function showNotification(message, variant) {
 	const root = ensureNotificationRoot();
+
+	// Don't show duplicate message if same toast is already visible
+	const existing = root.querySelector(`.notification--${variant}`);
+	if (existing && existing.textContent === message) return;
+
 	const element = document.createElement('div');
 	element.className = `notification notification--${variant}`;
 	element.textContent = message;
