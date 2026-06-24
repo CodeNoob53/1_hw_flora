@@ -1,0 +1,118 @@
+/* ===================== SKELETON LOADER ===================== */
+
+:root {
+	--skeleton-base: #e8ebe4;
+	--skeleton-shine: rgba(255, 255, 255, 0.65);
+	--skeleton-radius: var(--radius-lg);
+}
+
+/* Shimmer — animates background-position-x (compositor-only on GPU) */
+@keyframes skeleton-shimmer {
+	from { background-position-x: 200%; }
+	to   { background-position-x: -200%; }
+}
+
+.skeleton-bone {
+	background: linear-gradient(
+		100deg,
+		var(--skeleton-base) 40%,
+		var(--skeleton-shine) 50%,
+		var(--skeleton-base) 60%
+	);
+	background-size: 200% 100%;
+	animation: skeleton-shimmer 1.6s ease-in-out infinite;
+	border-radius: var(--skeleton-radius);
+}
+
+/* ---- Card wrapper ---- */
+.skeleton-card {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* ---- Image placeholder ---- */
+.skeleton-image {
+	width: 100%;
+	border-radius: var(--skeleton-radius);
+	overflow: hidden;
+}
+
+/* ---- Text lines ---- */
+.skeleton-text-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 4px 0;
+}
+
+.skeleton-line {
+	height: 14px;
+	border-radius: 4px;
+}
+
+.skeleton-line--title {
+	height: 18px;
+	width: 70%;
+}
+
+.skeleton-line--subtitle {
+	height: 13px;
+	width: 90%;
+}
+
+.skeleton-line--subtitle-short {
+	height: 13px;
+	width: 60%;
+}
+
+.skeleton-line--price {
+	height: 18px;
+	width: 40%;
+	margin-top: 4px;
+}
+
+/* ---- Bestsellers variant (image 320px, card centred) ---- */
+.bestsellers-item .skeleton-image {
+	height: 320px;
+}
+
+/* ---- Modal image skeleton ---- */
+/* Pseudo-element overlays the container while the img is loading.   */
+/* JS adds/removes .is-loading on .product-modal-image.              */
+.product-modal-image {
+	position: relative;
+}
+
+.product-modal-image.is-loading img {
+	opacity: 0;
+}
+
+.product-modal-image.is-loading::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: var(--skeleton-radius);
+	background: linear-gradient(
+		100deg,
+		var(--skeleton-base) 40%,
+		var(--skeleton-shine) 50%,
+		var(--skeleton-base) 60%
+	);
+	background-size: 200% 100%;
+	animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+/* ---- Bouquets variant (image 296px, text centred) ---- */
+.bouquets-item .skeleton-image {
+	height: 296px;
+}
+
+.bouquets-item .skeleton-card {
+	align-items: center;
+}
+
+.bouquets-item .skeleton-text-group {
+	align-items: center;
+	width: 100%;
+}

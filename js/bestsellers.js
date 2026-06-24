@@ -4,13 +4,14 @@
  * finite paged carousel. Cards animate in on first render.
  */
 
-import { apiClient, isStaticApiMode } from './apiClient.js';
+import { apiClient } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, normalizeApiResponse, setStatusMessage, buildProductCard } from './utils.js';
+import { extractErrorMessage, normalizeApiResponse, setStatusMessage, buildProductCard, buildSkeletonCard } from './utils.js';
 import { cacheProducts } from './productStore.js';
 import { createCarousel, perViewByBreakpoint } from './carousel.js';
 
 const TOP_COUNT = 18;
+const SKELETON_COUNT = 3;
 
 const viewport = document.getElementById('bestsellers-viewport');
 const list = document.getElementById('bestsellers-list');
@@ -32,14 +33,21 @@ async function init() {
 	if (!list || !viewport) return;
 	list.setAttribute('aria-busy', 'true');
 
+	// Insert skeleton cards immediately so the layout doesn't jump.
+	const skeletonHtml = Array.from({ length: SKELETON_COUNT }, () =>
+		buildSkeletonCard('bestsellers-item')
+	).join('');
+	list.insertAdjacentHTML('beforeend', skeletonHtml);
+
 	try {
-		// Sort by orders desc and take the top N. In dev we can ask json-server
-		// to sort/limit; in static mode we sort the full array client-side.
-		const params = isStaticApiMode ? {} : { _page: 1, _per_page: TOP_COUNT };
+		const params = { _page: 1, _per_page: TOP_COUNT, bestseller: true };
 		const response = await apiClient.get('/products', { params });
 		const items = [...normalizeApiResponse(response)]
 			.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0))
 			.slice(0, TOP_COUNT);
+
+		// Remove skeletons before rendering real cards.
+		list.replaceChildren();
 
 		if (items.length === 0) {
 			setStatusMessage(status, 'No bestsellers to show right now.');
@@ -59,6 +67,7 @@ async function init() {
 		});
 		carousel.update();
 	} catch (error) {
+		list.replaceChildren();
 		console.error('Failed to load bestsellers:', error);
 		showErrorNotification(extractErrorMessage(error));
 		setStatusMessage(status, 'Could not load bestsellers. Please try again later.');

@@ -1,5 +1,4 @@
-// Normalise the two shapes json-server returns (array in static mode,
-// { data, pages, items } in dev mode) into a plain array.
+// Normalise paged { data, pages, items } or plain array into a plain array.
 export function normalizeApiResponse(response) {
 	return Array.isArray(response.data) ? response.data : response.data?.data ?? [];
 }
@@ -9,6 +8,24 @@ export function setStatusMessage(el, message) {
 	if (!el) return;
 	el.textContent = message ?? '';
 	el.hidden = !message;
+}
+
+// Build a skeleton placeholder <li> that mirrors the real card structure.
+// containerClass must match the section (bestsellers-item / bouquets-item)
+// so the section-specific CSS rules apply (image height, text alignment).
+export function buildSkeletonCard(containerClass) {
+	return `
+		<li class="${containerClass}" aria-hidden="true">
+			<div class="skeleton-card">
+				<div class="skeleton-image skeleton-bone"></div>
+				<div class="skeleton-text-group">
+					<div class="skeleton-line skeleton-line--title skeleton-bone"></div>
+					<div class="skeleton-line skeleton-line--subtitle skeleton-bone"></div>
+					<div class="skeleton-line skeleton-line--subtitle-short skeleton-bone"></div>
+					<div class="skeleton-line skeleton-line--price skeleton-bone"></div>
+				</div>
+			</div>
+		</li>`;
 }
 
 // Build the shared product-card <li> markup used by both the bestsellers
@@ -86,12 +103,50 @@ function avifSource(slug, breakpoint, media) {
 	return `<source ${mediaAttr} srcset="\n\t\t\t\t${srcset}\n\t\t\t" type="image/avif">`;
 }
 
-// Reproduce the retina <picture> markup of the static cards so dynamically
-// rendered products keep mobile-first @1x/@2x/@3x AVIF with a JPEG fallback.
-// `breakpoints` lists which AVIF folders exist for this slug (mob/tab/pc).
+// Insert Cloudinary transform string after "/upload/" in an existing secure_url.
+// e.g. "https://.../upload/v123/flora/bouquets/x.jpg"
+//   → "https://.../upload/f_avif,w_335,c_fill,q_auto/v123/flora/bouquets/x.jpg"
+function cldTransform(secureUrl, transforms) {
+	return secureUrl.replace('/upload/', `/upload/${transforms}/`);
+}
+
+function cldSource(secureUrl, w, media) {
+	const srcset = [
+		`${cldTransform(secureUrl, `f_avif,w_${w},c_fill,q_auto`)} 1x`,
+		`${cldTransform(secureUrl, `f_avif,w_${w * 2},c_fill,q_auto`)} 2x`,
+		`${cldTransform(secureUrl, `f_avif,w_${w * 3},c_fill,q_auto`)} 3x`,
+	].join(', ');
+	return media
+		? `<source media="${media}" srcset="${srcset}" type="image/avif">`
+		: `<source srcset="${srcset}" type="image/avif">`;
+}
+
+// Build retina <picture> markup for dynamically rendered products.
+// If photoURL (Cloudinary secure_url) is present — uses Cloudinary URL transforms for AVIF retina.
+// Otherwise falls back to local AVIF assets.
 export function buildProductPicture(product, { imageClass, width, height }) {
-	const slug = escapeHtml(product.slug);
 	const alt = escapeHtml(product.alt ?? product.title ?? '');
+
+	if (product.photoURL) {
+		const url = product.photoURL;
+		return `
+		<picture>
+			${cldSource(url, 405, '(min-width: 1440px)')}
+			${cldSource(url, 340, '(min-width: 768px)')}
+			${cldSource(url, 335, '')}
+			<img
+				class="${imageClass}"
+				loading="lazy"
+				src="${cldTransform(url, `f_auto,w_${width},c_fill,q_auto`)}"
+				alt="${alt}"
+				width="${width}"
+				height="${height}"
+			>
+		</picture>`;
+	}
+
+	// Local mode: build retina AVIF set from local assets.
+	const slug = escapeHtml(product.slug);
 	const available = Array.isArray(product.breakpoints) ? product.breakpoints : ['mob', 'tab', 'pc'];
 
 	const sources = [];

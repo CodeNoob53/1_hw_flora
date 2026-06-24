@@ -4,9 +4,9 @@
  * Items are appended (load-more), not replaced.
  */
 
-import { apiClient, isStaticApiMode } from './apiClient.js';
+import { apiClient } from './apiClient.js';
 import { showErrorNotification } from './notifications.js';
-import { extractErrorMessage, escapeHtml, normalizeApiResponse, buildProductCard } from './utils.js';
+import { extractErrorMessage, escapeHtml, normalizeApiResponse, buildProductCard, buildSkeletonCard } from './utils.js';
 import { observeReveal } from './reveal.js';
 import { cacheProducts } from './productStore.js';
 import { LIMITS } from './constants.js';
@@ -34,12 +34,24 @@ const appState = {
 const getLimit = () => LIMITS.BOUQUETS;
 
 /**
- * Toggle the initial-load spinner and busy state on the list.
+ * Show skeleton cards inside the list (initial load) or remove them.
+ * The old spinner (#bouquets-loader) is kept hidden; skeletons replace it.
  * @param {boolean} isLoading
  */
 function setInitialLoading(isLoading) {
-	if (loader) loader.hidden = !isLoading;
 	if (list) list.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+	if (!list) return;
+
+	if (isLoading) {
+		const count = getLimit();
+		list.insertAdjacentHTML(
+			'beforeend',
+			Array.from({ length: count }, () => buildSkeletonCard('bouquets-item')).join('')
+		);
+	} else {
+		// Remove any remaining skeleton nodes (real cards already replaced them via renderChunk).
+		list.querySelectorAll('[aria-hidden="true"]').forEach(el => el.remove());
+	}
 }
 
 /**
@@ -138,8 +150,7 @@ function renderChunk(products, { replace }) {
 }
 
 /**
- * Normalize the API payload. json-server v1 returns { data, pages, items };
- * static mode returns a plain array sliced client-side.
+ * Normalize the API payload: handles paged { data, pages, items } or plain array.
  * @param {object|object[]} body
  * @param {number} requestedPage
  * @returns {{ products: object[], totalPages: number, total: number }}
@@ -194,25 +205,10 @@ async function fetchAndRender(page, { append }) {
 	}
 
 	try {
-		// Catalogue excludes the top-selling bouquets (shown in their own carousel)
-		// and is ordered by popularity (orders desc), matching the layout order.
-		const params = isStaticApiMode
-			? {}
-			: { _page: page, _per_page: getLimit(), category: 'bouquet', bestseller: false };
-
+		const params = { _page: page, _per_page: getLimit(), category: 'bouquet', bestseller: false };
 		const response = await apiClient.get('/products', { params });
-
-		let payload = response.data;
-		if (isStaticApiMode && Array.isArray(payload)) {
-			payload = payload
-				.filter(p => (!p.category || p.category === 'bouquet') && p.bestseller !== true)
-				.sort((a, b) => (b.orders ?? 0) - (a.orders ?? 0));
-		}
-
-		const { products, totalPages, total } = normalizeResponse(payload, page);
-
-		// Keep only catalogue bouquets (dev mode already filtered server-side).
-		const bouquets = products.filter(p => (!p.category || p.category === 'bouquet') && p.bestseller !== true);
+		const { products, totalPages, total } = normalizeResponse(response.data, page);
+		const bouquets = products;
 
 		renderChunk(bouquets, { replace: !append });
 		appState.page = page;
