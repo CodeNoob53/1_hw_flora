@@ -1604,8 +1604,8 @@ main {
    is raised per breakpoint (see the base list rules + media queries above). */
 .carousel-track > .bestsellers-item,
 .carousel-track > .feedback-item {
-	flex: 0 0 calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
-	max-width: calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0px)) / var(--per-view, 1));
+	flex: 0 0 calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0%)) / var(--per-view, 1));
+	max-width: calc((100% - (var(--per-view, 1) - 1) * var(--carousel-gap, 0%)) / var(--per-view, 1));
 }
 
 @media (prefers-reduced-motion: reduce) {

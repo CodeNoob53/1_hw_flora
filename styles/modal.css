@@ -10,7 +10,7 @@ dialog {
 
 /* Shared backdrop */
 dialog::backdrop {
-	background-color: rgb(3, 12, 1, 0.4);
+	background-color: rgb(3 12 1 / 0.4);
 }
 
 /* Lock scroll when any dialog is open */
@@ -257,7 +257,7 @@ html:has(dialog[open]) {
 
 .order-success-modal {
 	padding: 48px 28px 36px;
-	box-shadow: 0 24px 60px rgb(3, 12, 1, 0.22);
+	box-shadow: 0 24px 60px rgb(3 12 1 / 0.22);
 	width: 100%;
 	max-width: 375px;
 }
@@ -385,7 +385,7 @@ html:has(dialog[open]) {
 	height: 96px;
 	border-radius: 50%;
 	background: radial-gradient(circle at 50% 38%, #d9fbcf 0%, #e9fbdf 100%);
-	border: 1.5px solid rgb(66, 237, 19, 0.4);
+	border: 1.5px solid rgb(66 237 19 / 0.4);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -455,7 +455,7 @@ html:has(dialog[open]) {
 
 .order-success-subtitle {
 	margin: 0;
-	color: rgb(3, 12, 1, 0.6);
+	color: rgb(3 12 1 / 0.6);
 	font-size: 15px;
 	line-height: 1.6;
 }
@@ -482,7 +482,7 @@ html:has(dialog[open]) {
 	font-size: 13px;
 	letter-spacing: 0.04em;
 	color: #2f7d1a;
-	background: rgb(66, 237, 19, 0.13);
+	background: rgb(66 237 19 / 0.13);
 	padding: 4px 11px;
 	border-radius: 100px;
 	white-space: nowrap;
@@ -510,7 +510,7 @@ html:has(dialog[open]) {
 }
 
 .order-success-qty {
-	color: rgb(3, 12, 1, 0.55);
+	color: rgb(3 12 1 / 0.55);
 	font-size: 13px;
 	white-space: nowrap;
 }
@@ -524,7 +524,7 @@ html:has(dialog[open]) {
 
 /* Total row */
 .order-success-receipt-row--total {
-	border-top: 1px solid rgb(3, 12, 1, 0.07);
+	border-top: 1px solid rgb(3 12 1 / 0.07);
 	padding-top: 11px;
 	padding-bottom: 0;
 }
@@ -561,7 +561,7 @@ html:has(dialog[open]) {
 .order-success-receipt-divider {
 	height: 1px;
 	border: none;
-	background: rgb(3, 12, 1, 0.07);
+	background: rgb(3 12 1 / 0.07);
 	margin: 0;
 }
 
@@ -569,7 +569,7 @@ html:has(dialog[open]) {
 .order-success-receipt-divider--perforated {
 	height: 0;
 	border: none;
-	border-top: 1.5px dashed rgb(3, 12, 1, 0.14);
+	border-top: 1.5px dashed rgb(3 12 1 / 0.14);
 	background: transparent;
 	margin: 2px 0;
 }
