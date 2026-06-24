@@ -16,12 +16,14 @@ export function setStatusMessage(el, message) {
 export function buildSkeletonCard(containerClass) {
 	return `
 		<li class="${containerClass}" aria-hidden="true">
-			<div class="skeleton-card">
+			<div class="product-card">
 				<div class="skeleton-image skeleton-bone"></div>
-				<div class="skeleton-text-group">
-					<div class="skeleton-line skeleton-line--title skeleton-bone"></div>
-					<div class="skeleton-line skeleton-line--subtitle skeleton-bone"></div>
-					<div class="skeleton-line skeleton-line--subtitle-short skeleton-bone"></div>
+				<div class="product-card-content">
+					<div class="product-card-header">
+						<div class="skeleton-line skeleton-line--title skeleton-bone"></div>
+						<div class="skeleton-line skeleton-line--subtitle skeleton-bone"></div>
+						<div class="skeleton-line skeleton-line--subtitle-short skeleton-bone"></div>
+					</div>
 					<div class="skeleton-line skeleton-line--price skeleton-bone"></div>
 				</div>
 			</div>

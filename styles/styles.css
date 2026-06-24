@@ -679,16 +679,19 @@ main {
 	width: 100%;
 }
 
-.bouquets-item .product-card {
+.bouquets-item .product-card,
+.bestsellers-item .product-card {
 	text-align: center;
 	align-items: stretch;
 }
 
-.bouquets-item .product-card-content {
+.bouquets-item .product-card-content,
+.bestsellers-item .product-card-content {
 	align-items: center;
 }
 
-.bouquets-item .product-card-header {
+.bouquets-item .product-card-header,
+.bestsellers-item .product-card-header {
 	align-items: center;
 }
 
