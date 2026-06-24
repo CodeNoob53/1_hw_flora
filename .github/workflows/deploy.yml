@@ -31,9 +31,9 @@ jobs:
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
-      - name: Build (static API mode — emits dist/api/*.json from db.json)
+      - name: Build
         env:
-          VITE_API_MODE: static
+          VITE_API_BASE_URL: https://umt-backend-flora.onrender.com/api
         run: npm run build
 
       - name: Upload Pages artifact
