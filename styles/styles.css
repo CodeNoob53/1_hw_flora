@@ -334,10 +334,10 @@ main {
 	justify-content: center;
 	align-items: center;
 	background-image: image-set(
-		url("/assets/images/avif/mob/hero-bg_@1x.avif") 1x type("image/avif"),
-		url("/assets/images/avif/mob/hero-bg_@2x.avif") 2x type("image/avif"),
-		url("/assets/images/avif/mob/hero-bg_@3x.avif") 3x type("image/avif"),
-		url("/assets/images/fallback/hero-bg_mbl.jpg") 1x type("image/jpeg")
+		"../assets/images/avif/mob/hero-bg_@1x.avif" 1x type("image/avif"),
+		"../assets/images/avif/mob/hero-bg_@2x.avif" 2x type("image/avif"),
+		"../assets/images/avif/mob/hero-bg_@3x.avif" 3x type("image/avif"),
+		"../assets/images/fallback/hero-bg_mbl.jpg" 1x type("image/jpeg")
 	);
 	background-color: var(--hero-fallback-bg);
 	background-repeat: no-repeat;
@@ -1056,10 +1056,10 @@ main {
 		background-size: max(100%, 1440px) auto;
 		background-position: 66.5% 50%;
 		background-image: image-set(
-			url("/assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("/assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("/assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("/assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			"../assets/images/avif/pc/hero-bg_@1x.avif" 1x type("image/avif"),
+			"../assets/images/avif/pc/hero-bg_@2x.avif" 2x type("image/avif"),
+			"../assets/images/avif/pc/hero-bg_@3x.avif" 3x type("image/avif"),
+			"../assets/images/fallback/hero-bg.jpg" 1x type("image/jpeg")
 		);
 	}
 
@@ -1312,10 +1312,10 @@ main {
 		background-size: cover;
 		background-position: center center;
 		background-image: image-set(
-			url("/assets/images/avif/pc/hero-bg_@1x.avif") 1x type("image/avif"),
-			url("/assets/images/avif/pc/hero-bg_@2x.avif") 2x type("image/avif"),
-			url("/assets/images/avif/pc/hero-bg_@3x.avif") 3x type("image/avif"),
-			url("/assets/images/fallback/hero-bg.jpg") 1x type("image/jpeg")
+			"../assets/images/avif/pc/hero-bg_@1x.avif" 1x type("image/avif"),
+			"../assets/images/avif/pc/hero-bg_@2x.avif" 2x type("image/avif"),
+			"../assets/images/avif/pc/hero-bg_@3x.avif" 3x type("image/avif"),
+			"../assets/images/fallback/hero-bg.jpg" 1x type("image/jpeg")
 		);
 	}
 
