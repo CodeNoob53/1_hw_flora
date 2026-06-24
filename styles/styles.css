@@ -1777,12 +1777,17 @@ main {
 }
 
 .notification {
-	padding: 14px 18px;
-	border-radius: var(--radius-md);
-	color: var(--button-clicked-text);
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 10px 20px 10px 10px;
+	border-radius: 100px;
+	background: #1a1f1a;
+	color: #fff;
 	font-size: var(--font-small-tablet);
+	font-weight: 500;
 	line-height: 1.4;
-	box-shadow: 0 8px 24px rgb(3, 12, 1, 0.18);
+	box-shadow: 0 8px 24px rgb(3, 12, 1, 0.28);
 	animation: notification-in 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 	transition:
 		opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -1794,12 +1799,28 @@ main {
 	transform: translateY(8px);
 }
 
-.notification--error {
-	background-color: #b3261e;
+.notification-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
 }
 
-.notification--success {
-	background-color: #2e7d32;
+.notification-text {
+	flex: 1;
+}
+
+.notification--error .notification-icon {
+	background: #e53935;
+	color: #fff;
+}
+
+.notification--success .notification-icon {
+	background: #2e7d32;
+	color: #fff;
 }
 
 /* #endregion Async UI */
