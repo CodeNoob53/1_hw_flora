@@ -2,7 +2,7 @@
 
 :root {
 	--skeleton-base: #e8ebe4;
-	--skeleton-shine: rgba(255, 255, 255, 0.65);
+	--skeleton-shine: rgb(255, 255, 255, 0.65);
 	--skeleton-radius: var(--radius-lg);
 }
 
@@ -78,7 +78,9 @@
 }
 
 /* ---- Modal image skeleton ---- */
+
 /* Pseudo-element overlays the container while the img is loading.   */
+
 /* JS adds/removes .is-loading on .product-modal-image.              */
 .product-modal-image {
 	position: relative;

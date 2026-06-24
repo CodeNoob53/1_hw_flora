@@ -8,7 +8,11 @@ function ensureNotificationRoot() {
 		root.id = notificationRootId;
 		root.className = 'notifications';
 		root.setAttribute('aria-live', 'polite');
+		// popover=manual puts the element in the top layer (above <dialog>),
+		// without intercepting clicks or adding a backdrop.
+		root.setAttribute('popover', 'manual');
 		document.body.append(root);
+		root.showPopover();
 	}
 	return root;
 }

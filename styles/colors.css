@@ -1,20 +1,20 @@
 :root {
 	--primary-text: #030c01;
-	--primary-bg: #ffffff;
+	--primary-bg: #fff;
 	--footer-bg: #eeee60;
 	--plaseholder-text-color: #030c0199;
 
 	/* Mobile menu */
-	--mobile-menu-bg: #ffffff;
+	--mobile-menu-bg: #fff;
 
 	/* Button (Primary) */
 	--button-gradient-start: #e8e81c;
 	--button-gradient-end: #42ed13;
 	--button-clicked-bg: #4e544d;
-	--button-clicked-text: #ffffff;
+	--button-clicked-text: #fff;
 
 	/* Slider arrows */
-	--slider-arrow-bg: #ffffff;
+	--slider-arrow-bg: #fff;
 	--slider-arrow-hover-bg: #d9fbcf;
 	--slider-arrow-active-bg: #7af259;
 
@@ -26,7 +26,7 @@
 	--border-color-subtle: #030c0126;
 	--border-color-input: #030c0199;
 	--focus-ring: #030c01;
-	--focus-ring-offset: #ffffff;
+	--focus-ring-offset: #fff;
 
 	/* Layout tokens */
 	--radius-md: 12px;

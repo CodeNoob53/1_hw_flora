@@ -566,25 +566,121 @@
       <form class="order-form" id="order-form" novalidate>
         <div class="order-form-field">
           <label class="order-form-label" for="order-name">Name*</label>
-          <input class="order-form-input" id="order-name" name="name" type="text" placeholder="Ann" autocomplete="name" required>
+          <input class="order-form-input" id="order-name" name="name" type="text"
+            placeholder="Ann" autocomplete="name"
+            required minlength="2" maxlength="80"
+            aria-describedby="order-name-error">
+          <span class="order-form-error" id="order-name-error" aria-live="polite" hidden></span>
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-phone">Phone*</label>
-          <input class="order-form-input" id="order-phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" autocomplete="tel" required>
+          <input class="order-form-input" id="order-phone" name="phone" type="tel"
+            placeholder="+1 (555) 123-4567" autocomplete="tel"
+            required
+            aria-describedby="order-phone-error">
+          <span class="order-form-error" id="order-phone-error" aria-live="polite" hidden></span>
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-address">Address</label>
-          <input class="order-form-input" id="order-address" name="address" type="text" placeholder="456 Floral Ave, Sydney NSW 2000 AU" autocomplete="address-line1">
+          <input class="order-form-input" id="order-address" name="address" type="text"
+            placeholder="456 Floral Ave, Sydney NSW 2000 AU" autocomplete="address-line1"
+            maxlength="160">
         </div>
         <div class="order-form-field">
           <label class="order-form-label" for="order-message">Message</label>
-          <textarea class="order-form-textarea" id="order-message" name="message" placeholder="Type your message..." rows="5"></textarea>
+          <textarea class="order-form-textarea" id="order-message" name="message"
+            placeholder="Type your message..." rows="5" maxlength="1000"></textarea>
         </div>
 
         <button class="primary-button order-form-submit" type="submit">Go to Checkout</button>
       </form>
     </dialog>
     <!-- #endregion ORDER MODAL -->
+
+    <!-- #region ORDER SUCCESS MODAL -->
+    <dialog class="order-success-modal" id="order-success-modal" aria-modal="true" aria-labelledby="order-success-title">
+      <button class="modal-close" type="button" aria-label="Close" data-close-modal="order-success-modal">
+        <svg aria-hidden="true" focusable="false"><use href="./assets/icons/sprite.svg#icon-close"></use></svg>
+      </button>
+
+      <!-- Decorative brand logo — hidden from assistive technology -->
+      <div class="order-success-logo" aria-hidden="true">
+        <svg viewBox="0 0 112 48" fill="none"><use href="./assets/icons/sprite.svg#icon-logo"></use></svg>
+      </div>
+
+      <!-- Animated success indicator — decorative, meaning conveyed by heading -->
+      <div class="order-success-badge" aria-hidden="true">
+        <span class="order-success-ring"></span>
+        <div class="order-success-circle">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path class="order-success-check" d="M14 24.5 L21 31.5 L34 17" stroke="#2f9e34" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="46" stroke-dashoffset="46"></path>
+          </svg>
+        </div>
+        <svg class="order-success-petal order-success-petal--1" viewBox="0 0 96 85" fill="none"><use href="./assets/icons/sprite.svg#icon-flower"></use></svg>
+        <svg class="order-success-petal order-success-petal--2" viewBox="0 0 96 85" fill="none"><use href="./assets/icons/sprite.svg#icon-flower"></use></svg>
+        <svg class="order-success-petal order-success-petal--3" viewBox="0 0 96 85" fill="none"><use href="./assets/icons/sprite.svg#icon-flower"></use></svg>
+      </div>
+
+      <div class="order-success-heading">
+        <h2 class="order-success-title" id="order-success-title">Thank you for your order!</h2>
+        <p class="order-success-subtitle">Your order has been received. Our florist will contact you shortly to confirm the details and delivery time.</p>
+      </div>
+
+      <!-- Order receipt — dl for semantic term/detail pairs -->
+      <dl class="order-success-receipt">
+
+        <!-- Order ID row -->
+        <div class="order-success-receipt-row order-success-receipt-row--id">
+          <dt class="order-success-receipt-label">Order number</dt>
+          <dd class="order-success-receipt-value">
+            <span class="order-success-order-id"></span>
+          </dd>
+        </div>
+
+        <div class="order-success-receipt-divider" aria-hidden="true"></div>
+
+        <!-- Customer info -->
+        <div class="order-success-receipt-row">
+          <dt class="order-success-receipt-label">Customer</dt>
+          <dd class="order-success-receipt-value order-success-name"></dd>
+        </div>
+        <div class="order-success-receipt-row">
+          <dt class="order-success-receipt-label">Phone</dt>
+          <dd class="order-success-receipt-value order-success-phone"></dd>
+        </div>
+        <div class="order-success-receipt-row order-success-address-row">
+          <dt class="order-success-receipt-label">Address</dt>
+          <dd class="order-success-receipt-value order-success-address"></dd>
+        </div>
+
+        <!-- Perforated divider between info and items -->
+        <div class="order-success-receipt-divider order-success-receipt-divider--perforated" aria-hidden="true">
+          <span class="order-success-receipt-notch order-success-receipt-notch--left"></span>
+          <span class="order-success-receipt-notch order-success-receipt-notch--right"></span>
+        </div>
+
+        <!-- Product line: title | qty | price -->
+        <div class="order-success-receipt-row order-success-receipt-row--product" id="order-success-product-row">
+          <dt class="order-success-product-title"></dt>
+          <dd class="order-success-receipt-value order-success-product-cols">
+            <span class="order-success-qty"></span>
+            <span class="order-success-line-total"></span>
+          </dd>
+        </div>
+
+        <!-- Total -->
+        <div class="order-success-receipt-row order-success-receipt-row--total" id="order-success-total-row">
+          <dt class="order-success-receipt-label order-success-receipt-label--total">Total</dt>
+          <dd class="order-success-receipt-value order-success-receipt-value--total order-success-total"></dd>
+        </div>
+
+      </dl>
+
+      <div class="order-success-actions">
+        <button class="primary-button" type="button" data-close-modal="order-success-modal">Continue shopping</button>
+      </div>
+    </dialog>
+    <!-- #endregion ORDER SUCCESS MODAL -->
 
     <!-- #region SCRIPTS -->
     <!-- type="module" → автоматично defer + дозволяє import/export -->

@@ -3,6 +3,7 @@ import { getCachedProduct, getAllProducts } from './productStore.js';
 import { formatPrice } from './utils.js';
 import { showErrorNotification } from './notifications.js';
 import { extractErrorMessage } from './utils.js';
+import { setOrderProduct } from './forms.js';
 
 const assetBase = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -13,7 +14,10 @@ const modalTitle = productModal?.querySelector('.product-modal-title');
 const modalPrice = productModal?.querySelector('.product-modal-price');
 const modalDesc = productModal?.querySelector('.product-modal-description');
 
+let currentProduct = null;
+
 function fillModal(product) {
+	currentProduct = product;
 	const src = product.photoURL
 		? product.photoURL
 		: `${assetBase}/assets/images/original/${product.slug}.jpg`;
@@ -62,8 +66,10 @@ document.addEventListener('click', async event => {
 });
 
 // "Buy" closes the product modal and opens the order form so the two dialogs
-// never stack on top of each other.
+// never stack on top of each other. Pass the current product data to the form.
 productModal?.querySelector('.product-modal-buy')?.addEventListener('click', () => {
+	const qty = Number(productModal.querySelector('.product-modal-qty').value) || 1;
+	setOrderProduct(currentProduct, qty);
 	closeModal('product-modal');
 	openModal('order-modal');
 });

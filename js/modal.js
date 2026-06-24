@@ -29,6 +29,15 @@ export const openModal = id => {
 	if (modal.dataset.backdropListener !== 'true') {
 		attachBackdropClose(modal);
 	}
+
+	// Move focus away from the close button to a meaningful element.
+	// requestAnimationFrame defers until after showModal() focus settling.
+	requestAnimationFrame(() => {
+		const target =
+			modal.querySelector('[autofocus]') ??
+			modal.querySelector('input:not([type=hidden]), textarea, select');
+		target?.focus();
+	});
 };
 
 // Closes a <dialog> by id. Safe to call when the dialog is already closed.

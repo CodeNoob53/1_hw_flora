@@ -65,7 +65,7 @@ export function extractErrorMessage(
 	error,
 	fallbackMessage = 'Something went wrong while loading data. Please try again later.'
 ) {
-	const serverMessage = error?.response?.data?.error;
+	const serverMessage = error?.response?.data?.message ?? error?.response?.data?.error;
 	if (typeof serverMessage === 'string') return serverMessage;
 	if (error?.message) return error.message;
 	return fallbackMessage;
