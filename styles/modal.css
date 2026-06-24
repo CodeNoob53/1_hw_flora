@@ -560,13 +560,13 @@ html:has(dialog[open]) {
 /* Solid divider */
 .order-success-receipt-divider {
 	height: 1px;
+	border: none;
 	background: rgb(3, 12, 1, 0.07);
 	margin: 0;
 }
 
-/* Perforated divider with side notches */
+/* Perforated divider */
 .order-success-receipt-divider--perforated {
-	position: relative;
 	height: 0;
 	border: none;
 	border-top: 1.5px dashed rgb(3, 12, 1, 0.14);
